@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>银发守护者 | Серебряный Страж — 智能健康监测与陪伴平台</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;line-height:1.6;color:#2d3436;background:#fafaf8;overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+img{max-width:100%}
+:root{
+  --dark:#1a2a3a;--orange:#e67e22;--teal:#1abc9c;--red:#e74c3c;--blue:#3498db;
+  --warm:#fef9f3;--card:#f0f3f5;--gray:#95a5a6;--white:#fff;
+  --shadow:0 4px 24px rgba(0,0,0,.08);--shadow-lg:0 12px 48px rgba(0,0,0,.12);
+  --radius:16px;--transition:.3s cubic-bezier(.4,0,.2,1);
+}
+
+/* Language */
+body.ru .zh{display:none} body.zh .ru{display:none}
+
+/* Nav */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(255,255,255,.92);backdrop-filter:blur(20px);border-bottom:1px solid rgba(0,0,0,.06);padding:0 2rem;height:64px;display:flex;align-items:center;justify-content:space-between;transition:var(--transition)}
+nav .logo{display:flex;align-items:center;gap:10px;font-size:1.25rem;font-weight:700;color:var(--dark)}
+nav .logo .dot{width:10px;height:10px;border-radius:50%;background:var(--orange);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+nav .nav-links{display:flex;align-items:center;gap:1.5rem;list-style:none}
+nav .nav-links a{font-size:.85rem;color:#555;transition:var(--transition);padding:.4rem 0;border-bottom:2px solid transparent}
+nav .nav-links a:hover{color:var(--orange);border-bottom-color:var(--orange)}
+.lang-switch{display:flex;gap:4px;background:var(--card);border-radius:20px;padding:3px}
+.lang-switch button{padding:6px 14px;border:none;border-radius:18px;cursor:pointer;font-size:.8rem;font-weight:600;transition:var(--transition);background:transparent;color:#888}
+.lang-switch button.active{background:var(--orange);color:#fff}
+
+/* Hero */
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(160deg,var(--dark) 0%,#1a3a4a 40%,#1a2a3a 100%);position:relative;overflow:hidden;padding:6rem 2rem 4rem}
+.hero::before{content:'';position:absolute;top:-50%;right:-20%;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(230,126,34,.15),transparent 70%);animation:float 8s ease-in-out infinite}
+.hero::after{content:'';position:absolute;bottom:-30%;left:-10%;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(26,188,156,.1),transparent 70%);animation:float 10s ease-in-out infinite reverse}
+@keyframes float{0%,100%{transform:translate(0,0)}50%{transform:translate(30px,-30px)}}
+.hero-content{max-width:800px;text-align:center;position:relative;z-index:1}
+.hero-badge{display:inline-block;padding:6px 18px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:50px;font-size:.85rem;color:var(--orange);margin-bottom:1.5rem;letter-spacing:1px}
+.hero h1{font-size:3.5rem;font-weight:800;color:#fff;line-height:1.2;margin-bottom:1rem}
+.hero h1 span{background:linear-gradient(135deg,var(--orange),#f39c12);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{font-size:1.2rem;color:rgba(255,255,255,.7);margin-bottom:2.5rem;line-height:1.8}
+.hero-buttons{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+.btn{padding:14px 32px;border-radius:50px;font-size:1rem;font-weight:600;cursor:pointer;transition:var(--transition);border:none;display:inline-flex;align-items:center;gap:8px}
+.btn-primary{background:var(--orange);color:#fff;box-shadow:0 4px 16px rgba(230,126,34,.4)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(230,126,34,.5)}
+.btn-outline{background:transparent;color:#fff;border:2px solid rgba(255,255,255,.3)}
+.btn-outline:hover{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.5)}
+.btn-dark{background:var(--dark);color:#fff}
+.btn-dark:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg)}
+.hero-stats{display:flex;gap:3rem;margin-top:4rem;justify-content:center}
+.hero-stat{text-align:center}
+.hero-stat .num{font-size:2.2rem;font-weight:800;color:var(--orange)}
+.hero-stat .label{font-size:.85rem;color:rgba(255,255,255,.5);margin-top:4px}
+
+/* Sections */
+section{padding:5rem 2rem}
+.section-header{text-align:center;max-width:700px;margin:0 auto 3.5rem}
+.section-header h2{font-size:2.4rem;font-weight:700;color:var(--dark);margin-bottom:1rem}
+.section-header p{font-size:1.1rem;color:#777;line-height:1.8}
+.container{max-width:1200px;margin:0 auto}
+
+/* Problem grid */
+.problem-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.5rem}
+.problem-card{background:var(--white);border-radius:var(--radius);padding:2rem;box-shadow:var(--shadow);border-left:4px solid var(--red);transition:var(--transition)}
+.problem-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+.problem-card .icon{font-size:2rem;margin-bottom:1rem}
+.problem-card h3{font-size:1.15rem;margin-bottom:.5rem;color:var(--dark)}
+.problem-card p{font-size:.9rem;color:#777;line-height:1.6}
+
+/* Features */
+.features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:1.5rem}
+.feature-card{background:var(--white);border-radius:var(--radius);padding:2.2rem;box-shadow:var(--shadow);transition:var(--transition);position:relative;overflow:hidden}
+.feature-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:var(--orange)}
+.feature-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+.feature-card .f-icon{font-size:2.2rem;margin-bottom:1rem}
+.feature-card h3{font-size:1.2rem;margin-bottom:.6rem;color:var(--dark)}
+.feature-card p{font-size:.9rem;color:#777;line-height:1.7}
+
+/* How it works */
+.steps{display:flex;gap:0;justify-content:center;flex-wrap:wrap;position:relative}
+.step{flex:1;min-width:200px;max-width:280px;text-align:center;padding:2rem 1.5rem;position:relative}
+.step-num{width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.4rem;font-weight:800;color:#fff;margin:0 auto 1.2rem;position:relative;z-index:1}
+.step:nth-child(1) .step-num{background:var(--orange)}
+.step:nth-child(2) .step-num{background:var(--teal)}
+.step:nth-child(3) .step-num{background:var(--blue)}
+.step:nth-child(4) .step-num{background:var(--red)}
+.step h4{font-size:1.05rem;color:var(--dark);margin-bottom:.4rem}
+.step p{font-size:.85rem;color:#888;line-height:1.5}
+.step::after{content:'→';position:absolute;right:-10px;top:50%;font-size:1.5rem;color:#ccc;transform:translateY(-50%)}
+.step:last-child::after{display:none}
+
+/* Dashboard mock */
+.dashboard{background:var(--dark);border-radius:var(--radius);padding:2.5rem;color:#fff;box-shadow:var(--shadow-lg)}
+.dashboard-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:2rem;flex-wrap:wrap;gap:1rem}
+.dashboard-title{font-size:1.3rem;font-weight:700}
+.dot-indicator{display:flex;gap:6px}
+.dot-indicator span{width:10px;height:10px;border-radius:50%}
+.dot-indicator span:nth-child(1){background:var(--red)}
+.dot-indicator span:nth-child(2){background:#f39c12}
+.dot-indicator span:nth-child(3){background:var(--teal)}
+.metrics-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1.2rem;margin-bottom:2rem}
+.metric-card{background:rgba(255,255,255,.06);border-radius:12px;padding:1.5rem;text-align:center;border:1px solid rgba(255,255,255,.08)}
+.metric-card .m-value{font-size:2rem;font-weight:800}
+.metric-card .m-label{font-size:.8rem;color:rgba(255,255,255,.5);margin-top:4px}
+.metric-card:nth-child(1) .m-value{color:var(--teal)}
+.metric-card:nth-child(2) .m-value{color:var(--orange)}
+.metric-card:nth-child(3) .m-value{color:var(--blue)}
+.metric-card:nth-child(4) .m-value{color:var(--red)}
+.dashboard-chart{background:rgba(255,255,255,.04);border-radius:12px;padding:1.5rem;height:180px;display:flex;align-items:flex-end;gap:8px}
+.chart-bar{flex:1;border-radius:6px 6px 0 0;transition:var(--transition);animation:growUp .8s ease-out forwards;transform-origin:bottom}
+@keyframes growUp{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+
+/* Emergency flow */
+.emergency-flow{display:flex;align-items:center;justify-content:center;gap:1rem;flex-wrap:wrap;padding:2rem 0}
+.flow-step{background:var(--white);border-radius:var(--radius);padding:1.5rem 2rem;text-align:center;box-shadow:var(--shadow);min-width:160px}
+.flow-step .fs-icon{font-size:2rem;margin-bottom:.5rem}
+.flow-step h4{font-size:.95rem;color:var(--dark)}
+.flow-step p{font-size:.8rem;color:#999}
+.flow-arrow{font-size:1.5rem;color:var(--orange);font-weight:700}
+.flow-step.alert{background:var(--red);color:white}
+.flow-step.alert h4,.flow-step.alert p{color:rgba(255,255,255,.9)}
+
+/* Pricing */
+.pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem}
+.price-card{background:var(--white);border-radius:var(--radius);padding:2.5rem 2rem;box-shadow:var(--shadow);text-align:center;transition:var(--transition);position:relative}
+.price-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+.price-card.featured{border:2px solid var(--orange);transform:scale(1.03)}
+.price-card.featured:hover{transform:scale(1.03) translateY(-4px)}
+.price-card .badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--orange);color:#fff;padding:4px 18px;border-radius:50px;font-size:.8rem;font-weight:600}
+.price-card .p-name{font-size:1.2rem;font-weight:700;color:var(--dark);margin-bottom:.5rem}
+.price-card .p-price{font-size:2.5rem;font-weight:800;color:var(--orange);margin:1rem 0}
+.price-card .p-price small{font-size:.9rem;font-weight:400;color:#999}
+.price-card .p-features{list-style:none;text-align:left;margin:1.5rem 0}
+.price-card .p-features li{padding:.5rem 0;font-size:.9rem;color:#555;border-bottom:1px solid #f0f0f0}
+.price-card .p-features li::before{content:'✓ ';color:var(--teal);font-weight:700}
+
+/* Stats section */
+.stats-section{background:var(--warm)}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:2rem;text-align:center}
+.stat-item .s-num{font-size:3rem;font-weight:800;color:var(--orange);line-height:1}
+.stat-item .s-label{font-size:.95rem;color:#777;margin-top:.5rem}
+
+/* Testimonials */
+.testimonial-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem}
+.testimonial-card{background:var(--white);border-radius:var(--radius);padding:2rem;box-shadow:var(--shadow);position:relative}
+.testimonial-card::before{content:'"';position:absolute;top:10px;left:20px;font-size:4rem;color:var(--orange);opacity:.15;font-family:serif;line-height:1}
+.testimonial-card .t-text{font-size:.95rem;color:#555;line-height:1.7;font-style:italic;margin-bottom:1rem}
+.testimonial-card .t-author{font-size:.85rem;color:var(--dark);font-weight:600}
+
+/* FAQ */
+.faq-grid{max-width:800px;margin:0 auto;display:flex;flex-direction:column;gap:.8rem}
+.faq-item{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
+.faq-q{padding:1.2rem 1.5rem;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-weight:600;color:var(--dark);transition:var(--transition)}
+.faq-q:hover{background:var(--warm)}
+.faq-q .arrow{transition:var(--transition);font-size:1.2rem}
+.faq-q.open .arrow{transform:rotate(180deg)}
+.faq-a{padding:0 1.5rem 1.2rem;font-size:.9rem;color:#777;line-height:1.7;display:none}
+.faq-a.show{display:block}
+
+/* Security badges */
+.security-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.5rem}
+.security-card{text-align:center;padding:2rem 1.5rem;background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow)}
+.security-card .s-icon{font-size:2.5rem;margin-bottom:.8rem}
+.security-card h4{font-size:1rem;color:var(--dark);margin-bottom:.4rem}
+.security-card p{font-size:.85rem;color:#888;line-height:1.5}
+
+/* CTA */
+.cta-section{background:linear-gradient(135deg,var(--dark),#1a3a4a);text-align:center;padding:5rem 2rem;color:#fff}
+.cta-section h2{font-size:2.2rem;margin-bottom:1rem}
+.cta-section p{color:rgba(255,255,255,.6);margin-bottom:2rem;font-size:1.1rem}
+.contact-cards{display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap;margin-bottom:2rem}
+.contact-card{background:rgba(255,255,255,.08);border-radius:var(--radius);padding:1.5rem 2rem;min-width:220px;text-align:center;border:1px solid rgba(255,255,255,.1)}
+.contact-card .cc-icon{font-size:2rem;margin-bottom:.5rem}
+.contact-card .cc-val{font-size:1.1rem;color:#fff;font-weight:600}
+.contact-card .cc-label{font-size:.8rem;color:rgba(255,255,255,.5)}
+
+/* Footer */
+footer{background:var(--dark);color:rgba(255,255,255,.5);padding:3rem 2rem 1.5rem}
+.footer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:2rem;max-width:1200px;margin:0 auto 2rem}
+.footer-col h4{color:#fff;margin-bottom:1rem;font-size:1rem}
+.footer-col a,.footer-col p{font-size:.85rem;line-height:2;display:block}
+.footer-bottom{text-align:center;padding-top:1.5rem;border-top:1px solid rgba(255,255,255,.1);font-size:.8rem}
+
+/* Responsive */
+@media(max-width:768px){
+  .hero h1{font-size:2.2rem}
+  .hero-stats{flex-direction:column;gap:1.5rem}
+  .steps{flex-direction:column}
+  .step::after{display:none}
+  nav .nav-links{display:none}
+  .features-grid{grid-template-columns:1fr}
+  .pricing-grid{grid-template-columns:1fr}
+}
+
+/* Animations */
+.fade-in{opacity:0;transform:translateY(30px);transition:opacity .6s ease-out,transform .6s ease-out}
+.fade-in.visible{opacity:1;transform:translateY(0)}
+</style>
+</head>
+<body class="zh">
+
+<!-- ═══ NAV ═══ -->
+<nav>
+  <div class="logo"><div class="dot"></div><span class="zh">银发守护者</span><span class="ru">Серебряный Страж</span></div>
+  <ul class="nav-links">
+    <li><a href="#features" class="zh">功能</a><a href="#features" class="ru">Функции</a></li>
+    <li><a href="#how" class="zh">工作原理</a><a href="#how" class="ru">Принцип</a></li>
+    <li><a href="#dashboard-preview" class="zh">数据面板</a><a href="#dashboard-preview" class="ru">Дашборд</a></li>
+    <li><a href="#pricing" class="zh">套餐</a><a href="#pricing" class="ru">Тарифы</a></li>
+    <li><a href="#faq" class="zh">常见问题</a><a href="#faq" class="ru">FAQ</a></li>
+    <li><a href="#contact" class="zh">联系</a><a href="#contact" class="ru">Контакты</a></li>
+  </ul>
+  <div class="lang-switch">
+    <button id="btnZh" class="active" onclick="setLang('zh')">中 文</button>
+    <button id="btnRu" onclick="setLang('ru')">РУС</button>
+  </div>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero" id="home">
+  <div class="hero-content">
+    <div class="hero-badge"><span class="zh">🛡️ 24/7 智能守护 · 非穿戴 · 隐私安全</span><span class="ru">🛡️ 24/7 Умная защита · Без носимых устройств · Конфиденциально</span></div>
+    <h1><span class="zh">银发守护者</span><span class="ru">Серебряный Страж</span></h1>
+    <p class="zh">基于毫米波雷达 + AI 的智能健康监测与陪伴服务平台<br>让每一位独居长者都被温柔守护，让远方子女安心无忧</p>
+    <p class="ru">Интеллектуальная платформа мониторинга здоровья и сопровождения на базе радара мм-диапазона + AI<br>Чтобы каждый пожилой человек чувствовал заботу, а дети были спокойны</p>
+    <div class="hero-buttons">
+      <a href="#features" class="btn btn-primary"><span class="zh">🔍 了解功能</span><span class="ru">🔍 Узнать больше</span></a>
+      <a href="#contact" class="btn btn-outline"><span class="zh">📞 预约演示</span><span class="ru">📞 Записаться на демо</span></a>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="num">280K+</div><div class="label zh">滨海边疆区目标用户</div><div class="label ru">Пользователей в Приморье</div></div>
+      <div class="hero-stat"><div class="num">42%</div><div class="label zh">子女付费意愿</div><div class="label ru">Готовность платить</div></div>
+      <div class="hero-stat"><div class="num">4.2%</div><div class="label zh">跌倒检测误报率</div><div class="label ru">Ложных срабатываний</div></div>
+      <div class="hero-stat"><div class="num">87%</div><div class="label zh">月度续费率</div><div class="label ru">Месячный retention</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PROBLEM ═══ -->
+<section>
+  <div class="container">
+    <div class="section-header">
+      <h2><span class="zh">老龄化社会的四大挑战</span><span class="ru">Четыре вызова стареющего общества</span></h2>
+      <p><span class="zh">在俄罗斯，25%的人口超过60岁，独居老人数量持续增长。传统的家庭照护模式已经无法满足需求。</span><span class="ru">В России 25% населения старше 60 лет. Число одиноких пожилых людей постоянно растёт. Традиционная модель ухода не справляется.</span></p>
+    </div>
+    <div class="problem-grid">
+      <div class="problem-card"><div class="icon">⚠️</div><h3 class="zh">跌倒未被发现</h3><h3 class="ru">Падения без свидетелей</h3><p class="zh">独居老人跌倒后平均数小时无人知晓，错过黄金救援时间。89%的子女为此焦虑。</p><p class="ru">После падения проходят часы до обнаружения. 89% детей тревожатся об этом.</p></div>
+      <div class="problem-card"><div class="icon">😔</div><h3 class="zh">长期孤独</h3><h3 class="ru">Хроническое одиночество</h3><p class="zh">平均每天独处超过10小时，缺乏日常交流与情感支持，严重影响身心健康。</p><p class="ru">В среднем >10 часов в день в одиночестве. Недостаток общения и поддержки.</p></div>
+      <div class="problem-card"><div class="icon">📱</div><h3 class="zh">技术门槛过高</h3><h3 class="ru">Технологический барьер</h3><p class="zh">80%的老年人对智能设备感到恐惧，复杂操作导致产品弃用率极高。</p><p class="ru">80% пожилых боятся современных устройств. Сложный интерфейс → отказ.</p></div>
+      <div class="problem-card"><div class="icon">🏥</div><h3 class="zh">医疗响应延迟</h3><h3 class="ru">Задержка медпомощи</h3><p class="zh">紧急情况下无法快速联系医疗机构，缺乏从预警到救治的完整闭环。</p><p class="ru">Нет быстрой связи с медициной. Отсутствует замкнутый цикл «сигнал-помощь».</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STATS ═══ -->
+<section class="stats-section">
+  <div class="container">
+    <div class="section-header">
+      <h2><span class="zh">数据驱动的智慧养老</span><span class="ru">Умный уход на основе данных</span></h2>
+    </div>
+    <div class="stats-grid">
+      <div class="stat-item"><div class="s-num">500+</div><div class="s-label zh">问卷调研家庭</div><div class="s-label ru">Семей опрошено</div></div>
+      <div class="stat-item"><div class="s-num">50</div><div class="s-label zh">深度访谈</div><div class="s-label ru">Глубинных интервью</div></div>
+      <div class="stat-item"><div class="s-num">100</div><div class="s-label zh">试点家庭 × 8周</div><div class="s-label ru">Пилотных семей × 8 нед.</div></div>
+      <div class="stat-item"><div class="s-num">1,000+</div><div class="s-label zh">跌倒模拟测试</div><div class="s-label ru">Симуляций падений</div></div>
+      <div class="stat-item"><div class="s-num">99.5%</div><div class="s-label zh">系统稳定性</div><div class="s-label ru">Стабильность системы</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FEATURES ═══ -->
+<section id="features" style="background:var(--warm)">
+  <div class="container">
+    <div class="section-header">
+      <h2><span class="zh">六大核心功能</span><span class="ru">Шесть ключевых функций</span></h2>
+      <p><span class="zh">以毫米波雷达 + AI + IoT 构建"预防—监测—响应"完整闭环</span><span class="ru">Замкнутая система на базе радара + AI + IoT</span></p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card fade-in"><div class="f-icon">📡</div><h3 class="zh">毫米波雷达跌倒检测</h3><h3 class="ru">Детекция падений (радар)</h3><p class="zh">60GHz 毫米波雷达非接触式监测，无需穿戴设备。误报率仅 4.2%，漏报率 2.8%。自动触发三级预警。</p><p class="ru">Бесконтактный радар 60 ГГц. Без носимых устройств. Ложные: 4,2%, пропуски: 2,8%. Трёхуровневая тревога.</p></div>
+      <div class="feature-card fade-in"><div class="f-icon">🤖</div><h3 class="zh">AI 语音互动陪伴</h3><h3 class="ru">AI-голосовой компаньон</h3><p class="zh">每日主动问候、天气新闻、用药提醒、聊天陪伴。日均互动4.5次。支持语音拨打电话。</p><p class="ru">Приветствия, новости, погода, лекарства, общение. 4,5 взаимодействий/день. Голосовые звонки.</p></div>
+      <div class="feature-card fade-in"><div class="f-icon">🆘</div><h3 class="zh">一键紧急呼叫 + 医疗联动</h3><h3 class="ru">Экстренный вызов + медицина</h3><p class="zh">一键 SOS → 家属 → 社区网格员 → 急救中心。24/7响应中心，响应时间 < 1.8秒。</p><p class="ru">Одна кнопка: семья → соцработник → скорая. Центр 24/7, отклик < 1,8 сек.</p></div>
+      <div class="feature-card fade-in"><div class="f-icon">❤️</div><h3 class="zh">生命体征实时监测</h3><h3 class="ru">Мониторинг показателей</h3><p class="zh">心率准确率97%，血压93%。自动生成健康报告，异常即时预警。服药依从性65%→89%。</p><p class="ru">Точность ЧСС: 97%, АД: 93%. Авто-отчёты. Комплаентность лекарств: 65%→89%.</p></div>
+      <div class="feature-card fade-in"><div class="f-icon">👨‍👩‍👧</div><h3 class="zh">子女远程看护 APP</h3><h3 class="ru">Приложение для детей</h3><p class="zh">手机实时查看健康数据、活动轨迹。异常推送通知。视频通话、家庭群组、月度报告。</p><p class="ru">Здоровье родителей онлайн. Push-уведомления. Видеозвонки, семейная группа, отчёты.</p></div>
+      <div class="feature-card fade-in"><div class="f-icon">🛏️</div><h3 class="zh">睡眠与行为异常分析</h3><h3 class="ru">Анализ сна и аномалий</h3><p class="zh">无感监测睡眠质量。AI识别行为异常（久未活动、步态变化）。-30°C极端气候适配。</p><p class="ru">Мониторинг сна без контакта. AI-анализ аномалий. Работа при -30°C.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ HOW IT WORKS ═══ -->
+<section id="how">
+  <div class="container">
+    <div class="section-header"><h2><span class="zh">四步守护，无缝闭环</span><span class="ru">4 шага — замкнутый цикл</span></h2></div>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><h4 class="zh">无感感知</h4><h4 class="ru">Обнаружение</h4><p class="zh">毫米波雷达24/7实时扫描</p><p class="ru">Радар 24/7 сканирует</p></div>
+      <div class="step"><div class="step-num">2</div><h4 class="zh">AI 智能分析</h4><h4 class="ru">AI-анализ</h4><p class="zh">边缘AI区分真实跌倒与日常动作</p><p class="ru">Отличает падения от движений</p></div>
+      <div class="step"><div class="step-num">3</div><h4 class="zh">分级预警</h4><h4 class="ru">Оповещение</h4><p class="zh">语音确认→家属→社区→急救</p><p class="ru">Голос→семья→соцработник→скорая</p></div>
+      <div class="step"><div class="step-num">4</div><h4 class="zh">闭环处置</h4><h4 class="ru">Реагирование</h4><p class="zh">24/7中心全程跟踪至安全确认</p><p class="ru">Центр 24/7 до безопасности</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ DASHBOARD PREVIEW ═══ -->
+<section id="dashboard-preview" style="background:var(--warm)">
+  <div class="container">
+    <div class="section-header"><h2><span class="zh">智能健康数据面板</span><span class="ru">Панель данных о здоровье</span></h2></div>
+    <div class="dashboard">
+      <div class="dashboard-header">
+        <div><div class="dashboard-title"><span class="zh">🏠 张奶奶 · 78岁 · 独居</span><span class="ru">🏠 Бабушка Чжан · 78 лет</span></div>
+        <div style="font-size:.85rem;color:rgba(255,255,255,.5);margin-top:4px"><span class="zh">最后更新：刚刚 · 状态：正常 ✅</span><span class="ru">Обновлено: только что · Статус: норма ✅</span></div></div>
+        <div class="dashboard-actions"><div class="dot-indicator"><span></span><span></span><span></span></div><span style="font-size:.85rem;color:rgba(255,255,255,.6)"><span class="zh">设备在线</span><span class="ru">Онлайн</span></span></div>
+      </div>
+      <div class="metrics-grid">
+        <div class="metric-card"><div class="m-value">72<span style="font-size:.8rem"> bpm</span></div><div class="m-label zh">实时心率</div><div class="m-label ru">Пульс</div></div>
+        <div class="metric-card"><div class="m-value">128/82</div><div class="m-label zh">血压 (mmHg)</div><div class="m-label ru">Давление</div></div>
+        <div class="metric-card"><div class="m-value">98<span style="font-size:.8rem">%</span></div><div class="m-label zh">血氧饱和度</div><div class="m-label ru">Сатурация O₂</div></div>
+        <div class="metric-card"><div class="m-value">7.5<span style="font-size:.8rem">h</span></div><div class="m-label zh">昨晚睡眠</div><div class="m-label ru">Сон</div></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem">
+        <div><div style="font-size:.85rem;color:rgba(255,255,255,.5);margin-bottom:.8rem">📊 <span class="zh">近7天活动趋势</span><span class="ru">Активность за 7 дней</span></div><div class="dashboard-chart"><div class="chart-bar" style="height:65%;background:linear-gradient(180deg,var(--teal),rgba(26,188,156,.3))"></div><div class="chart-bar" style="height:80%;background:linear-gradient(180deg,var(--teal),rgba(26,188,156,.3))"></div><div class="chart-bar" style="height:55%;background:linear-gradient(180deg,var(--teal),rgba(26,188,156,.3))"></div><div class="chart-bar" style="height:90%;background:linear-gradient(180deg,var(--teal),rgba(26,188,156,.3))"></div><div class="chart-bar" style="height:70%;background:linear-gradient(180deg,var(--teal),rgba(26,188,156,.3))"></div><div class="chart-bar" style="height:75%;background:linear-gradient(180deg,var(--teal),rgba(26,188,156,.3))"></div><div class="chart-bar" style="height:85%;background:linear-gradient(180deg,var(--teal),rgba(26,188,156,.3))"></div></div></div>
+        <div><div style="font-size:.85rem;color:rgba(255,255,255,.5);margin-bottom:.8rem">📋 <span class="zh">今日事件</span><span class="ru">События</span></div><div style="background:rgba(255,255,255,.04);border-radius:12px;padding:1.2rem;font-size:.82rem;color:rgba(255,255,255,.7);line-height:2"><span class="zh">🟢 07:30 起床<br>🟢 08:15 服药确认<br>🟢 10:00 AI互动(12分钟)<br>🟡 15:00 久坐提醒(已起身)<br>🟢 18:00 子女视频(8分钟)</span><span class="ru">🟢 07:30 Подъём<br>🟢 08:15 Лекарства<br>🟢 10:00 Общение с AI<br>🟡 15:00 Напоминание<br>🟢 18:00 Видеозвонок</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ EMERGENCY ═══ -->
+<section id="emergency">
+  <div class="container">
+    <div class="section-header"><h2><span class="zh">紧急响应流程</span><span class="ru">Процесс экстренного реагирования</span></h2></div>
+    <div class="emergency-flow">
+      <div class="flow-step alert"><div class="fs-icon">🚨</div><h4 class="zh">跌倒检测</h4><h4 class="ru">Детекция</h4></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="fs-icon">🎤</div><h4 class="zh">语音确认</h4><h4 class="ru">Голос</h4></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="fs-icon">📱</div><h4 class="zh">家属通知</h4><h4 class="ru">Семья</h4></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="fs-icon">🚑</div><h4 class="zh">急救联动</h4><h4 class="ru">Скорая</h4></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step" style="border:2px solid var(--teal)"><div class="fs-icon">✅</div><h4 class="zh">处置完成</h4><h4 class="ru">Готово</h4></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SECURITY ═══ -->
+<section style="background:var(--warm)">
+  <div class="container">
+    <div class="section-header"><h2><span class="zh">隐私与安全保障</span><span class="ru">Конфиденциальность и безопасность</span></h2></div>
+    <div class="security-grid">
+      <div class="security-card"><div class="s-icon">🔒</div><h4 class="zh">非摄像头方案</h4><h4 class="ru">Без камер</h4><p class="zh">毫米波雷达不采集图像，仅追踪点云数据，从技术层面保障隐私。</p><p class="ru">Радар не снимает видео — только облака точек. Приватность на уровне технологии.</p></div>
+      <div class="security-card"><div class="s-icon">🇷🇺</div><h4 class="zh">152-ФЗ 合规</h4><h4 class="ru">152-ФЗ</h4><p class="zh">严格遵循俄罗斯个人数据保护法，数据存储于俄罗斯境内服务器。</p><p class="ru">Полное соответствие закону о персональных данных. Серверы на территории РФ.</p></div>
+      <div class="security-card"><div class="s-icon">🛡️</div><h4 class="zh">数据加密传输</h4><h4 class="ru">Шифрование</h4><p class="zh">端到端加密，所有健康数据在传输和存储过程中全程加密保护。</p><p class="ru">Сквозное шифрование всех медицинских данных при передаче и хранении.</p></div>
+      <div class="security-card"><div class="s-icon">🏥</div><h4 class="zh">医疗级认证</h4><h4 class="ru">Медсертификация</h4><p class="zh">设备通过Росздравнадзор医疗器械注册，符合医疗安全标准。</p><p class="ru">Регистрация в Росздравнадзоре. Соответствие медицинским стандартам.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PRICING ═══ -->
+<section id="pricing">
+  <div class="container">
+    <div class="section-header"><h2><span class="zh">服务套餐</span><span class="ru">Тарифные планы</span></h2></div>
+    <div class="pricing-grid">
+      <div class="price-card"><div class="p-name zh">基础守护</div><div class="p-name ru">Базовый</div><div class="p-price">1 990 ₽<small>/мес</small></div><ul class="p-features"><li class="zh">毫米波雷达跌倒检测</li><li class="ru">Детекция падений</li><li class="zh">一键紧急呼叫</li><li class="ru">Экстренный вызов</li><li class="zh">AI 用药提醒</li><li class="ru">Напоминания лекарств</li><li class="zh">子女 APP 基础版</li><li class="ru">Базовое приложение</li><li class="zh">24/7 应急响应</li><li class="ru">Центр 24/7</li><li class="zh">月健康报告</li><li class="ru">Ежемесячный отчёт</li></ul><a href="#contact" class="btn btn-dark" style="width:100%;justify-content:center"><span class="zh">选择方案</span><span class="ru">Выбрать</span></a></div>
+      <div class="price-card featured"><div class="badge"><span class="zh">🔥 最受欢迎</span><span class="ru">🔥 Популярный</span></div><div class="p-name zh">家庭守护</div><div class="p-name ru">Семейный</div><div class="p-price">2 800 ₽<small>/мес</small></div><ul class="p-features"><li class="zh">基础守护全部功能 ✓</li><li class="ru">Всё из Базового ✓</li><li class="zh">AI 语音陪伴互动</li><li class="ru">AI-голосовой компаньон</li><li class="zh">心率/血压监测报告</li><li class="ru">Мониторинг ЧСС и АД</li><li class="zh">睡眠质量分析</li><li class="ru">Анализ сна</li><li class="zh">子女 APP 高级版</li><li class="ru">Расширенное приложение</li><li class="zh">医疗 МИС 对接</li><li class="ru">Интеграция с МИС</li></ul><a href="#contact" class="btn btn-primary" style="width:100%;justify-content:center"><span class="zh">选择方案</span><span class="ru">Выбрать</span></a></div>
+      <div class="price-card"><div class="p-name zh">机构版</div><div class="p-name ru">Учреждениям</div><div class="p-price" style="font-size:1.5rem;padding:1.2rem 0"><span class="zh">定制报价</span><span class="ru">По запросу</span></div><ul class="p-features"><li class="zh">家庭守护全部功能 ✓</li><li class="ru">Всё из Семейного ✓</li><li class="zh">批量设备管理</li><li class="ru">Парк устройств</li><li class="zh">机构管理后台</li><li class="ru">Панель администратора</li><li class="zh">API 系统集成</li><li class="ru">API-интеграция</li><li class="zh">专属客户经理</li><li class="ru">Персональный менеджер</li><li class="zh">SLA 服务保障</li><li class="ru">Гарантия SLA</li></ul><a href="#contact" class="btn btn-dark" style="width:100%;justify-content:center"><span class="zh">联系我们</span><span class="ru">Связаться</span></a></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ TESTIMONIALS ═══ -->
+<section style="background:var(--warm)">
+  <div class="container">
+    <div class="section-header"><h2><span class="zh">用户反馈</span><span class="ru">Отзывы</span></h2></div>
+    <div class="testimonial-grid">
+      <div class="testimonial-card"><p class="t-text zh">"妈妈一个人住在海参崴，我在莫斯科工作，以前每天都担心她。自从装了银发守护者，我随时能看到她的活动状态，晚上终于能睡个好觉了。"</p><p class="t-text ru">"Мама живёт одна во Владивостоке, я работаю в Москве. Раньше каждый день волновался. Теперь с Серебряным Стражем я вижу её состояние и наконец сплю спокойно."</p><p class="t-author">— <span class="zh">安德烈，45岁，莫斯科</span><span class="ru">Андрей, 45 лет, Москва</span></p></div>
+      <div class="testimonial-card"><p class="t-text zh">"最让我满意的是不需要戴任何东西。我母亲很抗拒戴手环，但这个设备装在墙角，她完全不用管。上次她半夜起来摔倒，我3分钟就接到了电话。"</p><p class="t-text ru">"Главное — ничего не нужно носить. Мама не любит браслеты, а этот датчик на стене её не беспокоит. Когда она упала ночью, мне позвонили через 3 минуты."</p><p class="t-author">— <span class="zh">叶莲娜，38岁，符拉迪沃斯托克</span><span class="ru">Елена, 38 лет, Владивосток</span></p></div>
+      <div class="testimonial-card"><p class="t-text zh">"AI语音助手成了我爸的新'朋友'。他每天跟它聊天、听新闻，不再整天对着电视发呆。用药提醒也特别有用，以前总忘记吃药。"</p><p class="t-text ru">"AI-помощник стал для папы новым 'другом'. Он болтает с ним, слушает новости. Напоминания о лекарствах — спасение, раньше постоянно забывал."</p><p class="t-author">— <span class="zh">谢尔盖，42岁，圣彼得堡</span><span class="ru">Сергей, 42 года, Санкт-Петербург</span></p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FAQ ═══ -->
+<section id="faq">
+  <div class="container">
+    <div class="section-header"><h2><span class="zh">常见问题</span><span class="ru">Часто задаваемые вопросы</span></h2></div>
+    <div class="faq-grid">
+      <div class="faq-item"><div class="faq-q" onclick="toggleFAQ(this)"><span class="zh">📡 毫米波雷达会侵犯隐私吗？</span><span class="ru">📡 Радар нарушает приватность?</span><span class="arrow">▾</span></div><div class="faq-a"><span class="zh">不会。毫米波雷达不拍摄图像、不录音。它只追踪人体在空间中的点云位置数据（如骨骼关节点），完全不涉及个人身份信息。</span><span class="ru">Нет. Радар не снимает видео и не записывает звук. Он отслеживает только облака точек (положение тела в пространстве), без идентификации личности.</span></div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFAQ(this)"><span class="zh">🔧 设备安装复杂吗？</span><span class="ru">🔧 Сложно ли установить?</span><span class="arrow">▾</span></div><div class="faq-a"><span class="zh">非常简单。设备采用墙角安装（30°下倾角），附带3M胶和螺丝两种方式。标准房间15分钟即可完成安装，无需专业人员。</span><span class="ru">Очень просто. Устройство крепится в углу с наклоном 30°. В комплекте 3M-скотч и винты. Установка в стандартной комнате занимает 15 минут.</span></div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFAQ(this)"><span class="zh">❄️ 在海参崴的极端气候下能正常工作吗？</span><span class="ru">❄️ Работает ли в экстремальный холод?</span><span class="arrow">▾</span></div><div class="faq-a"><span class="zh">能。设备经过-30°C低温测试，电池续航>8小时。专为远东地区极端气候设计，在室内恒温环境使用不受室外天气影响。</span><span class="ru">Да. Устройство протестировано при -30°C, автономность >8 часов. Разработано специально для климата Дальнего Востока.</span></div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFAQ(this)"><span class="zh">💳 可以试用吗？</span><span class="ru">💳 Есть ли пробный период?</span><span class="arrow">▾</span></div><div class="faq-a"><span class="zh">可以。我们提供7天免费试用，包含全套设备和APP功能。试用期间不满意可无条件退换，不收取任何费用。</span><span class="ru">Да. Предоставляем 7-дневный бесплатный период с полным комплектом оборудования. При отказе — возврат без каких-либо оплат.</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CTA ═══ -->
+<section class="cta-section" id="contact">
+  <div class="container">
+    <h2><span class="zh">准备好为家人提供全天候守护了吗？</span><span class="ru">Готовы обеспечить круглосуточную защиту?</span></h2>
+    <p><span class="zh">现在就联系我们，预约免费演示和 7 天试用</span><span class="ru">Свяжитесь с нами для бесплатной демонстрации и 7-дневного пробного периода</span></p>
+    <div class="contact-cards">
+      <div class="contact-card"><div class="cc-icon">📧</div><div class="cc-val">van.sho2@dvfu.ru</div><div class="cc-label">Email</div></div>
+      <div class="contact-card"><div class="cc-icon">📞</div><div class="cc-val">+7 984 191 38 19</div><div class="cc-label"><span class="zh">电话 / WhatsApp</span><span class="ru">Телефон / WhatsApp</span></div></div>
+      <div class="contact-card"><div class="cc-icon">📍</div><div class="cc-val">Владивосток</div><div class="cc-label"><span class="zh">俄罗斯 · 符拉迪沃斯托克</span><span class="ru">Приморский край, Россия</span></div></div>
+    </div>
+    <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-top:1rem">
+      <a href="mailto:van.sho2@dvfu.ru" class="btn btn-primary" style="font-size:1.1rem;padding:16px 40px">📧 van.sho2@dvfu.ru</a>
+      <a href="tel:+79841913819" class="btn btn-outline" style="font-size:1.1rem;padding:16px 40px">📞 +7 984 191 38 19</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-col"><h4><span class="zh">银发守护者</span><span class="ru">Серебряный Страж</span></h4><p class="zh">智能健康监测与陪伴服务平台</p><p class="ru">Платформа мониторинга и сопровождения</p><p style="margin-top:.5rem">© 2026 Silver Guardian</p></div>
+    <div class="footer-col"><h4 class="zh">功能</h4><h4 class="ru">Функции</h4><a href="#features" class="zh">跌倒检测</a><a href="#features" class="ru">Детекция падений</a><a href="#features" class="zh">AI语音陪伴</a><a href="#features" class="ru">AI-компаньон</a><a href="#features" class="zh">健康监测</a><a href="#features" class="ru">Мониторинг</a><a href="#features" class="zh">紧急呼叫</a><a href="#features" class="ru">Экстренный вызов</a></div>
+    <div class="footer-col"><h4 class="zh">关于</h4><h4 class="ru">О проекте</h4><a href="#" class="zh">项目简介</a><a href="#" class="ru">О проекте</a><a href="#" class="zh">团队</a><a href="#" class="ru">Команда</a><a href="#" class="zh">研究数据</a><a href="#" class="ru">Исследования</a><a href="#faq" class="zh">FAQ</a><a href="#faq" class="ru">FAQ</a></div>
+    <div class="footer-col"><h4 class="zh">联系</h4><h4 class="ru">Контакты</h4><p>📧 van.sho2@dvfu.ru</p><p>📞 +7 984 191 38 19</p><p>📍 Владивосток, Россия</p></div>
+  </div>
+  <div class="footer-bottom"><p><span class="zh">银发守护者 · 让每一位长者都被温柔守护 · Приморский край · 2026</span><span class="ru">Серебряный Страж · Чтобы каждый пожилой человек чувствовал заботу · Приморский край · 2026</span></p></div>
+</footer>
+
+<script>
+function setLang(lang){document.body.className=lang;document.getElementById('btnZh').classList.toggle('active',lang==='zh');document.getElementById('btnRu').classList.toggle('active',lang==='ru');localStorage.setItem('sgLang',lang)}
+(function(){setLang(localStorage.getItem('sgLang')||'zh')})();
+
+function toggleFAQ(el){el.classList.toggle('open');el.nextElementSibling.classList.toggle('show')}
+
+new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:.15}).observe.bind ? document.querySelectorAll('.fade-in').forEach(function(el){new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:.15}).observe(el)}) : null;
+
+document.querySelectorAll('a[href^="#"]').forEach(function(l){l.addEventListener('click',function(e){e.preventDefault();var t=document.querySelector(this.getAttribute('href'));t&&t.scrollIntoView({behavior:'smooth',block:'start'})})});
+
+new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){document.querySelectorAll('.chart-bar').forEach(function(b,i){b.style.animation='none';b.offsetHeight;b.style.animation='growUp .8s ease-out '+(i*.1)+'s forwards'});this.unobserve(e.target)}})}.bind ? null : null);
+</script>
+</body>
+</html>
