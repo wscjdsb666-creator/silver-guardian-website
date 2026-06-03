@@ -3,985 +3,530 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Серебряный Страж — Промо-анимация | Silver Guardian Promo</title>
+<title>Серебряный Страж / 银发守护者 — Promo Animation</title>
 <style>
-/* ═══════════════════════════════════════════════════ */
-/* RESET & BASE                                        */
-/* ═══════════════════════════════════════════════════ */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --dark:#1a1a2e;--navy:#16213e;--teal:#0f3460;--orange:#e67e22;
+  --red:#e74c3c;--green:#27ae60;--blue:#3498db;--warm:#fff3e0;
+  --white:#fff;--gold:#f39c12;--text:#2d2d2d;--gray:#95a5a6;--purple:#8e44ad;
+}
+body{
+  font-family:'Segoe UI',system-ui,-apple-system,sans-serif;
+  background:#0a0a0a;overflow:hidden;width:100vw;height:100vh;
+  user-select:none;-webkit-user-select:none;
+}
+.stage{position:relative;width:100vw;height:100vh;overflow:hidden}
+.scene{
+  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;transition:opacity 0.8s ease;
+}
+.scene.active{opacity:1;pointer-events:auto}
 
-:root {
-  --dark: #1a1a2e;
-  --navy: #16213e;
-  --teal: #0f3460;
-  --orange: #e67e22;
-  --red: #e74c3c;
-  --green: #27ae60;
-  --blue: #3498db;
-  --warm: #fff3e0;
-  --white: #ffffff;
-  --gold: #f39c12;
-  --text: #2d2d2d;
-  --gray: #95a5a6;
+/* ═══ SCENE 1 - TITLE ═══ */
+.scene-1{
+  background:radial-gradient(ellipse at center,#1a1a2e 0%,#0a0a0a 100%);
+  flex-direction:column;
 }
+.scene-1 .radar-ring{
+  position:absolute;border:2px solid rgba(52,152,219,0.3);border-radius:50%;
+  animation:radarPulse 2s ease-out infinite;
+}
+.scene-1 .radar-ring:nth-child(1){width:300px;height:300px;animation-delay:0s}
+.scene-1 .radar-ring:nth-child(2){width:250px;height:250px;animation-delay:.5s}
+.scene-1 .radar-ring:nth-child(3){width:200px;height:200px;animation-delay:1s}
+.scene-1 .radar-ring:nth-child(4){width:150px;height:150px;animation-delay:1.5s}
+@keyframes radarPulse{
+  0%{transform:scale(.3);opacity:1;border-color:rgba(52,152,219,0.5)}
+  100%{transform:scale(2.5);opacity:0;border-color:rgba(52,152,219,0)}
+}
+.scene-1 .device-icon{
+  position:relative;width:80px;height:80px;
+  background:linear-gradient(135deg,var(--blue),var(--teal));
+  border-radius:20px;box-shadow:0 0 60px rgba(52,152,219,.6),0 0 120px rgba(52,152,219,.3);
+  animation:float 3s ease-in-out infinite;z-index:2;
+}
+.scene-1 .device-icon .led{
+  position:absolute;width:12px;height:12px;background:var(--green);border-radius:50%;
+  top:15px;left:50%;transform:translateX(-50%);box-shadow:0 0 12px var(--green);
+  animation:ledBlink 2s ease-in-out infinite;
+}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-15px)}}
+@keyframes ledBlink{0%,100%{opacity:1}50%{opacity:.3}}
+.scene-1 .title{
+  font-size:clamp(28px,5vw,52px);font-weight:800;color:var(--white);
+  margin-top:40px;letter-spacing:2px;z-index:2;
+  text-shadow:0 0 40px rgba(52,152,219,.5);text-align:center;
+}
+.scene-1 .title span{color:var(--orange)}
+.scene-1 .subtitle{font-size:clamp(14px,2.5vw,22px);color:var(--gray);margin-top:15px;z-index:2;text-align:center}
+.scene-1 .lang-sub{font-size:clamp(12px,2vw,18px);color:rgba(255,255,255,.4);margin-top:8px;z-index:2}
 
-body {
-  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-  background: #0a0a0a;
-  overflow: hidden;
-  width: 100vw;
-  height: 100vh;
-  user-select: none;
-  -webkit-user-select: none;
+/* ═══ SCENE 2 - PEACEFUL HOME ═══ */
+.scene-2{background:linear-gradient(180deg,#fff8e7 0%,#ffe0b2 50%,#ffcc80 100%)}
+.room{
+  position:relative;width:85%;max-width:900px;height:500px;
+  background:#fff3e0;border-radius:20px;box-shadow:0 20px 60px rgba(0,0,0,.2);overflow:hidden;
 }
+.room .wall{position:absolute;inset:0;background:linear-gradient(180deg,#ffe0b2,#ffcc80)}
+.room .floor{position:absolute;bottom:0;left:0;right:0;height:30%;background:linear-gradient(180deg,#bfa07e,#8d6e63)}
+.room .window{position:absolute;top:40px;left:60px;width:160px;height:180px;background:linear-gradient(180deg,#87ceeb,#e0f0ff);border:8px solid #8d6e63;border-radius:8px}
+.room .curtain{position:absolute;top:40px;width:30px;height:180px;background:linear-gradient(180deg,#e8d5c0,#d4c4a8);border-radius:4px}
+.room .curtain.left{left:60px}.room .curtain.right{left:220px}
+.room .shelf{position:absolute;top:60px;right:180px;width:140px;height:12px;background:#8d6e63;border-radius:4px}
+.room .books{position:absolute;top:25px;right:185px;display:flex;gap:6px;align-items:flex-end}
+.room .books .book{width:18px;border-radius:3px}
+.book:nth-child(1){height:40px;background:#e74c3c}.book:nth-child(2){height:32px;background:#3498db}
+.book:nth-child(3){height:38px;background:#27ae60}.book:nth-child(4){height:28px;background:#f39c12}
+.armchair{position:absolute;bottom:130px;left:250px;width:120px;height:100px;background:linear-gradient(180deg,#8d6e63,#6d4c41);border-radius:50% 50% 10px 10px}
+.armchair .cushion{position:absolute;top:10px;left:10px;width:100px;height:50px;background:#a1887f;border-radius:40%}
+.grandma{position:absolute;bottom:130px;left:270px;animation:gentleSway 4s ease-in-out infinite}
+@keyframes gentleSway{0%,100%{transform:rotate(0)}25%{transform:rotate(1deg)}75%{transform:rotate(-1deg)}}
+.grandma .head{width:50px;height:55px;background:#fdd9b5;border-radius:50%;position:relative}
+.grandma .hair{position:absolute;top:-5px;left:-5px;width:60px;height:35px;background:#c0c0c0;border-radius:50% 50% 0 0}
+.grandma .body-g{width:70px;height:55px;background:#7986cb;border-radius:20px 20px 5px 5px;margin-left:-10px;margin-top:-8px}
+.device-on-wall{position:absolute;top:100px;right:80px;width:50px;height:50px;background:linear-gradient(135deg,#2c3e50,#34495e);border-radius:14px;box-shadow:0 4px 15px rgba(0,0,0,.3)}
+.device-on-wall .dev-led{position:absolute;width:8px;height:8px;background:var(--green);border-radius:50%;top:10px;left:50%;transform:translateX(-50%);box-shadow:0 0 8px var(--green);animation:ledPulse 2s ease-in-out infinite}
+@keyframes ledPulse{0%,100%{box-shadow:0 0 6px var(--green)}50%{box-shadow:0 0 16px var(--green),0 0 24px rgba(39,174,96,.5)}}
+.radar-waves-scene{position:absolute;top:110px;right:90px}
+.wave-ring{position:absolute;border:1px solid rgba(52,152,219,.2);border-radius:50%;animation:waveExpand 3s ease-out infinite}
+.wave-ring:nth-child(1){animation-delay:0s}.wave-ring:nth-child(2){animation-delay:1s}.wave-ring:nth-child(3){animation-delay:2s}
+@keyframes waveExpand{0%{width:10px;height:10px;opacity:.6}100%{width:80px;height:80px;opacity:0;transform:translate(-35px,-35px)}}
+.scene-label{position:absolute;bottom:30px;font-size:clamp(12px,2vw,16px);color:rgba(255,255,255,.7);text-align:center;padding:0 20px}
+.scene-2 .scene-label,.scene-3 .scene-label{color:rgba(0,0,0,.5)}
 
-/* ═══════════════════════════════════════════════════ */
-/* ANIMATION CONTAINER                                 */
-/* ═══════════════════════════════════════════════════ */
-.stage {
-  position: relative;
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden;
-}
+/* ═══ SCENE 3 - THE FALL ═══ */
+.scene-3{background:linear-gradient(180deg,#fff8e7 0%,#ffe0b2 100%)}
+.grandma-fall{position:relative;animation:fallDown 1.5s ease-in forwards}
+@keyframes fallDown{0%{transform:rotate(0) translateY(0)}30%{transform:rotate(15deg) translateY(5px)}60%{transform:rotate(45deg) translateY(30px)}100%{transform:rotate(85deg) translateY(80px)}}
+.impact-flash{position:absolute;inset:0;background:radial-gradient(circle,rgba(231,76,60,.3),transparent 70%);opacity:0;animation:flashIn .3s ease-out 1.2s forwards}
+@keyframes flashIn{0%{opacity:0}50%{opacity:1}100%{opacity:.3}}
 
-.scene {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.8s ease;
-}
-.scene.active { opacity: 1; pointer-events: auto; }
+/* ═══ SCENE 4 - DETECTION ═══ */
+.scene-4{background:linear-gradient(180deg,#1a0a0a 0%,#2c0a0a 100%)}
+.detection-center{display:flex;flex-direction:column;align-items:center;gap:30px}
+.big-device{width:100px;height:100px;background:linear-gradient(135deg,#1a1a2e,#2c3e50);border-radius:25px;position:relative;box-shadow:0 0 80px rgba(231,76,60,.6),0 0 160px rgba(231,76,60,.3);animation:deviceAlert .5s ease-in-out infinite}
+@keyframes deviceAlert{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+.big-device .alert-led{position:absolute;width:16px;height:16px;background:var(--red);border-radius:50%;top:18px;left:50%;transform:translateX(-50%);box-shadow:0 0 20px var(--red),0 0 40px var(--red);animation:alertBlink .3s ease-in-out infinite}
+@keyframes alertBlink{0%,100%{opacity:1}50%{opacity:.2}}
+.detection-radar{position:relative;width:250px;height:250px}
+.detect-ring{position:absolute;inset:0;border:2px solid var(--red);border-radius:50%;opacity:0;animation:detectExpand 1s ease-out infinite}
+.detect-ring:nth-child(2){animation-delay:.3s}.detect-ring:nth-child(3){animation-delay:.6s}
+@keyframes detectExpand{0%{transform:scale(.2);opacity:1}100%{transform:scale(1.5);opacity:0}}
+.detection-text{font-size:clamp(18px,4vw,28px);color:var(--red);font-weight:700;letter-spacing:2px;animation:textPulse .5s ease-in-out infinite;text-align:center}
+@keyframes textPulse{0%,100%{opacity:1}50%{opacity:.5}}
 
-/* ═══════════════════════════════════════════════════ */
-/* SCENE 1 — TITLE                                     */
-/* ═══════════════════════════════════════════════════ */
-.scene-1 {
-  background: radial-gradient(ellipse at center, #1a1a2e 0%, #0a0a0a 100%);
-  flex-direction: column;
-}
-.scene-1 .radar-ring {
-  position: absolute;
-  width: 300px; height: 300px;
-  border: 2px solid rgba(52,152,219,0.3);
-  border-radius: 50%;
-  animation: radarPulse 2s ease-out infinite;
-}
-.scene-1 .radar-ring:nth-child(2) { animation-delay: 0.5s; width: 250px; height: 250px; }
-.scene-1 .radar-ring:nth-child(3) { animation-delay: 1s; width: 200px; height: 200px; }
-.scene-1 .radar-ring:nth-child(4) { animation-delay: 1.5s; width: 150px; height: 150px; }
+/* ═══ SCENE 5 - AI PROCESSING ═══ */
+.scene-5{background:linear-gradient(135deg,#0a0a2e,#0d1b3e,#0a0a2e)}
+.ai-container{display:flex;flex-direction:column;align-items:center;gap:25px}
+.ai-brain{width:120px;height:120px;border-radius:50%;background:conic-gradient(var(--blue),var(--teal),var(--purple),var(--blue));animation:spin 2s linear infinite;position:relative;box-shadow:0 0 60px rgba(52,152,219,.4)}
+@keyframes spin{to{transform:rotate(360deg)}}
+.ai-brain::after{content:'';position:absolute;inset:15px;background:#0a0a2e;border-radius:50%}
+.ai-brain .ai-icon{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:1;font-size:40px}
+.data-streams{display:flex;gap:20px;margin-top:10px;flex-wrap:wrap;justify-content:center}
+.data-item{background:rgba(52,152,219,.1);border:1px solid rgba(52,152,219,.3);border-radius:12px;padding:12px 20px;color:var(--blue);font-size:14px;font-weight:600;animation:dataFloat 2s ease-in-out infinite;text-align:center}
+.data-item:nth-child(2){animation-delay:.5s;border-color:rgba(46,204,113,.3);color:var(--green)}
+.data-item:nth-child(3){animation-delay:1s;border-color:rgba(155,89,182,.3);color:#9b59b6}
+@keyframes dataFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.ai-decision{font-size:clamp(16px,3vw,24px);color:var(--green);font-weight:700;text-align:center}
 
-@keyframes radarPulse {
-  0% { transform: scale(0.3); opacity: 1; border-color: rgba(52,152,219,0.5); }
-  100% { transform: scale(2.5); opacity: 0; border-color: rgba(52,152,219,0); }
-}
+/* ═══ SCENE 6 - PHONE ALERT ═══ */
+.scene-6{background:linear-gradient(180deg,#1a1a2e 0%,#16213e 100%)}
+.phone-container{display:flex;align-items:center;gap:40px;flex-wrap:wrap;justify-content:center;padding:20px}
+.phone{width:220px;height:400px;background:#1a1a1a;border-radius:30px;border:4px solid #333;position:relative;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.5);animation:phoneVibrate .1s ease-in-out infinite}
+@keyframes phoneVibrate{0%,100%{transform:translateX(0)}25%{transform:translateX(2px)}75%{transform:translateX(-2px)}}
+.phone .notch{position:absolute;top:10px;left:50%;transform:translateX(-50%);width:80px;height:6px;background:#555;border-radius:3px}
+.phone .alert-screen{position:absolute;inset:30px 15px 15px;background:linear-gradient(180deg,#2c0a0a,#1a0505);border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:15px}
+.alert-screen .alert-icon{font-size:45px;animation:alertPop .5s ease-in-out infinite}
+@keyframes alertPop{0%,100%{transform:scale(1)}50%{transform:scale(1.2)}}
+.alert-screen .alert-title{color:var(--red);font-size:16px;font-weight:700;text-align:center}
+.alert-screen .alert-detail{color:#ccc;font-size:12px;text-align:center;line-height:1.5}
+.alert-screen .alert-btn{background:var(--red);color:#fff;border:none;padding:8px 20px;border-radius:20px;font-size:13px;font-weight:600;animation:btnPulse 1s ease-in-out infinite}
+@keyframes btnPulse{0%,100%{box-shadow:0 0 0 0 rgba(231,76,60,.5)}50%{box-shadow:0 0 0 15px rgba(231,76,60,0)}}
+.notification-info{color:#fff;max-width:350px}
+.notification-info h3{font-size:22px;color:var(--red);margin-bottom:12px}
+.notification-info p{font-size:14px;color:#bbb;line-height:1.6}
+.notification-info .steps{margin-top:15px;display:flex;flex-direction:column;gap:8px}
+.notification-info .step{display:flex;align-items:center;gap:10px;padding:8px 12px;background:rgba(255,255,255,.05);border-radius:8px;font-size:13px;color:#ddd}
+.notification-info .step .step-num{width:24px;height:24px;background:var(--orange);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:11px;flex-shrink:0}
 
-.scene-1 .device-icon {
-  position: relative;
-  width: 80px; height: 80px;
-  background: linear-gradient(135deg, var(--blue), var(--teal));
-  border-radius: 20px;
-  box-shadow: 0 0 60px rgba(52,152,219,0.6), 0 0 120px rgba(52,152,219,0.3);
-  animation: float 3s ease-in-out infinite;
-  z-index: 2;
-}
-.scene-1 .device-icon .led {
-  position: absolute;
-  width: 12px; height: 12px;
-  background: var(--green);
-  border-radius: 50%;
-  top: 15px; left: 50%;
-  transform: translateX(-50%);
-  box-shadow: 0 0 12px var(--green);
-  animation: ledBlink 2s ease-in-out infinite;
-}
-@keyframes float {
-  0%,100% { transform: translateY(0) rotate(0deg); }
-  50% { transform: translateY(-15px) rotate(2deg); }
-}
-@keyframes ledBlink {
-  0%,100% { opacity: 1; }
-  50% { opacity: 0.3; }
-}
+/* ═══ SCENE 7 - EMERGENCY RESPONSE ═══ */
+.scene-7{background:linear-gradient(180deg,#0a0a2e 0%,#1a0a2e 100%)}
+.response-container{display:flex;align-items:center;gap:40px;flex-wrap:wrap;justify-content:center;padding:20px}
+.ambulance{position:relative;animation:ambulanceDrive 1.5s ease-in-out infinite}
+@keyframes ambulanceDrive{0%,100%{transform:translateX(-10px)}50%{transform:translateX(10px)}}
+.amb-body{width:180px;height:80px;background:#fff;border-radius:15px;position:relative;box-shadow:0 8px 30px rgba(0,0,0,.3)}
+.amb-stripe{position:absolute;bottom:20px;left:0;right:0;height:8px;background:var(--red)}
+.amb-cross{position:absolute;top:12px;right:25px;font-size:30px;color:var(--red)}
+.amb-light{position:absolute;top:8px;left:15px;width:14px;height:14px;background:var(--red);border-radius:50%;animation:sirenFlash .3s ease-in-out infinite}
+.amb-light:nth-child(2){left:35px;background:var(--blue);animation-delay:.15s}
+@keyframes sirenFlash{0%,100%{opacity:1}50%{opacity:.1}}
+.wheel{position:absolute;bottom:-12px;width:24px;height:24px;background:#222;border-radius:50%;border:3px solid #555}
+.wheel.front{right:20px}.wheel.back{left:25px}
+.response-text{color:#fff;text-align:center}
+.response-text h3{font-size:clamp(18px,4vw,28px);color:var(--green);margin-bottom:8px}
+.response-text .timer{font-size:clamp(32px,6vw,48px);color:var(--orange);font-weight:800}
 
-.scene-1 .title {
-  font-size: 52px; font-weight: 800;
-  color: var(--white);
-  margin-top: 40px;
-  letter-spacing: 2px;
-  z-index: 2;
-  text-shadow: 0 0 40px rgba(52,152,219,0.5);
-}
-.scene-1 .title span { color: var(--orange); }
-.scene-1 .subtitle {
-  font-size: 22px; color: var(--gray);
-  margin-top: 15px;
-  letter-spacing: 1px;
-  z-index: 2;
-}
-.scene-1 .lang-sub {
-  font-size: 18px; color: rgba(255,255,255,0.4);
-  margin-top: 8px;
-  z-index: 2;
-}
+/* ═══ SCENE 8 - SAFE ═══ */
+.scene-8{background:linear-gradient(180deg,#e8f5e9 0%,#c8e6c9 100%)}
+.safe-container{display:flex;flex-direction:column;align-items:center;gap:20px;text-align:center;padding:20px}
+.safe-container .heart{font-size:80px;animation:heartbeat .8s ease-in-out infinite}
+@keyframes heartbeat{0%,100%{transform:scale(1)}15%{transform:scale(1.15)}30%{transform:scale(1)}45%{transform:scale(1.1)}}
+.safe-container .safe-title{font-size:clamp(22px,5vw,36px);font-weight:700;color:var(--green)}
+.safe-container .safe-sub{font-size:clamp(14px,2.5vw,18px);color:#555;max-width:500px}
 
-/* ═══════════════════════════════════════════════════ */
-/* SCENE 2 — PEACEFUL HOME                             */
-/* ═══════════════════════════════════════════════════ */
-.scene-2 { background: linear-gradient(180deg, #fff8e7 0%, #ffe0b2 50%, #ffcc80 100%); }
-.room {
-  position: relative;
-  width: 85%; max-width: 900px;
-  height: 500px;
-  background: #fff3e0;
-  border-radius: 20px;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.2);
-  overflow: hidden;
-}
-.room .wall { position: absolute; inset: 0; background: linear-gradient(180deg, #ffe0b2, #ffcc80); }
-.room .floor {
-  position: absolute; bottom: 0; left: 0; right: 0; height: 30%;
-  background: linear-gradient(180deg, #bfa07e, #8d6e63);
-}
-.room .window {
-  position: absolute;
-  top: 40px; left: 60px;
-  width: 160px; height: 180px;
-  background: linear-gradient(180deg, #87ceeb, #e0f0ff);
-  border: 8px solid #8d6e63;
-  border-radius: 8px;
-}
-.room .curtain {
-  position: absolute;
-  top: 40px;
-  width: 30px; height: 180px;
-  background: linear-gradient(180deg, #e8d5c0, #d4c4a8);
-  border-radius: 4px;
-}
-.room .curtain.left { left: 60px; }
-.room .curtain.right { right: calc(100% - 250px); }
+/* ═══ SCENE 9 - FEATURES ═══ */
+.scene-9{background:linear-gradient(135deg,#1a1a2e,#0d1b3e);flex-wrap:wrap;gap:15px;padding:30px;align-content:center;overflow-y:auto}
+.feat-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:18px 14px;width:240px;text-align:center;opacity:0;transform:translateY(30px);transition:all .6s ease}
+.scene-9.active .feat-card{opacity:1;transform:translateY(0)}
+.scene-9.active .feat-card:nth-child(1){transition-delay:.1s}
+.scene-9.active .feat-card:nth-child(2){transition-delay:.2s}
+.scene-9.active .feat-card:nth-child(3){transition-delay:.3s}
+.scene-9.active .feat-card:nth-child(4){transition-delay:.4s}
+.scene-9.active .feat-card:nth-child(5){transition-delay:.5s}
+.scene-9.active .feat-card:nth-child(6){transition-delay:.6s}
+.scene-9.active .feat-card:nth-child(7){transition-delay:.7s}
+.scene-9.active .feat-card:nth-child(8){transition-delay:.8s}
+.feat-card .feat-icon{font-size:36px;margin-bottom:10px}
+.feat-card .feat-title{font-size:15px;font-weight:700;color:#fff;margin-bottom:6px}
+.feat-card .feat-desc{font-size:12px;color:rgba(255,255,255,.6);line-height:1.5}
 
-.room .shelf {
-  position: absolute;
-  top: 60px; right: 180px;
-  width: 140px; height: 12px;
-  background: #8d6e63;
-  border-radius: 4px;
-}
-.room .books {
-  position: absolute;
-  top: 25px; right: 185px;
-  display: flex; gap: 6px;
-  align-items: flex-end;
-}
-.room .books .book {
-  width: 18px;
-  border-radius: 3px;
-}
-.book:nth-child(1) { height: 40px; background: #e74c3c; }
-.book:nth-child(2) { height: 32px; background: #3498db; }
-.book:nth-child(3) { height: 38px; background: #27ae60; }
-.book:nth-child(4) { height: 28px; background: #f39c12; }
+/* ═══ SCENE 10 - CTA ═══ */
+.scene-10{background:radial-gradient(ellipse at center,#1a1a2e 0%,#0a0a0a 100%)}
+.cta-container{display:flex;flex-direction:column;align-items:center;gap:20px;text-align:center;padding:20px}
+.cta-logo{width:90px;height:90px;background:linear-gradient(135deg,var(--blue),var(--teal));border-radius:22px;box-shadow:0 0 80px rgba(52,152,219,.5);display:flex;align-items:center;justify-content:center;font-size:36px}
+.cta-title{font-size:clamp(26px,5vw,42px);font-weight:800;color:#fff;text-shadow:0 0 30px rgba(52,152,219,.4)}
+.cta-title span{color:var(--orange)}
+.cta-contacts{font-size:clamp(12px,2vw,16px);color:rgba(255,255,255,.7);line-height:1.8}
+.cta-contacts strong{color:var(--orange)}
 
-.room .armchair {
-  position: absolute;
-  bottom: 130px; left: 250px;
-  width: 120px; height: 100px;
-  background: linear-gradient(180deg, #8d6e63, #6d4c41);
-  border-radius: 50% 50% 10px 10px;
-}
-.room .armchair .cushion {
-  position: absolute;
-  top: 10px; left: 10px;
-  width: 100px; height: 50px;
-  background: #a1887f;
-  border-radius: 40%;
-}
-
-/* Grandma character */
-.grandma {
-  position: absolute;
-  bottom: 130px; left: 270px;
-  animation: gentleSway 4s ease-in-out infinite;
-}
-@keyframes gentleSway {
-  0%,100% { transform: rotate(0deg); }
-  25% { transform: rotate(1deg); }
-  75% { transform: rotate(-1deg); }
-}
-.grandma .head {
-  width: 50px; height: 55px;
-  background: #fdd9b5;
-  border-radius: 50%;
-  position: relative;
-}
-.grandma .hair {
-  position: absolute;
-  top: -5px; left: -5px;
-  width: 60px; height: 35px;
-  background: #c0c0c0;
-  border-radius: 50% 50% 0 0;
-}
-.grandma .body-g {
-  width: 70px; height: 55px;
-  background: #7986cb;
-  border-radius: 20px 20px 5px 5px;
-  margin-left: -10px;
-  margin-top: -8px;
-}
-
-/* Device on wall */
-.device-on-wall {
-  position: absolute;
-  top: 100px; right: 80px;
-  width: 50px; height: 50px;
-  background: linear-gradient(135deg, #2c3e50, #34495e);
-  border-radius: 14px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-}
-.device-on-wall .dev-led {
-  position: absolute;
-  width: 8px; height: 8px;
-  background: var(--green);
-  border-radius: 50%;
-  top: 10px; left: 50%;
-  transform: translateX(-50%);
-  box-shadow: 0 0 8px var(--green);
-  animation: ledPulse 2s ease-in-out infinite;
-}
-@keyframes ledPulse {
-  0%,100% { box-shadow: 0 0 6px var(--green); }
-  50% { box-shadow: 0 0 16px var(--green), 0 0 24px rgba(39,174,96,0.5); }
-}
-
-/* Cloud of "radar waves" — subtle */
-.radar-waves {
-  position: absolute;
-  top: 110px; right: 90px;
-}
-.wave-ring {
-  position: absolute;
-  border: 1px solid rgba(52,152,219,0.2);
-  border-radius: 50%;
-  animation: waveExpand 3s ease-out infinite;
-}
-.wave-ring:nth-child(1) { width: 20px; height: 20px; animation-delay: 0s; }
-.wave-ring:nth-child(2) { width: 20px; height: 20px; animation-delay: 1s; }
-.wave-ring:nth-child(3) { width: 20px; height: 20px; animation-delay: 2s; }
-@keyframes waveExpand {
-  0% { width: 10px; height: 10px; opacity: 0.6; }
-  100% { width: 80px; height: 80px; opacity: 0; transform: translate(-35px, -35px); }
-}
-
-.scene-label {
-  position: absolute;
-  bottom: 30px;
-  font-size: 16px;
-  color: rgba(255,255,255,0.7);
-  letter-spacing: 1px;
-}
-.scene-2 .scene-label, .scene-3 .scene-label, .scene-4 .scene-label { color: rgba(0,0,0,0.5); }
-
-/* ═══════════════════════════════════════════════════ */
-/* SCENE 3 — THE FALL                                  */
-/* ═══════════════════════════════════════════════════ */
-.scene-3 { background: linear-gradient(180deg, #fff8e7 0%, #ffe0b2 100%); }
-.scene-3 .grandma-fall {
-  position: relative;
-  animation: fallDown 1.5s ease-in forwards;
-}
-@keyframes fallDown {
-  0% { transform: rotate(0deg) translateY(0); }
-  30% { transform: rotate(15deg) translateY(5px); }
-  60% { transform: rotate(45deg) translateY(30px); }
-  100% { transform: rotate(85deg) translateY(80px); }
-}
-
-/* Impact flash */
-.impact-flash {
-  position: absolute;
-  width: 100%; height: 100%;
-  background: radial-gradient(circle, rgba(231,76,60,0.3), transparent 70%);
-  opacity: 0;
-  animation: flashIn 0.3s ease-out 1.2s forwards;
-}
-@keyframes flashIn {
-  0% { opacity: 0; }
-  50% { opacity: 1; }
-  100% { opacity: 0.3; }
-}
-
-/* ═══════════════════════════════════════════════════ */
-/* SCENE 4 — DETECTION                                 */
-/* ═══════════════════════════════════════════════════ */
-.scene-4 { background: linear-gradient(180deg, #1a0a0a 0%, #2c0a0a 100%); }
-.detection-center {
-  display: flex; flex-direction: column;
-  align-items: center; gap: 30px;
-}
-.big-device {
-  width: 100px; height: 100px;
-  background: linear-gradient(135deg, #1a1a2e, #2c3e50);
-  border-radius: 25px;
-  position: relative;
-  box-shadow: 0 0 80px rgba(231,76,60,0.6), 0 0 160px rgba(231,76,60,0.3);
-  animation: deviceAlert 0.5s ease-in-out infinite;
-}
-@keyframes deviceAlert {
-  0%,100% { transform: scale(1); }
-  50% { transform: scale(1.05); }
-}
-.big-device .alert-led {
-  position: absolute;
-  width: 16px; height: 16px;
-  background: var(--red);
-  border-radius: 50%;
-  top: 18px; left: 50%;
-  transform: translateX(-50%);
-  box-shadow: 0 0 20px var(--red), 0 0 40px var(--red);
-  animation: alertBlink 0.3s ease-in-out infinite;
-}
-@keyframes alertBlink {
-  0%,100% { opacity: 1; }
-  50% { opacity: 0.2; }
-}
-
-.detection-radar {
-  position: relative;
-  width: 250px; height: 250px;
-}
-.detect-ring {
-  position: absolute;
-  inset: 0;
-  border: 2px solid var(--red);
-  border-radius: 50%;
-  opacity: 0;
-  animation: detectExpand 1s ease-out infinite;
-}
-.detect-ring:nth-child(2) { animation-delay: 0.3s; }
-.detect-ring:nth-child(3) { animation-delay: 0.6s; }
-@keyframes detectExpand {
-  0% { transform: scale(0.2); opacity: 1; }
-  100% { transform: scale(1.5); opacity: 0; }
-}
-
-.detection-text {
-  font-size: 28px; color: var(--red);
-  font-weight: 700;
-  letter-spacing: 2px;
-  animation: textPulse 0.5s ease-in-out infinite;
-}
-@keyframes textPulse {
-  0%,100% { opacity: 1; }
-  50% { opacity: 0.5; }
-}
-
-/* ═══════════════════════════════════════════════════ */
-/* SCENE 5 — AI PROCESSING                             */
-/* ═══════════════════════════════════════════════════ */
-.scene-5 {
-  background: linear-gradient(135deg, #0a0a2e, #0d1b3e, #0a0a2e);
-}
-.ai-container {
-  display: flex; flex-direction: column;
-  align-items: center; gap: 25px;
-}
-.ai-brain {
-  width: 120px; height: 120px;
-  border-radius: 50%;
-  background: conic-gradient(var(--blue), var(--teal), var(--purple), var(--blue));
-  animation: spin 2s linear infinite;
-  position: relative;
-  box-shadow: 0 0 60px rgba(52,152,219,0.4);
-}
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
-.ai-brain::after {
-  content: '';
-  position: absolute;
-  inset: 15px;
-  background: #0a0a2e;
-  border-radius: 50%;
-}
-.ai-brain .ai-icon {
-  position: absolute;
-  inset: 0;
-  display: flex; align-items: center;
-  justify-content: center;
-  z-index: 1;
-  font-size: 40px;
-}
-
-.data-streams {
-  display: flex; gap: 30px;
-  margin-top: 10px;
-}
-.data-item {
-  background: rgba(52,152,219,0.1);
-  border: 1px solid rgba(52,152,219,0.3);
-  border-radius: 12px;
-  padding: 15px 25px;
-  color: var(--blue);
-  font-size: 15px;
-  font-weight: 600;
-  animation: dataFloat 2s ease-in-out infinite;
-}
-.data-item:nth-child(2) { animation-delay: 0.5s; border-color: rgba(46,204,113,0.3); color: var(--green); }
-.data-item:nth-child(3) { animation-delay: 1s; border-color: rgba(155,89,182,0.3); color: #9b59b6; }
-@keyframes dataFloat {
-  0%,100% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
-}
-
-.ai-decision {
-  font-size: 24px; color: var(--green);
-  font-weight: 700;
-  letter-spacing: 1px;
-}
-
-/* ═══════════════════════════════════════════════════ */
-/* SCENE 6 — ALERT ON PHONE                            */
-/* ═══════════════════════════════════════════════════ */
-.scene-6 { background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%); }
-.phone-container {
-  display: flex; align-items: center; gap: 60px;
-}
-.phone {
-  width: 220px; height: 400px;
-  background: #1a1a1a;
-  border-radius: 30px;
-  border: 4px solid #333;
-  position: relative;
-  overflow: hidden;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
-  animation: phoneVibrate 0.1s ease-in-out infinite;
-}
-@keyframes phoneVibrate {
-  0%,100% { transform: translateX(0); }
-  25% { transform: translateX(2px); }
-  75% { transform: translateX(-2px); }
-}
-.phone .notch {
-  position: absolute;
-  top: 8px; left: 50%;
-  transform: translateX(-50%);
-  width: 80px; height: 6px;
-  background: #555;
-  border-radius: 3px;
-}
-.phone .alert-screen {
-  position: absolute;
-  inset: 25px 15px;
-  background: linear-gradient(180deg, #2c0a0a, #1a0505);
-  border-radius: 8px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 15px;
-  padding: 20px;
-}
-.alert-screen .alert-icon {
-  font-size: 50px;
-  animation: alertPop 0.5s ease-in-out infinite;
-}
-@keyframes alertPop {
-  0%,100% { transform: scale(1); }
-  50% { transform: scale(1.2); }
-}
-.alert-screen .alert-title {
-  color: var(--red);
-  font-size: 18px;
-  font-weight: 700;
-  text-align: center;
-}
-.alert-screen .alert-detail {
-  color: #ccc;
-  font-size: 12px;
-  text-align: center;
-  line-height: 1.5;
-}
-.alert-screen .alert-btn {
-  background: var(--red);
-  color: white;
-  border: none;
-  padding: 10px 25px;
-  border-radius: 20px;
-  font-size: 14px;
-  font-weight: 600;
-  animation: btnPulse 1s ease-in-out infinite;
-}
-@keyframes btnPulse {
-  0%,100% { box-shadow: 0 0 0 0 rgba(231,76,60,0.5); }
-  50% { box-shadow: 0 0 0 15px rgba(231,76,60,0); }
-}
-
-.notification-info {
-  color: white;
-  max-width: 350px;
-}
-.notification-info h3 {
-  font-size: 26px; color: var(--red);
-  margin-bottom: 15px;
-}
-.notification-info p {
-  font-size: 15px; color: #bbb;
-  line-height: 1.6;
-}
-.notification-info .steps {
-  margin-top: 20px;
-  display: flex; flex-direction: column; gap: 10px;
-}
-.notification-info .step {
-  display: flex; align-items: center; gap: 10px;
-  padding: 10px 15px;
-  background: rgba(255,255,255,0.05);
-  border-radius: 8px;
-  font-size: 14px;
-  color: #ddd;
-}
-.notification-info .step .step-num {
-  width: 26px; height: 26px;
-  background: var(--orange);
-  border-radius: 50%;
-  display: flex; align-items: center;
-  justify-content: center;
-  font-weight: 700;
-  font-size: 12px;
-  flex-shrink: 0;
-}
-
-/* ═══════════════════════════════════════════════════ */
-/* SCENE 7 — EMERGENCY RESPONSE                        */
-/* ═══════════════════════════════════════════════════ */
-.scene-7 { background: linear-gradient(180deg, #0a0a2e 0%, #1a0a2e 100%); }
-.response-container {
-  display: flex; align-items: center; gap: 50px;
-}
-.ambulance {
-  position: relative;
-  animation: ambulanceDrive 1.5s ease-in-out infinite;
-}
-@keyframes ambulanceDrive {
-  0%,100% { transform: translateX(-10px); }
-  50% { transform: translateX(10px); }
-}
-.ambulance .amb-body {
-  width: 180px; height: 80px;
-  background: white;
-  border-radius: 15px;
-  position: relative;
-  box-shadow: 0 8px 30px rgba(0,0,0,0.3);
-}
-.ambulance .amb-stripe {
-  position: absolute;
-  bottom: 20px; left: 0; right: 0;
-  height: 8px;
-  background: var(--red);
-}
-.ambulance .amb-cross {
-  position: absolute;
-  top: 15px; right: 25px;
-  font-size: 30px;
-  color: var(--red);
-}
-.ambulance .amb-light {
-  position: absolute;
-  top: 8px; left: 15px;
-  width: 14px; height: 14px;
-  background: var(--red);
-  border-radius: 50%;
-  animation: sirenFlash 0.3s ease-in-out infinite;
-}
-.ambulance .amb-light:nth-child(2) {
-  left: 35px;
-  background: var(--blue);
-  animation-delay: 0.15s;
-}
-@keyframes sirenFlash {
-  0%,100% { opacity: 1; }
-  50% { opacity: 0.1; }
-}
-.ambulance .wheel {
-  position: absolute;
-  bottom: -12px;
-  width: 24px; height: 24px;
-  background: #222;
-  border-radius: 50%;
-  border: 3px solid #555;
-}
-.ambulance .wheel.front { right: 20px; }
-.ambulance .wheel.back { left: 25px; }
-
-.response-text {
-  color: white;
-}
-.response-text h3 {
-  font-size: 28px; color: var(--green);
-  margin-bottom: 10px;
-}
-.response-text .timer {
-  font-size: 48px; color: var(--orange);
-  font-weight: 800;
-}
-
-/* ═══════════════════════════════════════════════════ */
-/* SCENE 8 — SAFE & PRODUCT SHOWCASE                   */
-/* ═══════════════════════════════════════════════════ */
-.scene-8 { background: linear-gradient(180deg, #e8f5e9 0%, #c8e6c9 100%); }
-.safe-container {
-  display: flex; flex-direction: column;
-  align-items: center; gap: 20px;
-  text-align: center;
-}
-.safe-container .heart {
-  font-size: 80px;
-  animation: heartbeat 0.8s ease-in-out infinite;
-}
-@keyframes heartbeat {
-  0%,100% { transform: scale(1); }
-  15% { transform: scale(1.15); }
-  30% { transform: scale(1); }
-  45% { transform: scale(1.1); }
-}
-.safe-container .safe-title {
-  font-size: 36px; font-weight: 700;
-  color: var(--green);
-}
-.safe-container .safe-sub {
-  font-size: 18px; color: #555;
-  max-width: 500px;
-}
-
-/* ═══════════════════════════════════════════════════ */
-/* SCENE 9 — PRODUCT FEATURES                          */
-/* ═══════════════════════════════════════════════════ */
-.scene-9 {
-  background: linear-gradient(135deg, #1a1a2e, #0d1b3e);
-  flex-wrap: wrap; gap: 20px; padding: 40px;
-}
-.feature-box {
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 16px;
-  padding: 25px 20px;
-  width: 260px;
-  text-align: center;
-  opacity: 0;
-  transform: translateY(30px);
-  transition: all 0.6s ease;
-}
-.scene-9.active .feature-box {
-  opacity: 1; transform: translateY(0);
-}
-.scene-9.active .feature-box:nth-child(1) { transition-delay: 0.2s; }
-.scene-9.active .feature-box:nth-child(2) { transition-delay: 0.4s; }
-.scene-9.active .feature-box:nth-child(3) { transition-delay: 0.6s; }
-.scene-9.active .feature-box:nth-child(4) { transition-delay: 0.8s; }
-.scene-9.active .feature-box:nth-child(5) { transition-delay: 1.0s; }
-.scene-9.active .feature-box:nth-child(6) { transition-delay: 1.2s; }
-.scene-9.active .feature-box:nth-child(7) { transition-delay: 1.4s; }
-.scene-9.active .feature-box:nth-child(8) { transition-delay: 1.6s; }
-
-.feature-box .feat-icon { font-size: 40px; margin-bottom: 12px; }
-.feature-box .feat-title {
-  font-size: 17px; font-weight: 700;
-  color: white; margin-bottom: 8px;
-}
-.feature-box .feat-desc {
-  font-size: 13px; color: rgba(255,255,255,0.6);
-  line-height: 1.5;
-}
-
-/* ═══════════════════════════════════════════════════ */
-/* SCENE 10 — CTA                                       */
-/* ═══════════════════════════════════════════════════ */
-.scene-10 { background: radial-gradient(ellipse at center, #1a1a2e 0%, #0a0a0a 100%); }
-.cta-container {
-  display: flex; flex-direction: column;
-  align-items: center; gap: 25px;
-  text-align: center;
-}
-.cta-logo {
-  width: 90px; height: 90px;
-  background: linear-gradient(135deg, var(--blue), var(--teal));
-  border-radius: 22px;
-  box-shadow: 0 0 80px rgba(52,152,219,0.5);
-  display: flex; align-items: center;
-  justify-content: center;
-  font-size: 36px;
-}
-.cta-title {
-  font-size: 42px; font-weight: 800;
-  color: white;
-  text-shadow: 0 0 30px rgba(52,152,219,0.4);
-}
-.cta-title span { color: var(--orange); }
-.cta-contacts {
-  font-size: 18px; color: rgba(255,255,255,0.7);
-  line-height: 1.8;
-}
-.cta-contacts strong { color: var(--orange); }
-
-/* ═══════════════════════════════════════════════════ */
-/* CONTROLS BAR                                        */
-/* ═══════════════════════════════════════════════════ */
-.controls {
-  position: fixed;
-  bottom: 20px; left: 50%;
-  transform: translateX(-50%);
-  display: flex; align-items: center; gap: 12px;
-  z-index: 100;
-  background: rgba(0,0,0,0.7);
-  backdrop-filter: blur(10px);
-  padding: 10px 20px;
-  border-radius: 30px;
-}
-.controls button {
-  width: 38px; height: 38px;
-  border-radius: 50%;
-  border: 2px solid rgba(255,255,255,0.3);
-  background: transparent;
-  color: white;
-  font-size: 16px;
-  cursor: pointer;
-  transition: all 0.3s;
-  display: flex; align-items: center;
-  justify-content: center;
-}
-.controls button:hover {
-  background: rgba(255,255,255,0.15);
-  border-color: white;
-}
-.controls .play-btn {
-  width: 48px; height: 48px;
-  background: var(--orange);
-  border: none;
-  font-size: 20px;
-}
-.controls .play-btn:hover { background: #d4701a; }
-.controls .progress-dots {
-  display: flex; gap: 6px;
-  align-items: center;
-}
-.controls .dot {
-  width: 8px; height: 8px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.3);
-  cursor: pointer;
-  transition: all 0.3s;
-}
-.controls .dot.active { background: var(--orange); width: 12px; height: 12px; }
-.controls .dot.visited { background: rgba(255,255,255,0.6); }
-.controls .lang-toggle {
-  background: rgba(255,255,255,0.1);
-  border: 1px solid rgba(255,255,255,0.3);
-  color: white;
-  padding: 6px 14px;
-  border-radius: 15px;
-  font-size: 13px;
-  cursor: pointer;
-  font-weight: 600;
-}
+/* ═══ CONTROLS ═══ */
+.controls{
+  position:fixed;bottom:20px;left:50%;transform:translateX(-50%);
+  display:flex;align-items:center;gap:10px;z-index:100;
+  background:rgba(0,0,0,.75);backdrop-filter:blur(10px);
+  padding:8px 16px;border-radius:30px;flex-wrap:wrap;justify-content:center;
+}
+.controls button{
+  width:36px;height:36px;border-radius:50%;border:2px solid rgba(255,255,255,.3);
+  background:transparent;color:#fff;font-size:14px;cursor:pointer;
+  transition:all .3s;display:flex;align-items:center;justify-content:center;
+}
+.controls button:hover{background:rgba(255,255,255,.15);border-color:#fff}
+.controls .play-btn{width:44px;height:44px;background:var(--orange);border:none;font-size:18px}
+.controls .play-btn:hover{background:#d4701a}
+.progress-dots{display:flex;gap:5px;align-items:center}
+.progress-dots .dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.3);cursor:pointer;transition:all .3s}
+.progress-dots .dot.active{background:var(--orange);width:11px;height:11px}
+.progress-dots .dot.visited{background:rgba(255,255,255,.6)}
+.lang-toggle{
+  background:rgba(255,255,255,.1)!important;border:1px solid rgba(255,255,255,.3)!important;
+  color:#fff!important;padding:6px 14px!important;border-radius:15px!important;
+  font-size:13px!important;cursor:pointer!important;font-weight:600!important;
+  width:auto!important;height:auto!important;
+}
+.lang-toggle:hover{background:rgba(255,255,255,.2)!important}
+.lang-toggle.active-lang{background:var(--orange)!important;border-color:var(--orange)!important}
 </style>
 </head>
 <body>
 
 <div class="stage" id="stage">
 
-  <!-- SCENE 1: Title -->
-  <div class="scene scene-1 active" data-scene="1">
-    <div class="radar-ring"></div><div class="radar-ring"></div><div class="radar-ring"></div><div class="radar-ring"></div>
-    <div class="device-icon"><div class="led"></div></div>
-    <div class="title"><span>Серебряный</span> Страж</div>
-    <div class="subtitle">Интеллектуальная защита для ваших близких</div>
-    <div class="lang-sub">银发守护者 · Silver Guardian</div>
-  </div>
+<!-- SCENE 1: Title -->
+<div class="scene scene-1 active" data-scene="1">
+  <div class="radar-ring"></div><div class="radar-ring"></div><div class="radar-ring"></div><div class="radar-ring"></div>
+  <div class="device-icon"><div class="led"></div></div>
+  <div class="title" data-l10n="title">Серебряный Страж</div>
+  <div class="subtitle" data-l10n="subtitle">Интеллектуальная защита для ваших близких</div>
+  <div class="lang-sub">银发守护者 · Silver Guardian</div>
+</div>
 
-  <!-- SCENE 2: Peaceful Home -->
-  <div class="scene scene-2" data-scene="2">
-    <div class="room">
-      <div class="wall"></div>
-      <div class="window"></div>
-      <div class="curtain left"></div>
-      <div class="curtain right"></div>
-      <div class="shelf"></div>
-      <div class="books"><div class="book"></div><div class="book"></div><div class="book"></div><div class="book"></div></div>
-      <div class="armchair"><div class="cushion"></div></div>
-      <div class="grandma">
-        <div class="head"><div class="hair"></div></div>
-        <div class="body-g"></div>
-      </div>
-      <div class="device-on-wall"><div class="dev-led"></div></div>
-      <div class="radar-waves"><div class="wave-ring"></div><div class="wave-ring"></div><div class="wave-ring"></div></div>
+<!-- SCENE 2: Peaceful Home -->
+<div class="scene scene-2" data-scene="2">
+  <div class="room">
+    <div class="wall"></div><div class="window"></div><div class="curtain left"></div><div class="curtain right"></div>
+    <div class="shelf"></div><div class="books"><div class="book"></div><div class="book"></div><div class="book"></div><div class="book"></div></div>
+    <div class="armchair"><div class="cushion"></div></div>
+    <div class="grandma"><div class="head"><div class="hair"></div></div><div class="body-g"></div></div>
+    <div class="device-on-wall"><div class="dev-led"></div></div>
+    <div class="radar-waves-scene"><div class="wave-ring"></div><div class="wave-ring"></div><div class="wave-ring"></div></div>
+  </div>
+  <div class="scene-label" data-l10n="scene2">Пожилой человек дома один — устройство на страже</div>
+</div>
+
+<!-- SCENE 3: The Fall -->
+<div class="scene scene-3" data-scene="3">
+  <div class="room">
+    <div class="wall"></div><div class="window"></div><div class="curtain left"></div><div class="curtain right"></div>
+    <div class="armchair" style="bottom:130px;left:250px"><div class="cushion"></div></div>
+    <div class="grandma-fall" style="position:absolute;bottom:130px;left:310px">
+      <div class="head" style="width:50px;height:55px;background:#fdd9b5;border-radius:50%;position:relative"><div style="position:absolute;top:-5px;left:-5px;width:60px;height:35px;background:#c0c0c0;border-radius:50% 50% 0 0"></div></div>
+      <div style="width:70px;height:55px;background:#7986cb;border-radius:20px 20px 5px 5px;margin-left:-10px;margin-top:-8px"></div>
     </div>
-    <div class="scene-label">Пожилой человек дома один — устройство на страже</div>
+    <div class="device-on-wall" style="top:100px;right:80px"><div class="dev-led" style="background:var(--green);box-shadow:0 0 8px var(--green)"></div></div>
+    <div class="impact-flash"></div>
   </div>
+  <div class="scene-label" style="color:rgba(0,0,0,.5)" data-l10n="scene3">Внезапное падение — каждая секунда на счету</div>
+</div>
 
-  <!-- SCENE 3: The Fall -->
-  <div class="scene scene-3" data-scene="3">
-    <div class="room">
-      <div class="wall"></div>
-      <div class="window"></div>
-      <div class="curtain left"></div>
-      <div class="curtain right"></div>
-      <div class="armchair" style="bottom:130px;left:250px;"><div class="cushion"></div></div>
-      <div class="grandma-fall" style="position:absolute;bottom:130px;left:310px;">
-        <div class="head" style="width:50px;height:55px;background:#fdd9b5;border-radius:50%;position:relative;"><div style="position:absolute;top:-5px;left:-5px;width:60px;height:35px;background:#c0c0c0;border-radius:50% 50% 0 0;"></div></div>
-        <div style="width:70px;height:55px;background:#7986cb;border-radius:20px 20px 5px 5px;margin-left:-10px;margin-top:-8px;"></div>
-      </div>
-      <div class="device-on-wall" style="top:100px;right:80px;"><div class="dev-led" style="background:var(--green);box-shadow:0 0 8px var(--green);"></div></div>
-      <div class="impact-flash"></div>
-    </div>
-    <div class="scene-label" style="color:rgba(0,0,0,0.5);">Внезапное падение — каждая секунда на счету</div>
-  </div>
-
-  <!-- SCENE 4: Detection -->
-  <div class="scene scene-4" data-scene="4">
-    <div class="detection-center">
-      <div class="big-device"><div class="alert-led"></div></div>
-      <div class="detection-radar">
-        <div class="detect-ring"></div><div class="detect-ring"></div><div class="detect-ring"></div>
-      </div>
-      <div class="detection-text">ПАДЕНИЕ ОБНАРУЖЕНО!</div>
-      <div style="color:#ccc;font-size:16px;text-align:center;line-height:1.6;">
-        Радар 60 ГГц фиксирует положение тела<br>
-        AI анализирует: угол падения 78°, отсутствие движения 3 сек
-      </div>
+<!-- SCENE 4: Detection -->
+<div class="scene scene-4" data-scene="4">
+  <div class="detection-center">
+    <div class="big-device"><div class="alert-led"></div></div>
+    <div class="detection-radar"><div class="detect-ring"></div><div class="detect-ring"></div><div class="detect-ring"></div></div>
+    <div class="detection-text" data-l10n="detected">ПАДЕНИЕ ОБНАРУЖЕНО!</div>
+    <div style="color:#ccc;font-size:14px;text-align:center;line-height:1.6" data-l10n="detect_detail">
+      Радар 60 ГГц фиксирует положение тела<br>AI анализирует: угол падения 78°, отсутствие движения 3 сек
     </div>
   </div>
+</div>
 
-  <!-- SCENE 5: AI Processing -->
-  <div class="scene scene-5" data-scene="5">
-    <div class="ai-container">
-      <div class="ai-brain"><div class="ai-icon">🧠</div></div>
-      <div class="data-streams">
-        <div class="data-item">📡 Радар: сигнал подтверждён</div>
-        <div class="data-item">🤖 AI: падение — 99.7%</div>
-        <div class="data-item">📊 Статус: критический</div>
-      </div>
-      <div class="ai-decision">✓ Решение: экстренный вызов</div>
-      <div style="color:#aaa;font-size:14px;margin-top:5px;">
-        Задержка обработки: <strong style="color:#3498db;">< 50 мс</strong>
-      </div>
+<!-- SCENE 5: AI Processing -->
+<div class="scene scene-5" data-scene="5">
+  <div class="ai-container">
+    <div class="ai-brain"><div class="ai-icon">🧠</div></div>
+    <div class="data-streams">
+      <div class="data-item" data-l10n="ai_d1">📡 Радар: сигнал подтверждён</div>
+      <div class="data-item" data-l10n="ai_d2">🤖 AI: падение — 99.7%</div>
+      <div class="data-item" data-l10n="ai_d3">📊 Статус: критический</div>
+    </div>
+    <div class="ai-decision" data-l10n="ai_decision">✓ Решение: экстренный вызов</div>
+    <div style="color:#aaa;font-size:13px;margin-top:5px" data-l10n="ai_latency">
+      Задержка обработки: <strong style="color:#3498db">< 50 мс</strong>
     </div>
   </div>
+</div>
 
-  <!-- SCENE 6: Phone Alert -->
-  <div class="scene scene-6" data-scene="6">
-    <div class="phone-container">
-      <div class="phone">
-        <div class="notch"></div>
-        <div class="alert-screen">
-          <div class="alert-icon">🚨</div>
-          <div class="alert-title">ТРЕВОГА!<br>Падение обнаружено</div>
-          <div class="alert-detail">
-            Бабушка — гостиная<br>
-            Время: 14:32:05<br>
-            Статус: требуется помощь
-          </div>
-          <div class="alert-btn">Позвонить 112</div>
+<!-- SCENE 6: Phone Alert -->
+<div class="scene scene-6" data-scene="6">
+  <div class="phone-container">
+    <div class="phone">
+      <div class="notch"></div>
+      <div class="alert-screen">
+        <div class="alert-icon">🚨</div>
+        <div class="alert-title" data-l10n="phone_title">ТРЕВОГА!<br>Падение обнаружено</div>
+        <div class="alert-detail" data-l10n="phone_detail">
+          Бабушка — гостиная<br>Время: 14:32:05<br>Статус: требуется помощь
         </div>
+        <div class="alert-btn" data-l10n="phone_btn">Позвонить 112</div>
       </div>
-      <div class="notification-info">
-        <h3>Уведомление родственникам</h3>
-        <p>Автоматическая система оповещает всех назначенных контактов в течение 3 секунд после подтверждения падения.</p>
-        <div class="steps">
-          <div class="step"><span class="step-num">1</span> Автозвонок сыну/дочери</div>
-          <div class="step"><span class="step-num">2</span> SMS с адресом и временем</div>
-          <div class="step"><span class="step-num">3</span> Вызов скорой помощи (112)</div>
-        </div>
+    </div>
+    <div class="notification-info">
+      <h3 data-l10n="notif_title">Уведомление родственникам</h3>
+      <p data-l10n="notif_desc">Автоматическая система оповещает всех назначенных контактов в течение 3 секунд после подтверждения падения.</p>
+      <div class="steps">
+        <div class="step"><span class="step-num">1</span><span data-l10n="notif_s1">Автозвонок сыну/дочери</span></div>
+        <div class="step"><span class="step-num">2</span><span data-l10n="notif_s2">SMS с адресом и временем</span></div>
+        <div class="step"><span class="step-num">3</span><span data-l10n="notif_s3">Вызов скорой помощи (112)</span></div>
       </div>
     </div>
   </div>
+</div>
 
-  <!-- SCENE 7: Emergency Response -->
-  <div class="scene scene-7" data-scene="7">
-    <div class="response-container">
-      <div class="ambulance">
-        <div class="amb-body">
-          <div class="amb-stripe"></div>
-          <div class="amb-cross">+</div>
-          <div class="amb-light"></div>
-          <div class="amb-light"></div>
-        </div>
-        <div class="wheel front"></div>
-        <div class="wheel back"></div>
-      </div>
-      <div class="response-text">
-        <h3>Скорая помощь в пути</h3>
-        <div class="timer">4 мин 32 сек</div>
-        <p style="color:#bbb;margin-top:10px;font-size:15px;">
-          Среднее время реагирования — менее 5 минут<br>
-          Автоматическая передача координат в диспетчерскую
-        </p>
-      </div>
+<!-- SCENE 7: Emergency Response -->
+<div class="scene scene-7" data-scene="7">
+  <div class="response-container">
+    <div class="ambulance">
+      <div class="amb-body"><div class="amb-stripe"></div><div class="amb-cross">+</div><div class="amb-light"></div><div class="amb-light"></div></div>
+      <div class="wheel front"></div><div class="wheel back"></div>
+    </div>
+    <div class="response-text">
+      <h3 data-l10n="resp_title">Скорая помощь в пути</h3>
+      <div class="timer">4 мин 32 сек</div>
+      <p style="color:#bbb;margin-top:8px;font-size:14px" data-l10n="resp_desc">
+        Среднее время реагирования — менее 5 минут<br>Автоматическая передача координат в диспетчерскую
+      </p>
     </div>
   </div>
+</div>
 
-  <!-- SCENE 8: Safe -->
-  <div class="scene scene-8" data-scene="8">
-    <div class="safe-container">
-      <div class="heart">❤️</div>
-      <div class="safe-title">Помощь оказана вовремя</div>
-      <div class="safe-sub">
-        Благодаря мгновенному обнаружению падения и автоматическому оповещению,
-        пожилой человек получил помощь в течение нескольких минут.
-      </div>
+<!-- SCENE 8: Safe -->
+<div class="scene scene-8" data-scene="8">
+  <div class="safe-container">
+    <div class="heart">❤️</div>
+    <div class="safe-title" data-l10n="safe_title">Помощь оказана вовремя</div>
+    <div class="safe-sub" data-l10n="safe_sub">
+      Благодаря мгновенному обнаружению падения и автоматическому оповещению, пожилой человек получил помощь в течение нескольких минут.
     </div>
   </div>
+</div>
 
-  <!-- SCENE 9: Features -->
-  <div class="scene scene-9" data-scene="9">
-    <div class="feature-box"><div class="feat-icon">📡</div><div class="feat-title">Радар 60 ГГц FMCW</div><div class="feat-desc">Обнаружение без камер. Точность ±2 см. До 3 человек одновременно. Работает в темноте и сквозь одежду.</div></div>
-    <div class="feature-box"><div class="feat-icon">🧠</div><div class="feat-title">AI на устройстве</div><div class="feat-desc">NPU 1.2 TOPS. 4 локальные модели. Задержка < 50 мс. Без интернета. Данные не покидают устройство.</div></div>
-    <div class="feature-box"><div class="feat-icon">🔋</div><div class="feat-title">48 ч автономно</div><div class="feat-desc">6000 мАч Li-Po. 0.5 Вт в норме. IP54 защита. Работает при -30°C. Экстренный режим при отключении.</div></div>
-    <div class="feature-box"><div class="feat-icon">📱</div><div class="feat-title">Мгновенные уведомления</div><div class="feat-desc">Push, SMS, автозвонок. До 10 контактов. Интеграция с экстренными службами 112. Геолокация.</div></div>
-    <div class="feature-box"><div class="feat-icon">🎤</div><div class="feat-title">AI-голосовой компаньон</div><div class="feat-desc">Естественный диалог. Напоминания о лекарствах. Новости и музыка. Эмоциональная поддержка.</div></div>
-    <div class="feature-box"><div class="feat-icon">🔒</div><div class="feat-title">Максимальная приватность</div><div class="feat-desc">Без камер и микрофонов постоянно. Шифрование данных. Серверы в РФ. 152-ФЗ. Сертификация.</div></div>
-    <div class="feature-box"><div class="feat-icon">❤️</div><div class="feat-title">Мониторинг здоровья</div><div class="feat-desc">Пульс, дыхание, качество сна. Анализ активности. Тренды и отчёты. Отправка врачу.</div></div>
-    <div class="feature-box"><div class="feat-icon">🌐</div><div class="feat-title">Управление 24/7</div><div class="feat-desc">Веб-панель и приложение. Центр реагирования. Двуязычный интерфейс. GitHub Pages.</div></div>
-  </div>
+<!-- SCENE 9: Features -->
+<div class="scene scene-9" data-scene="9">
+  <div class="feat-card" data-l10n-f="feat1"><div class="feat-icon">📡</div><div class="feat-title"></div><div class="feat-desc"></div></div>
+  <div class="feat-card" data-l10n-f="feat2"><div class="feat-icon">🧠</div><div class="feat-title"></div><div class="feat-desc"></div></div>
+  <div class="feat-card" data-l10n-f="feat3"><div class="feat-icon">🔋</div><div class="feat-title"></div><div class="feat-desc"></div></div>
+  <div class="feat-card" data-l10n-f="feat4"><div class="feat-icon">📱</div><div class="feat-title"></div><div class="feat-desc"></div></div>
+  <div class="feat-card" data-l10n-f="feat5"><div class="feat-icon">🎤</div><div class="feat-title"></div><div class="feat-desc"></div></div>
+  <div class="feat-card" data-l10n-f="feat6"><div class="feat-icon">🔒</div><div class="feat-title"></div><div class="feat-desc"></div></div>
+  <div class="feat-card" data-l10n-f="feat7"><div class="feat-icon">❤️</div><div class="feat-title"></div><div class="feat-desc"></div></div>
+  <div class="feat-card" data-l10n-f="feat8"><div class="feat-icon">🌐</div><div class="feat-title"></div><div class="feat-desc"></div></div>
+</div>
 
-  <!-- SCENE 10: CTA -->
-  <div class="scene scene-10" data-scene="10">
-    <div class="cta-container">
-      <div class="cta-logo">🛡️</div>
-      <div class="cta-title"><span>Серебряный</span> Страж</div>
-      <div style="font-size:20px;color:rgba(255,255,255,0.6);">
-        Ваши близкие всегда под защитой
-      </div>
-      <div class="cta-contacts">
-        📧 <strong>van.sho2@dvfu.ru</strong> &nbsp;|&nbsp;
-        📞 <strong>+7 984 191 38 19</strong><br>
-        🌐 <strong>wscjdsb666-creator.github.io/silver-guardian-website</strong><br>
-        📍 Владивосток, Приморский край, Россия
-      </div>
-      <div style="color:rgba(255,255,255,0.4);font-size:14px;margin-top:10px;">
-        ДВФУ · Школа экономики и менеджмента · 2026
-      </div>
+<!-- SCENE 10: CTA -->
+<div class="scene scene-10" data-scene="10">
+  <div class="cta-container">
+    <div class="cta-logo">🛡️</div>
+    <div class="cta-title"><span data-l10n="cta_span">Серебряный</span> <span data-l10n="cta_rest">Страж</span></div>
+    <div style="font-size:18px;color:rgba(255,255,255,.6)" data-l10n="cta_tagline">Ваши близкие всегда под защитой</div>
+    <div class="cta-contacts">
+      📧 <strong>van.sho2@dvfu.ru</strong> &nbsp;|&nbsp;
+      📞 <strong>+7 984 191 38 19</strong><br>
+      🌐 <strong>wscjdsb666-creator.github.io/silver-guardian-website</strong><br>
+      <span data-l10n="cta_location">📍 Владивосток, Приморский край, Россия</span>
+    </div>
+    <div style="color:rgba(255,255,255,.4);font-size:13px;margin-top:8px">
+      <span data-l10n="cta_school">ДВФУ · Школа экономики и менеджмента</span> · 2026
     </div>
   </div>
+</div>
 
 </div>
 
 <!-- CONTROLS -->
 <div class="controls">
-  <button onclick="goTo(0)" title="Начало">⏮</button>
-  <button onclick="prevScene()" title="Назад">◀</button>
-  <button class="play-btn" id="playBtn" onclick="togglePlay()" title="Пауза/Продолжить">▶</button>
-  <button onclick="nextScene()" title="Вперёд">▶</button>
-  <button onclick="goTo(9)" title="Конец">⏭</button>
+  <button onclick="goTo(0)" title="Home">⏮</button>
+  <button onclick="prevScene()">◀</button>
+  <button class="play-btn" id="playBtn" onclick="togglePlay()">▶</button>
+  <button onclick="nextScene()">▶</button>
+  <button onclick="goTo(9)">⏭</button>
   <div class="progress-dots" id="dots"></div>
-  <button class="lang-toggle" id="langToggle" onclick="toggleLang()">中文</button>
+  <button class="lang-toggle" onclick="switchLang('ru')" id="btnRu">РУС</button>
+  <button class="lang-toggle" onclick="switchLang('zh')" id="btnZh">中文</button>
 </div>
 
 <script>
+// ═══════════════════════════════════════════════════
+// i18n DATA
+// ═══════════════════════════════════════════════════
+const L10N = {
+  ru: {
+    title: 'Серебряный Страж',
+    subtitle: 'Интеллектуальная защита для ваших близких',
+    scene2: 'Пожилой человек дома один — устройство на страже',
+    scene3: 'Внезапное падение — каждая секунда на счету',
+    detected: 'ПАДЕНИЕ ОБНАРУЖЕНО!',
+    detect_detail: 'Радар 60 ГГц фиксирует положение тела<br>AI анализирует: угол падения 78°, отсутствие движения 3 сек',
+    ai_d1: '📡 Радар: сигнал подтверждён',
+    ai_d2: '🤖 AI: падение — 99.7%',
+    ai_d3: '📊 Статус: критический',
+    ai_decision: '✓ Решение: экстренный вызов',
+    ai_latency: 'Задержка обработки: <strong style="color:#3498db">< 50 мс</strong>',
+    phone_title: 'ТРЕВОГА!<br>Падение обнаружено',
+    phone_detail: 'Бабушка — гостиная<br>Время: 14:32:05<br>Статус: требуется помощь',
+    phone_btn: 'Позвонить 112',
+    notif_title: 'Уведомление родственникам',
+    notif_desc: 'Автоматическая система оповещает всех назначенных контактов в течение 3 секунд после подтверждения падения.',
+    notif_s1: 'Автозвонок сыну/дочери',
+    notif_s2: 'SMS с адресом и временем',
+    notif_s3: 'Вызов скорой помощи (112)',
+    resp_title: 'Скорая помощь в пути',
+    resp_desc: 'Среднее время реагирования — менее 5 минут<br>Автоматическая передача координат в диспетчерскую',
+    safe_title: 'Помощь оказана вовремя',
+    safe_sub: 'Благодаря мгновенному обнаружению падения и автоматическому оповещению, пожилой человек получил помощь в течение нескольких минут.',
+    cta_span: 'Серебряный',
+    cta_rest: 'Страж',
+    cta_tagline: 'Ваши близкие всегда под защитой',
+    cta_location: '📍 Владивосток, Приморский край, Россия',
+    cta_school: 'ДВФУ · Школа экономики и менеджмента',
+    // Features
+    feat1_t: 'Радар 60 ГГц FMCW',
+    feat1_d: 'Обнаружение без камер. Точность ±2 см. До 3 человек одновременно. Работает в темноте.',
+    feat2_t: 'AI на устройстве',
+    feat2_d: 'NPU 1.2 TOPS. 4 локальные модели. Задержка < 50 мс. Без интернета.',
+    feat3_t: '48 ч автономно',
+    feat3_d: '6000 мАч Li-Po. 0.5 Вт в норме. IP54. Работает при -30°C.',
+    feat4_t: 'Мгновенные уведомления',
+    feat4_d: 'Push, SMS, автозвонок. До 10 контактов. Интеграция с 112.',
+    feat5_t: 'AI-голосовой компаньон',
+    feat5_d: 'Диалог, напоминания о лекарствах, новости, музыка, поддержка.',
+    feat6_t: 'Максимальная приватность',
+    feat6_d: 'Без камер. Шифрование. Серверы в РФ. 152-ФЗ. Сертификация.',
+    feat7_t: 'Мониторинг здоровья',
+    feat7_d: 'Пульс, дыхание, сон. Анализ активности. Тренды и отчёты.',
+    feat8_t: 'Управление 24/7',
+    feat8_d: 'Веб-панель + приложение. Центр реагирования. Двуязычный интерфейс.',
+  },
+  zh: {
+    title: '银发守护者',
+    subtitle: '为您的亲人提供全天候智能守护',
+    scene2: '老人独自在家 — 设备时刻守护',
+    scene3: '突发跌倒 — 每一秒都至关重要',
+    detected: '检测到跌倒！',
+    detect_detail: '60GHz毫米波雷达捕捉身体姿态<br>AI分析：跌倒角度78°，3秒无移动',
+    ai_d1: '📡 雷达：信号已确认',
+    ai_d2: '🤖 AI：跌倒概率 — 99.7%',
+    ai_d3: '📊 状态：危急',
+    ai_decision: '✓ 决策：紧急呼叫',
+    ai_latency: '处理延迟：<strong style="color:#3498db">< 50 毫秒</strong>',
+    phone_title: '警报！<br>检测到跌倒',
+    phone_detail: '奶奶 — 客厅<br>时间：14:32:05<br>状态：需要帮助',
+    phone_btn: '拨打 120',
+    notif_title: '通知家属',
+    notif_desc: '跌倒确认后3秒内，系统自动通知所有指定紧急联系人。',
+    notif_s1: '自动拨打子女电话',
+    notif_s2: '发送含地址和时间的短信',
+    notif_s3: '呼叫急救中心 (120)',
+    resp_title: '急救车正在赶来',
+    resp_desc: '平均响应时间 — 不到5分钟<br>自动传输坐标至调度中心',
+    safe_title: '及时得到救助',
+    safe_sub: '得益于跌倒的即时检测和自动报警系统，老人在几分钟内获得了帮助。',
+    cta_span: '银发',
+    cta_rest: '守护者',
+    cta_tagline: '您的亲人永远受到保护',
+    cta_location: '📍 俄罗斯, 符拉迪沃斯托克（海参崴）, 滨海边疆区',
+    cta_school: '远东联邦大学 · 经济与管理学院',
+    feat1_t: '60GHz FMCW雷达',
+    feat1_d: '无摄像头检测。精度±2厘米。同时追踪3人。黑暗中正常工作。',
+    feat2_t: '设备端AI',
+    feat2_d: 'NPU 1.2 TOPS。4个本地模型。延迟<50毫秒。无需联网。',
+    feat3_t: '48小时续航',
+    feat3_d: '6000mAh锂电。正常功耗0.5W。IP54防护。-30°C正常工作。',
+    feat4_t: '即时通知',
+    feat4_d: '推送、短信、自动拨号。最多10个联系人。与120联动。',
+    feat5_t: 'AI语音伴侣',
+    feat5_d: '自然对话。用药提醒。新闻和音乐。情感陪伴。',
+    feat6_t: '极致隐私',
+    feat6_d: '无摄像头。数据加密。服务器在俄境内。符合152-FZ法规。',
+    feat7_t: '健康监测',
+    feat7_d: '心率、呼吸、睡眠。活动分析。趋势和报告。',
+    feat8_t: '全天候管理',
+    feat8_d: '网页面板+手机应用。应急中心。双语界面。',
+  }
+};
+
+let currentLang = 'ru';
+
+function applyLang(lang) {
+  currentLang = lang;
+  const dict = L10N[lang];
+
+  // Simple text elements
+  document.querySelectorAll('[data-l10n]').forEach(el => {
+    const key = el.getAttribute('data-l10n');
+    if (dict[key]) el.innerHTML = dict[key];
+  });
+
+  // Feature cards
+  for (let i = 1; i <= 8; i++) {
+    const card = document.querySelector(`[data-l10n-f="feat${i}"]`);
+    if (card) {
+      const t = card.querySelector('.feat-title');
+      const d = card.querySelector('.feat-desc');
+      if (t) t.textContent = dict[`feat${i}_t`];
+      if (d) d.textContent = dict[`feat${i}_d`];
+    }
+  }
+
+  // Update buttons
+  document.getElementById('btnRu').classList.toggle('active-lang', lang === 'ru');
+  document.getElementById('btnZh').classList.toggle('active-lang', lang === 'zh');
+  document.documentElement.lang = lang;
+}
+
+function switchLang(lang) { applyLang(lang); }
+
 // ═══════════════════════════════════════════════════
 // SCENE MANAGER
 // ═══════════════════════════════════════════════════
@@ -989,15 +534,13 @@ const TOTAL_SCENES = 10;
 let currentScene = 0;
 let playing = true;
 let timer = null;
-let lang = 'ru';
 
 const sceneDurations = [4000, 5000, 4000, 3500, 4000, 5000, 4000, 3500, 6000, 8000];
-
 const scenes = document.querySelectorAll('.scene');
 const playBtn = document.getElementById('playBtn');
 const dotsContainer = document.getElementById('dots');
 
-// Build dots
+// Build progress dots
 for (let i = 0; i < TOTAL_SCENES; i++) {
   const dot = document.createElement('div');
   dot.className = 'dot';
@@ -1006,10 +549,10 @@ for (let i = 0; i < TOTAL_SCENES; i++) {
 }
 updateDots();
 
-function showScene(index) {
+function showScene(idx) {
   scenes.forEach(s => s.classList.remove('active'));
-  scenes[index].classList.add('active');
-  currentScene = index;
+  scenes[idx].classList.add('active');
+  currentScene = idx;
   updateDots();
 }
 
@@ -1035,54 +578,44 @@ function prevScene() {
   if (playing) scheduleNext();
 }
 
-function goTo(index) {
-  showScene(index);
+function goTo(idx) {
+  showScene(idx);
   if (playing) scheduleNext();
 }
 
 function togglePlay() {
   playing = !playing;
-  if (playing) {
-    scheduleNext();
-  } else {
-    clearTimeout(timer);
-  }
+  if (playing) scheduleNext();
+  else clearTimeout(timer);
   updateDots();
 }
 
 function scheduleNext() {
   clearTimeout(timer);
   if (!playing) return;
-  const duration = sceneDurations[currentScene];
-  timer = setTimeout(() => {
-    if (playing) nextScene();
-  }, duration);
+  timer = setTimeout(() => { if (playing) nextScene(); }, sceneDurations[currentScene]);
 }
 
-function toggleLang() {
-  lang = lang === 'ru' ? 'zh' : 'ru';
-  document.getElementById('langToggle').textContent = lang === 'ru' ? '中文' : 'РУС';
-}
-
-// Keyboard controls
+// Keyboard
 document.addEventListener('keydown', e => {
-  switch(e.key) {
+  switch (e.key) {
     case 'ArrowRight': nextScene(); break;
     case 'ArrowLeft': prevScene(); break;
     case ' ': e.preventDefault(); togglePlay(); break;
     case 'Home': goTo(0); break;
-    case 'End': goTo(TOTAL_SCENES - 1); break;
+    case 'End': goTo(9); break;
     case '1': case '2': case '3': case '4': case '5':
-    case '6': case '7': case '8': case '9': case '0':
-      goTo(e.key === '0' ? 9 : parseInt(e.key) - 1);
-      break;
+    case '6': case '7': case '8': case '9': goTo(parseInt(e.key) - 1); break;
+    case '0': goTo(9); break;
+    case 'r': case 'R': switchLang('ru'); break;
+    case 'z': case 'Z': switchLang('zh'); break;
   }
 });
 
-// Start
+// Init
+applyLang('ru');
 showScene(0);
 scheduleNext();
 </script>
-
 </body>
 </html>
