@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Silver Guardian · 智能健康监测设备 | Умное устройство мониторинга здоровья</title>
+<style>
+:root {
+  --bg: #0a0e17;
+  --surface: #131926;
+  --surface2: #1a2030;
+  --border: #1e2a3a;
+  --accent: #4f9cff;
+  --accent2: #00d4aa;
+  --accent3: #ff6b6b;
+  --text: #e2e8f0;
+  --text2: #8899aa;
+  --gold: #f0c060;
+  --radius: 16px;
+  --radius-sm: 10px;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+/* Language toggle */
+.lang-bar {
+  position:fixed; top:16px; right:16px; z-index:999;
+  display:flex; gap:6px;
+}
+.lang-bar button {
+  padding:7px 16px; border-radius:20px; border:1px solid var(--border);
+  background:var(--surface2); color:var(--text2); cursor:pointer;
+  font-size:12px; font-weight:600; transition:all .2s;
+}
+.lang-bar button.active { background:var(--accent); color:#fff; border-color:var(--accent); }
+
+body.ru .zh { display:none; }
+body.zh .ru { display:none; }
+body.ru .ru-inline { display:inline; }
+body.zh .zh-inline { display:inline; }
+.ru-inline, .zh-inline { display:none; }
+body.ru .ru-inline { display:inline; }
+body.zh .zh-inline { display:inline; }
+
+/* Hero */
+.hero {
+  min-height:100vh; display:flex; flex-direction:column; align-items:center;
+  justify-content:center; text-align:center; padding:80px 24px 60px;
+  position:relative; overflow:hidden;
+}
+.hero::before {
+  content:""; position:absolute; top:-50%; left:-50%; width:200%; height:200%;
+  background:radial-gradient(circle at 50% 50%, rgba(79,156,255,0.06) 0%, transparent 60%),
+              radial-gradient(circle at 30% 70%, rgba(0,212,170,0.04) 0%, transparent 50%);
+  animation:heroBg 20s linear infinite;
+}
+@keyframes heroBg { 100% { transform:rotate(360deg); } }
+.hero h1 { font-size:clamp(28px,5vw,52px); font-weight:900; position:relative; z-index:1; }
+.hero h1 .gradient { background:linear-gradient(135deg, var(--accent), var(--accent2)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+.hero .sub { font-size:16px; color:var(--text2); margin-top:12px; position:relative; z-index:1; max-width:500px; }
+.hero .badge-row { display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin-top:24px; position:relative; z-index:1; }
+.hero .badge-row span {
+  padding:6px 16px; border-radius:20px; font-size:12px; font-weight:600;
+  border:1px solid var(--border); background:var(--surface2);
+}
+.hero .badge-row span.hl { border-color:var(--accent); color:var(--accent); }
+
+/* Device Showcase */
+.device-stage {
+  position:relative; z-index:1; margin:40px 0;
+  width:min(500px, 90vw); height:min(500px, 90vw);
+  display:flex; align-items:center; justify-content:center;
+}
+
+/* Main device body */
+.device-body {
+  position:relative;
+  width:220px; height:220px;
+  border-radius:50%;
+  background:linear-gradient(145deg, #1e2d3d, #151d28);
+  box-shadow:
+    0 0 60px rgba(79,156,255,0.2),
+    0 0 120px rgba(79,156,255,0.08),
+    inset 0 1px 0 rgba(255,255,255,0.05);
+  border:2px solid #253545;
+  display:flex; align-items:center; justify-content:center;
+  animation:float 6s ease-in-out infinite;
+}
+@keyframes float {
+  0%,100% { transform:translateY(0); }
+  50% { transform:translateY(-12px); }
+}
+
+.device-inner {
+  width:160px; height:160px; border-radius:50%;
+  background:linear-gradient(165deg, #182330, #1a2535);
+  border:1.5px solid #2a3a4e;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  position:relative;
+}
+.device-lens {
+  width:70px; height:70px; border-radius:50%;
+  background:linear-gradient(135deg, #0d1a2d, #0f1c30);
+  border:2px solid var(--accent);
+  box-shadow:0 0 30px rgba(79,156,255,0.25), inset 0 0 20px rgba(79,156,255,0.1);
+  display:flex; align-items:center; justify-content:center;
+  position:relative;
+}
+.device-lens::after {
+  content:""; position:absolute; width:10px; height:10px; border-radius:50%;
+  background:var(--accent2); box-shadow:0 0 15px var(--accent2);
+  animation:pulseLens 2s ease-in-out infinite;
+}
+@keyframes pulseLens {
+  0%,100% { opacity:0.5; transform:scale(1); }
+  50% { opacity:1; transform:scale(1.8); }
+}
+
+/* Radar rings */
+.radar-ring {
+  position:absolute; border-radius:50%; border:1px solid rgba(79,156,255,0.15);
+  animation:radarPulse 3s ease-out infinite;
+}
+.radar-ring:nth-child(1) { width:240px; height:240px; animation-delay:0s; }
+.radar-ring:nth-child(2) { width:280px; height:280px; animation-delay:0.6s; }
+.radar-ring:nth-child(3) { width:320px; height:320px; animation-delay:1.2s; }
+@keyframes radarPulse {
+  0% { opacity:0; transform:scale(1); }
+  50% { opacity:0.6; }
+  100% { opacity:0; transform:scale(1.5); }
+}
+
+/* Connection nodes */
+.node {
+  position:absolute; width:8px; height:8px; border-radius:50%;
+  background:var(--accent2); box-shadow:0 0 10px var(--accent2);
+}
+.node.n1 { top:10%; left:50%; animation:nodeBlink 2.5s infinite; }
+.node.n2 { top:50%; right:10%; animation:nodeBlink 2.5s 0.6s infinite; }
+.node.n3 { bottom:10%; left:50%; animation:nodeBlink 2.5s 1.2s infinite; }
+.node.n4 { top:50%; left:10%; animation:nodeBlink 2.5s 1.8s infinite; }
+@keyframes nodeBlink { 0%,100%{opacity:0.3} 50%{opacity:1} }
+
+/* Connection lines */
+.conn-line {
+  position:absolute; width:1px; background:linear-gradient(transparent, rgba(79,156,255,0.3), transparent);
+  transform-origin:top center;
+}
+.conn-line.l1 { height:60px; top:-60px; left:50%; animation:linePulse 2.5s infinite; }
+.conn-line.l2 { height:60px; bottom:-60px; left:50%; animation:linePulse 2.5s 1s infinite; }
+@keyframes linePulse { 0%,100%{opacity:0.2} 50%{opacity:0.7} }
+
+/* Section styling */
+.section { padding:80px 24px; max-width:1200px; margin:0 auto; }
+.section-label { font-size:11px; text-transform:uppercase; letter-spacing:3px; color:var(--accent); margin-bottom:8px; }
+.section-title { font-size:clamp(22px,4vw,36px); font-weight:800; margin-bottom:16px; }
+.section-desc { color:var(--text2); max-width:600px; margin-bottom:48px; font-size:14px; }
+
+/* Specs grid */
+.specs-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:20px; }
+.spec-card {
+  background:var(--surface); border:1px solid var(--border); border-radius:var(--radius);
+  padding:24px; transition:all .3s; position:relative; overflow:hidden;
+}
+.spec-card:hover { border-color:var(--accent); transform:translateY(-4px); box-shadow:0 16px 40px rgba(0,0,0,.3); }
+.spec-card .icon { font-size:32px; margin-bottom:12px; }
+.spec-card h4 { font-size:15px; margin-bottom:6px; }
+.spec-card p { font-size:13px; color:var(--text2); }
+.spec-card .value { font-size:28px; font-weight:900; color:var(--accent); margin:8px 0; }
+
+/* Blueprint section */
+.blueprint {
+  background:var(--surface); border:1px solid var(--border); border-radius:var(--radius);
+  padding:40px; position:relative; overflow:hidden;
+}
+.blueprint::before {
+  content:""; position:absolute; top:0;left:0;right:0;bottom:0;
+  background-image:
+    linear-gradient(rgba(79,156,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(79,156,255,0.03) 1px, transparent 1px);
+  background-size:30px 30px;
+  pointer-events:none;
+}
+
+/* Exploded view */
+.exploded-view {
+  display:flex; flex-direction:column; align-items:center; gap:20px;
+  padding:40px 0; position:relative;
+}
+.exploded-part {
+  display:flex; align-items:center; gap:24px; width:100%; max-width:700px;
+  padding:20px 28px; background:var(--surface2); border-radius:var(--radius-sm);
+  border:1px solid var(--border); transition:all .3s;
+  position:relative;
+}
+.exploded-part:hover { border-color:var(--accent); }
+.exploded-part .part-icon {
+  width:60px; height:60px; border-radius:50%; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center;
+  font-size:26px;
+}
+.exploded-part .part-info { flex:1; }
+.exploded-part .part-info h4 { font-size:14px; margin-bottom:4px; }
+.exploded-part .part-info p { font-size:12px; color:var(--text2); }
+.exploded-part .part-num {
+  width:36px; height:36px; border-radius:50%; border:2px solid var(--accent);
+  display:flex; align-items:center; justify-content:center;
+  font-size:14px; font-weight:900; color:var(--accent); flex-shrink:0;
+}
+.part-connector {
+  width:2px; height:20px; background:linear-gradient(var(--accent), transparent);
+  position:relative;
+}
+.part-connector::after {
+  content:""; position:absolute; bottom:0; left:-3px;
+  width:8px; height:8px; border-radius:50%; background:var(--accent);
+}
+
+.part-icon.radar { background:#0d1a2d; color:var(--accent); border:2px solid var(--accent); }
+.part-icon.chip { background:#1a0d0d; color:var(--accent3); border:2px solid var(--accent3); }
+.part-icon.sensor { background:#0d1a1a; color:var(--accent2); border:2px solid var(--accent2); }
+.part-icon.power { background:#1a180d; color:var(--gold); border:2px solid var(--gold); }
+.part-icon.comm { background:#0d0d1a; color:#8b5cf6; border:2px solid #8b5cf6; }
+
+/* Dimension overlay */
+.dim-line {
+  position:absolute; background:var(--accent); opacity:0.5;
+}
+.dim-label {
+  position:absolute; font-size:10px; color:var(--accent);
+  font-family:"SF Mono","Consolas",monospace;
+}
+
+/* Feature grid */
+.feature-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:20px; }
+.feature-card {
+  background:var(--surface); border:1px solid var(--border); border-radius:var(--radius);
+  padding:28px; display:flex; gap:18px; transition:all .3s;
+}
+.feature-card:hover { border-color:var(--accent2); }
+.feature-card .f-icon { font-size:36px; flex-shrink:0; }
+.feature-card h4 { font-size:15px; margin-bottom:6px; }
+.feature-card p { font-size:13px; color:var(--text2); }
+
+/* Workflow */
+.workflow { display:flex; gap:16px; flex-wrap:wrap; justify-content:center; align-items:center; }
+.workflow-step {
+  text-align:center; padding:24px 20px; background:var(--surface2);
+  border-radius:var(--radius-sm); border:1px solid var(--border);
+  min-width:140px; flex:1; max-width:200px; transition:all .3s;
+}
+.workflow-step:hover { border-color:var(--accent); }
+.workflow-step .ws-icon { font-size:36px; margin-bottom:12px; }
+.workflow-step h4 { font-size:13px; }
+.workflow-arrow { font-size:24px; color:var(--accent); flex-shrink:0; }
+
+/* Comparison table */
+.comp-table { width:100%; border-collapse:collapse; font-size:13px; }
+.comp-table th, .comp-table td { padding:14px 18px; text-align:left; }
+.comp-table th { background:var(--surface2); color:var(--accent); font-weight:700; font-size:11px; text-transform:uppercase; letter-spacing:1px; }
+.comp-table td { border-bottom:1px solid var(--border); }
+.comp-table tr:hover td { background:rgba(79,156,255,.03); }
+.comp-table .check { color:var(--accent2); font-weight:700; }
+
+/* CTA */
+.cta-section {
+  text-align:center; padding:80px 24px;
+  background:linear-gradient(180deg, transparent, rgba(79,156,255,0.05), transparent);
+}
+.cta-section h2 { font-size:28px; font-weight:800; margin-bottom:12px; }
+.cta-section p { color:var(--text2); margin-bottom:28px; }
+.cta-btn {
+  display:inline-block; padding:14px 36px; border-radius:30px;
+  background:linear-gradient(135deg, var(--accent), #3b7edd);
+  color:#fff; text-decoration:none; font-weight:700; font-size:14px;
+  transition:all .3s; border:none; cursor:pointer;
+}
+.cta-btn:hover { transform:translateY(-2px); box-shadow:0 12px 30px rgba(79,156,255,.3); }
+
+/* Footer */
+footer {
+  text-align:center; padding:32px; border-top:1px solid var(--border);
+  color:var(--text2); font-size:12px;
+}
+footer a { color:var(--accent); text-decoration:none; }
+
+/* Particle bg */
+.particles { position:fixed; top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0; }
+.particle {
+  position:absolute; width:2px; height:2px; background:var(--accent);
+  border-radius:50%; animation:particleFloat 15s linear infinite;
+  opacity:0;
+}
+@keyframes particleFloat {
+  0% { opacity:0; transform:translateY(100vh) scale(0); }
+  10% { opacity:0.8; }
+  90% { opacity:0.2; }
+  100% { opacity:0; transform:translateY(-10vh) scale(1); }
+}
+
+@media (max-width:768px) {
+  .section { padding:48px 16px; }
+  .blueprint { padding:20px; }
+  .workflow { flex-direction:column; }
+  .workflow-arrow { transform:rotate(90deg); }
+  .exploded-part { flex-wrap:wrap; }
+}
+</style>
+</head>
+<body class="zh">
+
+<canvas class="particles" id="particleCanvas"></canvas>
+
+<div class="lang-bar">
+  <button class="active" id="btnZh" onclick="setLang('zh')">中文</button>
+  <button id="btnRu" onclick="setLang('ru')">РУС</button>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="device-stage">
+    <div class="radar-ring"></div>
+    <div class="radar-ring"></div>
+    <div class="radar-ring"></div>
+    <div class="device-body" id="deviceBody">
+      <div class="device-inner">
+        <div class="device-lens"></div>
+      </div>
+      <div class="node n1"></div>
+      <div class="node n2"></div>
+      <div class="node n3"></div>
+      <div class="node n4"></div>
+      <div class="conn-line l1"></div>
+      <div class="conn-line l2"></div>
+    </div>
+  </div>
+  <h1>
+    <span class="zh">银发守护者 <span class="gradient">SG-1</span></span>
+    <span class="ru">Silver Guardian <span class="gradient">SG-1</span></span>
+  </h1>
+  <p class="sub">
+    <span class="zh">基于60GHz毫米波雷达的智能健康监测设备<br>跌倒检测 · 心率追踪 · AI语音陪伴 · 紧急联动</span>
+    <span class="ru">Умное устройство мониторинга здоровья на базе радара 60 ГГц<br>Детекция падений · Пульс · AI-ассистент · Экстренная связь</span>
+  </p>
+  <div class="badge-row">
+    <span class="hl">60GHz mmWave</span>
+    <span>AI Inside</span>
+    <span>Wi-Fi 6</span>
+    <span>IP54</span>
+    <span>24/7</span>
+  </div>
+</section>
+
+<!-- SPECS -->
+<section class="section">
+  <div class="section-label"><span class="zh">技术规格</span><span class="ru">ТЕХНИЧЕСКИЕ ХАРАКТЕРИСТИКИ</span></div>
+  <h2 class="section-title"><span class="zh">核心参数</span><span class="ru">Основные параметры</span></h2>
+  <p class="section-desc"><span class="zh">SG-1 集成了最先进的传感技术和人工智能算法，为老年人提供全天候无感监测。</span><span class="ru">SG-1 объединяет передовые сенсорные технологии и алгоритмы ИИ для круглосуточного мониторинга.</span></p>
+
+  <div class="specs-grid">
+    <div class="spec-card">
+      <div class="icon">📡</div>
+      <h4><span class="zh">毫米波雷达</span><span class="ru">Радар mmWave</span></h4>
+      <div class="value">60 GHz</div>
+      <p><span class="zh">FMCW调频连续波，探测距离0-8米，可穿墙感知，精度±2cm</span><span class="ru">FMCW радар, дальность 0-8м, сквозь стены, точность ±2см</span></p>
+    </div>
+    <div class="spec-card">
+      <div class="icon">🔋</div>
+      <h4><span class="zh">超长续航</span><span class="ru">Батарея</span></h4>
+      <div class="value">18 <span style="font-size:14px;"><span class="zh">个月</span><span class="ru">мес</span></span></div>
+      <p><span class="zh">低功耗设计，USB-C供电，内置备用电池，断电续航48小时</span><span class="ru">Низкое энергопотребление, USB-C, резерв 48ч</span></p>
+    </div>
+    <div class="spec-card">
+      <div class="icon">🤖</div>
+      <h4><span class="zh">AI处理器</span><span class="ru">AI Процессор</span></h4>
+      <div class="value">NPU 2.0</div>
+      <p><span class="zh">端侧AI推理，跌倒识别准确率99.2%，误报率&lt;0.3%，支持本地语音</span><span class="ru">Локальный AI, точность 99.2%, ложных &lt;0.3%</span></p>
+    </div>
+    <div class="spec-card">
+      <div class="icon">💓</div>
+      <h4><span class="zh">生命体征</span><span class="ru">Биометрия</span></h4>
+      <div class="value">24/7</div>
+      <p><span class="zh">心率、呼吸率、睡眠质量、活动量，非接触式连续监测</span><span class="ru">Пульс, дыхание, сон, активность — бесконтактно</span></p>
+    </div>
+    <div class="spec-card">
+      <div class="icon">🌐</div>
+      <h4><span class="zh">无线连接</span><span class="ru">Связь</span></h4>
+      <div class="value">Wi-Fi 6</div>
+      <p><span class="zh">双频Wi-Fi + BLE 5.3 + 4G Cat-M1备选，断网本地缓存</span><span class="ru">Wi-Fi 6 + BLE 5.3 + 4G Cat-M1, локальный буфер</span></p>
+    </div>
+    <div class="spec-card">
+      <div class="icon">🔒</div>
+      <h4><span class="zh">隐私安全</span><span class="ru">Приватность</span></h4>
+      <div class="value">E2E</div>
+      <p><span class="zh">端到端加密，无摄像头设计，数据脱敏，GDPR/中国个人信息保护法合规</span><span class="ru">Сквозное шифрование, без камер, GDPR/152-ФЗ</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- BLUEPRINT / EXPLODED VIEW -->
+<section class="section">
+  <div class="section-label"><span class="zh">产品蓝图</span><span class="ru">ЧЕРТЁЖ УСТРОЙСТВА</span></div>
+  <h2 class="section-title"><span class="zh">设备结构分解图</span><span class="ru">Взрыв-схема устройства</span></h2>
+  <p class="section-desc"><span class="zh">SG-1 由五大核心模块构成，模组化设计便于维护和升级。</span><span class="ru">SG-1 состоит из пяти ключевых модулей. Модульная конструкция для удобства обслуживания.</span></p>
+
+  <div class="blueprint">
+    <div class="exploded-view">
+      <!-- Part 1: Radar -->
+      <div class="exploded-part">
+        <div class="part-icon radar">📡</div>
+        <div class="part-info">
+          <h4><span class="zh">① 毫米波雷达模组</span><span class="ru">① Радарный модуль</span></h4>
+          <p><span class="zh">TI IWR6843 60GHz FMCW雷达芯片，3Tx/4Rx天线阵列，120°视场角，可同时追踪3人</span><span class="ru">Чип TI IWR6843 60ГГц, 3Tx/4Rx антенны, угол 120°, отслеживание 3 чел.</span></p>
+        </div>
+        <div class="part-num">01</div>
+      </div>
+      <div class="part-connector"></div>
+      <!-- Part 2: AI Chip -->
+      <div class="exploded-part">
+        <div class="part-icon chip">🧠</div>
+        <div class="part-info">
+          <h4><span class="zh">② AI推理芯片</span><span class="ru">② AI Процессор</span></h4>
+          <p><span class="zh">专有神经网络加速器，端侧运行跌倒检测/姿态识别/语音降噪模型，延迟&lt;50ms</span><span class="ru">Ускоритель нейросетей, локальные модели падения/речи, задержка &lt;50мс</span></p>
+        </div>
+        <div class="part-num">02</div>
+      </div>
+      <div class="part-connector"></div>
+      <!-- Part 3: Sensor Array -->
+      <div class="exploded-part">
+        <div class="part-icon sensor">🌡️</div>
+        <div class="part-info">
+          <h4><span class="zh">③ 环境传感器阵列</span><span class="ru">③ Сенсорная матрица</span></h4>
+          <p><span class="zh">温湿度/光照/声音/震动传感器，环境异常自动预警（火灾/漏水/异常安静）</span><span class="ru">Температура/влажность/свет/звук/вибрация — авто-оповещения (пожар/протечка/тишина)</span></p>
+        </div>
+        <div class="part-num">03</div>
+      </div>
+      <div class="part-connector"></div>
+      <!-- Part 4: Power -->
+      <div class="exploded-part">
+        <div class="part-icon power">⚡</div>
+        <div class="part-info">
+          <h4><span class="zh">④ 电源管理模块</span><span class="ru">④ Модуль питания</span></h4>
+          <p><span class="zh">智能功耗管理，正常模式0.5W，USB-C 5V/2A输入，内置6000mAh备用电池</span><span class="ru">Умное управление питанием, 0.5Вт, USB-C 5В/2А, резерв 6000 мАч</span></p>
+        </div>
+        <div class="part-num">04</div>
+      </div>
+      <div class="part-connector"></div>
+      <!-- Part 5: Communication -->
+      <div class="exploded-part">
+        <div class="part-icon comm">📶</div>
+        <div class="part-info">
+          <h4><span class="zh">⑤ 通信与音频模块</span><span class="ru">⑤ Связь и аудио</span></h4>
+          <p><span class="zh">双麦克风阵列+扬声器，支持全双工语音通话、AI语音助手、紧急SOS广播</span><span class="ru">2 микрофона + динамик, полный дуплекс, AI-ассистент, SOS-трансляция</span></p>
+        </div>
+        <div class="part-num">05</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FUNCTIONAL DIAGRAM -->
+<section class="section">
+  <div class="section-label"><span class="zh">工作原理</span><span class="ru">ПРИНЦИП РАБОТЫ</span></div>
+  <h2 class="section-title"><span class="zh">从感知到响应</span><span class="ru">От обнаружения до реакции</span></h2>
+
+  <div class="workflow">
+    <div class="workflow-step">
+      <div class="ws-icon">📡</div>
+      <h4><span class="zh">雷达感知</span><span class="ru">Радар</span></h4>
+      <p style="font-size:11px;color:var(--text2);margin-top:6px;"><span class="zh">发射60GHz电磁波<br>捕捉微动特征</span><span class="ru">Излучение 60 ГГц<br>захват микродвижений</span></p>
+    </div>
+    <div class="workflow-arrow">→</div>
+    <div class="workflow-step">
+      <div class="ws-icon">🧠</div>
+      <h4><span class="zh">AI分析</span><span class="ru">AI Анализ</span></h4>
+      <p style="font-size:11px;color:var(--text2);margin-top:6px;"><span class="zh">端侧推理识别<br>跌倒/异常/心率</span><span class="ru">Локальный вывод<br>падение/пульс</span></p>
+    </div>
+    <div class="workflow-arrow">→</div>
+    <div class="workflow-step">
+      <div class="ws-icon">🔔</div>
+      <h4><span class="zh">分级告警</span><span class="ru">Тревога</span></h4>
+      <p style="font-size:11px;color:var(--text2);margin-top:6px;"><span class="zh">轻度:AI提醒<br>重度:平台+家属+120</span><span class="ru">Лёгкая: AI<br>Тяжёлая: семья+112</span></p>
+    </div>
+    <div class="workflow-arrow">→</div>
+    <div class="workflow-step">
+      <div class="ws-icon">🏥</div>
+      <h4><span class="zh">医疗联动</span><span class="ru">Медицина</span></h4>
+      <p style="font-size:11px;color:var(--text2);margin-top:6px;"><span class="zh">自动推送健康数据<br>对接急救系统</span><span class="ru">Авто-отправка данных<br>стыковка со скорой</span></p>
+    </div>
+    <div class="workflow-arrow">→</div>
+    <div class="workflow-step">
+      <div class="ws-icon">📊</div>
+      <h4><span class="zh">数据归档</span><span class="ru">Архив</span></h4>
+      <p style="font-size:11px;color:var(--text2);margin-top:6px;"><span class="zh">生成健康报告<br>趋势分析与预警</span><span class="ru">Отчёт о здоровье<br>тренды и прогнозы</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARISON -->
+<section class="section">
+  <div class="section-label"><span class="zh">竞品对比</span><span class="ru">СРАВНЕНИЕ</span></div>
+  <h2 class="section-title"><span class="zh">为什么选择 SG-1?</span><span class="ru">Почему SG-1?</span></h2>
+
+  <div style="overflow-x:auto;">
+    <table class="comp-table">
+      <thead>
+        <tr>
+          <th><span class="zh">功能</span><span class="ru">Функция</span></th>
+          <th style="color:var(--accent2);">SG-1</th>
+          <th><span class="zh">传统摄像头</span><span class="ru">Камеры</span></th>
+          <th><span class="zh">智能手环</span><span class="ru">Браслеты</span></th>
+          <th><span class="zh">呼叫按钮</span><span class="ru">Кнопки</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="zh">隐私保护</span><span class="ru">Приватность</span></td>
+          <td class="check">✓ <span class="zh">无摄像头</span><span class="ru">Без камер</span></td>
+          <td>✗ <span class="zh">视频入侵</span><span class="ru">Видео</span></td>
+          <td>✓</td>
+          <td>✓</td>
+        </tr>
+        <tr>
+          <td><span class="zh">无需穿戴</span><span class="ru">Без ношения</span></td>
+          <td class="check">✓</td>
+          <td>✓</td>
+          <td>✗ <span class="zh">需充电佩戴</span><span class="ru">Зарядка</span></td>
+          <td>✓</td>
+        </tr>
+        <tr>
+          <td><span class="zh">跌倒检测</span><span class="ru">Падения</span></td>
+          <td class="check">✓ 99.2%</td>
+          <td>△ 85%</td>
+          <td>△ 70%</td>
+          <td>✗</td>
+        </tr>
+        <tr>
+          <td><span class="zh">心率监测</span><span class="ru">Пульс</span></td>
+          <td class="check">✓ <span class="zh">非接触</span><span class="ru">Бесконтактно</span></td>
+          <td>✗</td>
+          <td>✓</td>
+          <td>✗</td>
+        </tr>
+        <tr>
+          <td><span class="zh">AI语音陪伴</span><span class="ru">AI Общение</span></td>
+          <td class="check">✓</td>
+          <td>✗</td>
+          <td>✗</td>
+          <td>✗</td>
+        </tr>
+        <tr>
+          <td><span class="zh">环境安全</span><span class="ru">Безопасность</span></td>
+          <td class="check">✓ <span class="zh">火灾/漏水</span><span class="ru">Пожар/Вода</span></td>
+          <td>✗</td>
+          <td>✗</td>
+          <td>✗</td>
+        </tr>
+        <tr>
+          <td><span class="zh">覆盖范围</span><span class="ru">Покрытие</span></td>
+          <td class="check"><span class="zh">全屋8m</span><span class="ru">8м</span></td>
+          <td><span class="zh">单角度</span><span class="ru">1 угол</span></td>
+          <td><span class="zh">仅人体</span><span class="ru">Тело</span></td>
+          <td><span class="zh">需手动</span><span class="ru">Ручное</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <h2><span class="zh">想了解更多?</span><span class="ru">Хотите узнать больше?</span></h2>
+  <p><span class="zh">访问我们的项目网站和管理平台，体验完整功能演示</span><span class="ru">Посетите наш сайт проекта и панель управления</span></p>
+  <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
+    <a href="../index.html" class="cta-btn"><span class="zh">🏠 项目主页</span><span class="ru">🏠 Главная</span></a>
+    <a href="../admin/index.html" class="cta-btn" style="background:linear-gradient(135deg, var(--accent2), #00a080);"><span class="zh">🖥️ 管理平台</span><span class="ru">🖥️ Админ-панель</span></a>
+  </div>
+</section>
+
+<footer>
+  <p>Silver Guardian SG-1 · <span class="zh">智能健康监测设备</span><span class="ru">Умное устройство мониторинга здоровья</span></p>
+  <p style="margin-top:4px;">van.sho2@dvfu.ru · +7 984 191 38 19 · <span class="zh">海参崴</span> Владивосток</p>
+  <p style="margin-top:8px;opacity:0.5;"><span class="zh">无摄像头设计 · 端到端加密 · 隐私优先</span><span class="ru">Без камер · Сквозное шифрование · Приватность прежде всего</span></p>
+</footer>
+
+<script>
+// Language toggle
+function setLang(lang) {
+  document.body.className = lang;
+  document.getElementById('btnZh').classList.toggle('active', lang === 'zh');
+  document.getElementById('btnRu').classList.toggle('active', lang === 'ru');
+  localStorage.setItem('sg-device-lang', lang);
+}
+
+const saved = localStorage.getItem('sg-device-lang') || 'zh';
+setLang(saved);
+
+// Interactive device rotation on mouse move
+const deviceBody = document.getElementById('deviceBody');
+document.addEventListener('mousemove', function(e) {
+  const x = (e.clientX / window.innerWidth - 0.5) * 20;
+  const y = (e.clientY / window.innerHeight - 0.5) * 20;
+  deviceBody.style.transform = `perspective(600px) rotateY(${x}deg) rotateX(${-y}deg)`;
+});
+
+// Particle animation
+const canvas = document.getElementById('particleCanvas');
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+const particles = [];
+for (let i = 0; i < 40; i++) {
+  particles.push({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    size: Math.random() * 2 + 0.5,
+    speedX: (Math.random() - 0.5) * 0.3,
+    speedY: -(Math.random() * 0.5 + 0.2),
+    opacity: Math.random() * 0.4 + 0.1,
+  });
+}
+
+function animate() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  particles.forEach(p => {
+    p.x += p.speedX;
+    p.y += p.speedY;
+    if (p.y < -10) { p.y = canvas.height + 10; p.x = Math.random() * canvas.width; }
+    if (p.x < -10) p.x = canvas.width + 10;
+    if (p.x > canvas.width + 10) p.x = -10;
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(79,156,255,${p.opacity})`;
+    ctx.fill();
+  });
+  requestAnimationFrame(animate);
+}
+animate();
+
+window.addEventListener('resize', () => {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+});
+</script>
+</body>
+</html>
