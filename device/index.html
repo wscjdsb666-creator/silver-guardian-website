@@ -3,24 +3,24 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Silver Guardian · 智能健康监测设备 | Умное устройство мониторинга здоровья</title>
+<title>Silver Guardian SG-1 · 产品展示 | Презентация устройства</title>
 <style>
 :root {
-  --bg: #0a0e17;
-  --surface: #131926;
-  --surface2: #1a2030;
-  --border: #1e2a3a;
+  --bg: #06090f;
+  --surface: #0d1117;
+  --surface2: #161b22;
+  --border: #21262d;
   --accent: #4f9cff;
   --accent2: #00d4aa;
   --accent3: #ff6b6b;
-  --text: #e2e8f0;
-  --text2: #8899aa;
+  --text: #e6edf3;
+  --text2: #8b949e;
   --gold: #f0c060;
-  --radius: 16px;
-  --radius-sm: 10px;
+  --radius: 20px;
 }
 
 * { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
@@ -30,625 +30,1014 @@ body {
   line-height: 1.6;
 }
 
-/* Language toggle */
-.lang-bar {
-  position:fixed; top:16px; right:16px; z-index:999;
-  display:flex; gap:6px;
+/* Language */
+.lang-fab {
+  position:fixed; top:20px; right:20px; z-index:999;
+  display:flex; gap:4px; background:var(--surface2); border-radius:30px;
+  padding:4px; border:1px solid var(--border);
 }
-.lang-bar button {
-  padding:7px 16px; border-radius:20px; border:1px solid var(--border);
-  background:var(--surface2); color:var(--text2); cursor:pointer;
-  font-size:12px; font-weight:600; transition:all .2s;
+.lang-fab button {
+  padding:8px 18px; border-radius:26px; border:none; background:transparent;
+  color:var(--text2); cursor:pointer; font-size:12px; font-weight:700;
+  transition:all .25s;
 }
-.lang-bar button.active { background:var(--accent); color:#fff; border-color:var(--accent); }
+.lang-fab button.active { background:var(--accent); color:#fff; }
 
 body.ru .zh { display:none; }
 body.zh .ru { display:none; }
-body.ru .ru-inline { display:inline; }
-body.zh .zh-inline { display:inline; }
-.ru-inline, .zh-inline { display:none; }
-body.ru .ru-inline { display:inline; }
-body.zh .zh-inline { display:inline; }
 
-/* Hero */
+/* ==================== HERO ==================== */
 .hero {
   min-height:100vh; display:flex; flex-direction:column; align-items:center;
-  justify-content:center; text-align:center; padding:80px 24px 60px;
-  position:relative; overflow:hidden;
+  justify-content:center; padding:100px 24px 80px; position:relative;
+  background:radial-gradient(ellipse at 50% 30%, rgba(79,156,255,0.08) 0%, transparent 60%),
+              radial-gradient(ellipse at 50% 80%, rgba(0,212,170,0.05) 0%, transparent 50%);
 }
-.hero::before {
-  content:""; position:absolute; top:-50%; left:-50%; width:200%; height:200%;
-  background:radial-gradient(circle at 50% 50%, rgba(79,156,255,0.06) 0%, transparent 60%),
-              radial-gradient(circle at 30% 70%, rgba(0,212,170,0.04) 0%, transparent 50%);
-  animation:heroBg 20s linear infinite;
+.hero-badge {
+  display:inline-flex; align-items:center; gap:8px; padding:6px 16px;
+  border-radius:20px; border:1px solid rgba(79,156,255,0.3); font-size:12px;
+  color:var(--accent); margin-bottom:24px; background:rgba(79,156,255,0.06);
 }
-@keyframes heroBg { 100% { transform:rotate(360deg); } }
-.hero h1 { font-size:clamp(28px,5vw,52px); font-weight:900; position:relative; z-index:1; }
-.hero h1 .gradient { background:linear-gradient(135deg, var(--accent), var(--accent2)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
-.hero .sub { font-size:16px; color:var(--text2); margin-top:12px; position:relative; z-index:1; max-width:500px; }
-.hero .badge-row { display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin-top:24px; position:relative; z-index:1; }
-.hero .badge-row span {
-  padding:6px 16px; border-radius:20px; font-size:12px; font-weight:600;
-  border:1px solid var(--border); background:var(--surface2);
-}
-.hero .badge-row span.hl { border-color:var(--accent); color:var(--accent); }
+.hero-badge .dot { width:6px; height:6px; border-radius:50%; background:var(--accent2); }
+.hero h1 { font-size:clamp(32px,6vw,64px); font-weight:900; text-align:center; line-height:1.15; }
+.hero h1 .hl { background:linear-gradient(135deg, var(--accent), var(--accent2)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+.hero .tagline { font-size:16px; color:var(--text2); margin-top:16px; text-align:center; max-width:560px; }
 
-/* Device Showcase */
-.device-stage {
-  position:relative; z-index:1; margin:40px 0;
-  width:min(500px, 90vw); height:min(500px, 90vw);
-  display:flex; align-items:center; justify-content:center;
-}
+/* Device stage */
+.device-stage { position:relative; width:min(520px, 88vw); height:min(520px, 88vw); margin:48px auto 0; }
+.device-stage svg { width:100%; height:100%; }
 
-/* Main device body */
-.device-body {
-  position:relative;
-  width:220px; height:220px;
-  border-radius:50%;
-  background:linear-gradient(145deg, #1e2d3d, #151d28);
-  box-shadow:
-    0 0 60px rgba(79,156,255,0.2),
-    0 0 120px rgba(79,156,255,0.08),
-    inset 0 1px 0 rgba(255,255,255,0.05);
-  border:2px solid #253545;
-  display:flex; align-items:center; justify-content:center;
-  animation:float 6s ease-in-out infinite;
+/* ==================== NAV STRIP ==================== */
+.nav-strip {
+  position:sticky; top:0; z-index:100; background:rgba(13,17,23,0.85);
+  backdrop-filter:blur(16px); border-bottom:1px solid var(--border);
+  display:flex; gap:0; justify-content:center; overflow-x:auto;
+  padding:0 16px;
 }
-@keyframes float {
-  0%,100% { transform:translateY(0); }
-  50% { transform:translateY(-12px); }
+.nav-strip a {
+  padding:14px 20px; font-size:12px; font-weight:600; color:var(--text2);
+  text-decoration:none; white-space:nowrap; border-bottom:2px solid transparent;
+  transition:all .2s; cursor:pointer;
 }
+.nav-strip a:hover, .nav-strip a.active { color:var(--text); border-bottom-color:var(--accent); }
 
-.device-inner {
-  width:160px; height:160px; border-radius:50%;
-  background:linear-gradient(165deg, #182330, #1a2535);
-  border:1.5px solid #2a3a4e;
-  display:flex; flex-direction:column; align-items:center; justify-content:center;
-  position:relative;
-}
-.device-lens {
-  width:70px; height:70px; border-radius:50%;
-  background:linear-gradient(135deg, #0d1a2d, #0f1c30);
-  border:2px solid var(--accent);
-  box-shadow:0 0 30px rgba(79,156,255,0.25), inset 0 0 20px rgba(79,156,255,0.1);
-  display:flex; align-items:center; justify-content:center;
-  position:relative;
-}
-.device-lens::after {
-  content:""; position:absolute; width:10px; height:10px; border-radius:50%;
-  background:var(--accent2); box-shadow:0 0 15px var(--accent2);
-  animation:pulseLens 2s ease-in-out infinite;
-}
-@keyframes pulseLens {
-  0%,100% { opacity:0.5; transform:scale(1); }
-  50% { opacity:1; transform:scale(1.8); }
-}
-
-/* Radar rings */
-.radar-ring {
-  position:absolute; border-radius:50%; border:1px solid rgba(79,156,255,0.15);
-  animation:radarPulse 3s ease-out infinite;
-}
-.radar-ring:nth-child(1) { width:240px; height:240px; animation-delay:0s; }
-.radar-ring:nth-child(2) { width:280px; height:280px; animation-delay:0.6s; }
-.radar-ring:nth-child(3) { width:320px; height:320px; animation-delay:1.2s; }
-@keyframes radarPulse {
-  0% { opacity:0; transform:scale(1); }
-  50% { opacity:0.6; }
-  100% { opacity:0; transform:scale(1.5); }
-}
-
-/* Connection nodes */
-.node {
-  position:absolute; width:8px; height:8px; border-radius:50%;
-  background:var(--accent2); box-shadow:0 0 10px var(--accent2);
-}
-.node.n1 { top:10%; left:50%; animation:nodeBlink 2.5s infinite; }
-.node.n2 { top:50%; right:10%; animation:nodeBlink 2.5s 0.6s infinite; }
-.node.n3 { bottom:10%; left:50%; animation:nodeBlink 2.5s 1.2s infinite; }
-.node.n4 { top:50%; left:10%; animation:nodeBlink 2.5s 1.8s infinite; }
-@keyframes nodeBlink { 0%,100%{opacity:0.3} 50%{opacity:1} }
-
-/* Connection lines */
-.conn-line {
-  position:absolute; width:1px; background:linear-gradient(transparent, rgba(79,156,255,0.3), transparent);
-  transform-origin:top center;
-}
-.conn-line.l1 { height:60px; top:-60px; left:50%; animation:linePulse 2.5s infinite; }
-.conn-line.l2 { height:60px; bottom:-60px; left:50%; animation:linePulse 2.5s 1s infinite; }
-@keyframes linePulse { 0%,100%{opacity:0.2} 50%{opacity:0.7} }
-
-/* Section styling */
+/* ==================== SECTIONS ==================== */
 .section { padding:80px 24px; max-width:1200px; margin:0 auto; }
-.section-label { font-size:11px; text-transform:uppercase; letter-spacing:3px; color:var(--accent); margin-bottom:8px; }
-.section-title { font-size:clamp(22px,4vw,36px); font-weight:800; margin-bottom:16px; }
-.section-desc { color:var(--text2); max-width:600px; margin-bottom:48px; font-size:14px; }
+.section-label { font-size:11px; text-transform:uppercase; letter-spacing:3px; color:var(--accent); margin-bottom:10px; font-weight:700; }
+.section-title { font-size:clamp(24px,4vw,38px); font-weight:800; margin-bottom:14px; }
+.section-desc { color:var(--text2); max-width:600px; margin-bottom:48px; font-size:14px; line-height:1.7; }
 
-/* Specs grid */
-.specs-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:20px; }
-.spec-card {
+/* ==================== EXTERIOR GALLERY ==================== */
+.gallery-grid { display:grid; grid-template-columns:1fr 1fr; gap:24px; }
+.gallery-item {
   background:var(--surface); border:1px solid var(--border); border-radius:var(--radius);
-  padding:24px; transition:all .3s; position:relative; overflow:hidden;
+  padding:32px; text-align:center; transition:all .35s; cursor:pointer;
 }
-.spec-card:hover { border-color:var(--accent); transform:translateY(-4px); box-shadow:0 16px 40px rgba(0,0,0,.3); }
-.spec-card .icon { font-size:32px; margin-bottom:12px; }
-.spec-card h4 { font-size:15px; margin-bottom:6px; }
-.spec-card p { font-size:13px; color:var(--text2); }
-.spec-card .value { font-size:28px; font-weight:900; color:var(--accent); margin:8px 0; }
+.gallery-item:hover { border-color:var(--accent); transform:translateY(-4px); box-shadow:0 20px 50px rgba(0,0,0,.4); }
+.gallery-item svg { width:100%; max-width:320px; height:auto; }
+.gallery-item h4 { font-size:14px; margin-top:16px; }
+.gallery-item p { font-size:12px; color:var(--text2); margin-top:4px; }
+.gallery-item.full { grid-column:1/-1; }
 
-/* Blueprint section */
-.blueprint {
+/* ==================== 360 VIEWER ==================== */
+.viewer-wrap {
   background:var(--surface); border:1px solid var(--border); border-radius:var(--radius);
-  padding:40px; position:relative; overflow:hidden;
+  padding:40px; text-align:center; position:relative; overflow:hidden;
 }
-.blueprint::before {
-  content:""; position:absolute; top:0;left:0;right:0;bottom:0;
-  background-image:
-    linear-gradient(rgba(79,156,255,0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(79,156,255,0.03) 1px, transparent 1px);
-  background-size:30px 30px;
-  pointer-events:none;
-}
+.viewer-wrap svg { max-width:500px; width:100%; cursor:grab; transition:transform .1s; }
+.viewer-wrap .hint { font-size:11px; color:var(--text2); margin-top:12px; }
+.slider-row { display:flex; align-items:center; gap:16px; justify-content:center; margin-top:20px; }
+.slider-row input[type=range] { width:200px; accent-color:var(--accent); }
 
-/* Exploded view */
-.exploded-view {
-  display:flex; flex-direction:column; align-items:center; gap:20px;
-  padding:40px 0; position:relative;
+/* ==================== INTERIOR / EXPLODED ==================== */
+.exploded-container {
+  position:relative; background:var(--surface); border:1px solid var(--border);
+  border-radius:var(--radius); padding:48px 24px; text-align:center;
 }
-.exploded-part {
-  display:flex; align-items:center; gap:24px; width:100%; max-width:700px;
-  padding:20px 28px; background:var(--surface2); border-radius:var(--radius-sm);
-  border:1px solid var(--border); transition:all .3s;
-  position:relative;
-}
-.exploded-part:hover { border-color:var(--accent); }
-.exploded-part .part-icon {
-  width:60px; height:60px; border-radius:50%; flex-shrink:0;
-  display:flex; align-items:center; justify-content:center;
-  font-size:26px;
-}
-.exploded-part .part-info { flex:1; }
-.exploded-part .part-info h4 { font-size:14px; margin-bottom:4px; }
-.exploded-part .part-info p { font-size:12px; color:var(--text2); }
-.exploded-part .part-num {
-  width:36px; height:36px; border-radius:50%; border:2px solid var(--accent);
-  display:flex; align-items:center; justify-content:center;
-  font-size:14px; font-weight:900; color:var(--accent); flex-shrink:0;
-}
-.part-connector {
-  width:2px; height:20px; background:linear-gradient(var(--accent), transparent);
-  position:relative;
-}
-.part-connector::after {
-  content:""; position:absolute; bottom:0; left:-3px;
-  width:8px; height:8px; border-radius:50%; background:var(--accent);
-}
+.exploded-container svg { max-width:700px; width:100%; }
 
-.part-icon.radar { background:#0d1a2d; color:var(--accent); border:2px solid var(--accent); }
-.part-icon.chip { background:#1a0d0d; color:var(--accent3); border:2px solid var(--accent3); }
-.part-icon.sensor { background:#0d1a1a; color:var(--accent2); border:2px solid var(--accent2); }
-.part-icon.power { background:#1a180d; color:var(--gold); border:2px solid var(--gold); }
-.part-icon.comm { background:#0d0d1a; color:#8b5cf6; border:2px solid #8b5cf6; }
-
-/* Dimension overlay */
-.dim-line {
-  position:absolute; background:var(--accent); opacity:0.5;
+.component-list { display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:16px; margin-top:36px; }
+.comp-card {
+  background:var(--surface2); border:1px solid var(--border); border-radius:12px;
+  padding:20px; display:flex; gap:14px; transition:all .3s; cursor:default;
 }
-.dim-label {
-  position:absolute; font-size:10px; color:var(--accent);
-  font-family:"SF Mono","Consolas",monospace;
-}
+.comp-card:hover { border-color:var(--accent); }
+.comp-card .c-num { width:36px; height:36px; border-radius:50%; border:2px solid var(--accent); display:flex; align-items:center; justify-content:center; font-weight:900; color:var(--accent); font-size:14px; flex-shrink:0; }
+.comp-card h4 { font-size:13px; margin-bottom:4px; }
+.comp-card p { font-size:11px; color:var(--text2); line-height:1.5; }
 
-/* Feature grid */
-.feature-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:20px; }
-.feature-card {
+/* ==================== BLUEPRINT ==================== */
+.blueprint-wrap {
+  background:linear-gradient(135deg, #0d1a2d, #0a1520);
+  border:1px solid rgba(79,156,255,0.2); border-radius:var(--radius);
+  padding:48px 24px; text-align:center; position:relative; overflow:hidden;
+}
+.blueprint-wrap::before {
+  content:""; position:absolute; top:0; left:0; right:0; bottom:0;
+  background-image:linear-gradient(rgba(79,156,255,0.04) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(79,156,255,0.04) 1px, transparent 1px);
+  background-size:24px 24px; pointer-events:none;
+}
+.blueprint-wrap svg { max-width:800px; width:100%; position:relative; z-index:1; }
+
+/* ==================== DIMENSIONS ==================== */
+.dims-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:16px; }
+.dim-card {
+  background:var(--surface); border:1px solid var(--border); border-radius:12px;
+  padding:22px; text-align:center; transition:all .3s;
+}
+.dim-card:hover { border-color:var(--accent); }
+.dim-card .dim-val { font-size:32px; font-weight:900; color:var(--accent); }
+.dim-card .dim-unit { font-size:13px; color:var(--text2); }
+.dim-card .dim-label { font-size:11px; color:var(--text2); margin-top:6px; }
+
+/* ==================== COLORS ==================== */
+.color-grid { display:flex; gap:20px; flex-wrap:wrap; justify-content:center; }
+.color-option { text-align:center; cursor:pointer; transition:all .3s; }
+.color-option:hover { transform:translateY(-4px); }
+.color-swatch {
+  width:80px; height:80px; border-radius:50%; margin:0 auto 10px;
+  border:3px solid transparent; transition:all .3s;
+}
+.color-option:hover .color-swatch { border-color:var(--accent); }
+.color-option .color-name { font-size:12px; font-weight:600; }
+.color-option .color-desc { font-size:10px; color:var(--text2); }
+
+/* ==================== INSTALLATION ==================== */
+.install-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:20px; }
+.install-card {
   background:var(--surface); border:1px solid var(--border); border-radius:var(--radius);
   padding:28px; display:flex; gap:18px; transition:all .3s;
 }
-.feature-card:hover { border-color:var(--accent2); }
-.feature-card .f-icon { font-size:36px; flex-shrink:0; }
-.feature-card h4 { font-size:15px; margin-bottom:6px; }
-.feature-card p { font-size:13px; color:var(--text2); }
+.install-card:hover { border-color:var(--accent); }
+.install-card .i-icon { font-size:40px; flex-shrink:0; }
+.install-card h4 { font-size:14px; margin-bottom:6px; }
+.install-card p { font-size:12px; color:var(--text2); }
 
-/* Workflow */
-.workflow { display:flex; gap:16px; flex-wrap:wrap; justify-content:center; align-items:center; }
-.workflow-step {
-  text-align:center; padding:24px 20px; background:var(--surface2);
-  border-radius:var(--radius-sm); border:1px solid var(--border);
-  min-width:140px; flex:1; max-width:200px; transition:all .3s;
-}
-.workflow-step:hover { border-color:var(--accent); }
-.workflow-step .ws-icon { font-size:36px; margin-bottom:12px; }
-.workflow-step h4 { font-size:13px; }
-.workflow-arrow { font-size:24px; color:var(--accent); flex-shrink:0; }
+/* ==================== SPECS TABLE ==================== */
+.specs-table { width:100%; border-collapse:collapse; font-size:13px; }
+.specs-table tr { border-bottom:1px solid var(--border); }
+.specs-table td { padding:16px 20px; }
+.specs-table td:first-child { color:var(--text2); font-weight:600; width:30%; font-size:11px; text-transform:uppercase; letter-spacing:.5px; white-space:nowrap; }
+.specs-table td:last-child { font-weight:500; }
 
-/* Comparison table */
-.comp-table { width:100%; border-collapse:collapse; font-size:13px; }
-.comp-table th, .comp-table td { padding:14px 18px; text-align:left; }
-.comp-table th { background:var(--surface2); color:var(--accent); font-weight:700; font-size:11px; text-transform:uppercase; letter-spacing:1px; }
-.comp-table td { border-bottom:1px solid var(--border); }
-.comp-table tr:hover td { background:rgba(79,156,255,.03); }
-.comp-table .check { color:var(--accent2); font-weight:700; }
-
-/* CTA */
-.cta-section {
-  text-align:center; padding:80px 24px;
-  background:linear-gradient(180deg, transparent, rgba(79,156,255,0.05), transparent);
+/* ==================== CTA ==================== */
+.cta { text-align:center; padding:80px 24px; background:linear-gradient(180deg, transparent, rgba(79,156,255,.04), transparent); }
+.cta h2 { font-size:28px; font-weight:800; margin-bottom:12px; }
+.cta p { color:var(--text2); margin-bottom:28px; }
+.cta-btns { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+.btn {
+  display:inline-block; padding:14px 32px; border-radius:30px; font-weight:700;
+  font-size:14px; text-decoration:none; transition:all .3s; border:none; cursor:pointer;
 }
-.cta-section h2 { font-size:28px; font-weight:800; margin-bottom:12px; }
-.cta-section p { color:var(--text2); margin-bottom:28px; }
-.cta-btn {
-  display:inline-block; padding:14px 36px; border-radius:30px;
-  background:linear-gradient(135deg, var(--accent), #3b7edd);
-  color:#fff; text-decoration:none; font-weight:700; font-size:14px;
-  transition:all .3s; border:none; cursor:pointer;
-}
-.cta-btn:hover { transform:translateY(-2px); box-shadow:0 12px 30px rgba(79,156,255,.3); }
+.btn-primary { background:linear-gradient(135deg, var(--accent), #3b7edd); color:#fff; }
+.btn-primary:hover { transform:translateY(-2px); box-shadow:0 12px 30px rgba(79,156,255,.3); }
+.btn-outline { background:transparent; color:var(--accent); border:1.5px solid var(--accent); }
+.btn-outline:hover { background:rgba(79,156,255,.1); }
 
 /* Footer */
-footer {
-  text-align:center; padding:32px; border-top:1px solid var(--border);
-  color:var(--text2); font-size:12px;
-}
+footer { text-align:center; padding:32px; border-top:1px solid var(--border); color:var(--text2); font-size:12px; }
 footer a { color:var(--accent); text-decoration:none; }
 
-/* Particle bg */
-.particles { position:fixed; top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0; }
-.particle {
-  position:absolute; width:2px; height:2px; background:var(--accent);
-  border-radius:50%; animation:particleFloat 15s linear infinite;
-  opacity:0;
-}
-@keyframes particleFloat {
-  0% { opacity:0; transform:translateY(100vh) scale(0); }
-  10% { opacity:0.8; }
-  90% { opacity:0.2; }
-  100% { opacity:0; transform:translateY(-10vh) scale(1); }
+/* Animation */
+@keyframes fadeUp { from { opacity:0; transform:translateY(30px); } to { opacity:1; transform:translateY(0); } }
+.anim-up { animation:fadeUp .7s ease forwards; }
+
+/* Responsive */
+@media (max-width:768px) {
+  .gallery-grid { grid-template-columns:1fr; }
+  .section { padding:48px 14px; }
+  .nav-strip a { padding:12px 14px; font-size:10px; }
 }
 
-@media (max-width:768px) {
-  .section { padding:48px 16px; }
-  .blueprint { padding:20px; }
-  .workflow { flex-direction:column; }
-  .workflow-arrow { transform:rotate(90deg); }
-  .exploded-part { flex-wrap:wrap; }
+/* Tooltip */
+.tooltip {
+  position:absolute; background:var(--surface2); border:1px solid var(--accent);
+  border-radius:8px; padding:8px 14px; font-size:11px; pointer-events:none;
+  color:var(--text); white-space:nowrap; z-index:50; opacity:0; transition:opacity .2s;
 }
 </style>
 </head>
 <body class="zh">
 
-<canvas class="particles" id="particleCanvas"></canvas>
-
-<div class="lang-bar">
-  <button class="active" id="btnZh" onclick="setLang('zh')">中文</button>
+<!-- Language toggle -->
+<div class="lang-fab">
+  <button id="btnZh" class="active" onclick="setLang('zh')">中文</button>
   <button id="btnRu" onclick="setLang('ru')">РУС</button>
 </div>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="device-stage">
-    <div class="radar-ring"></div>
-    <div class="radar-ring"></div>
-    <div class="radar-ring"></div>
-    <div class="device-body" id="deviceBody">
-      <div class="device-inner">
-        <div class="device-lens"></div>
-      </div>
-      <div class="node n1"></div>
-      <div class="node n2"></div>
-      <div class="node n3"></div>
-      <div class="node n4"></div>
-      <div class="conn-line l1"></div>
-      <div class="conn-line l2"></div>
-    </div>
+<!-- ==================== HERO ==================== -->
+<section class="hero" id="hero">
+  <div class="hero-badge">
+    <span class="dot"></span>
+    <span class="zh">新一代智能健康监测设备</span>
+    <span class="ru">Новое поколение умного мониторинга здоровья</span>
   </div>
   <h1>
-    <span class="zh">银发守护者 <span class="gradient">SG-1</span></span>
-    <span class="ru">Silver Guardian <span class="gradient">SG-1</span></span>
+    <span class="zh">银发守护者 <span class="hl">SG-1</span></span>
+    <span class="ru">Silver Guardian <span class="hl">SG-1</span></span>
   </h1>
-  <p class="sub">
-    <span class="zh">基于60GHz毫米波雷达的智能健康监测设备<br>跌倒检测 · 心率追踪 · AI语音陪伴 · 紧急联动</span>
-    <span class="ru">Умное устройство мониторинга здоровья на базе радара 60 ГГц<br>Детекция падений · Пульс · AI-ассистент · Экстренная связь</span>
+  <p class="tagline">
+    <span class="zh">60GHz毫米波雷达 · 端侧AI · 非接触式全天候守护</span>
+    <span class="ru">Радар 60ГГц · Локальный ИИ · Бесконтактная защита 24/7</span>
   </p>
-  <div class="badge-row">
-    <span class="hl">60GHz mmWave</span>
-    <span>AI Inside</span>
-    <span>Wi-Fi 6</span>
-    <span>IP54</span>
-    <span>24/7</span>
+
+  <!-- Device 3D-ish front view -->
+  <div class="device-stage" id="heroDevice">
+    <svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="bodyGrad" cx="50%" cy="45%" r="50%">
+          <stop offset="0%" stop-color="#2a3a50"/><stop offset="100%" stop-color="#141e2a"/>
+        </radialGradient>
+        <radialGradient id="faceGrad" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#f8f9fa"/><stop offset="85%" stop-color="#dde2e8"/><stop offset="100%" stop-color="#c5cdd5"/>
+        </radialGradient>
+        <radialGradient id="lensGrad" cx="45%" cy="40%" r="55%">
+          <stop offset="0%" stop-color="#1a2a3a"/><stop offset="60%" stop-color="#0d1520"/><stop offset="100%" stop-color="#050a10"/>
+        </radialGradient>
+        <radialGradient id="glowGrad" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="rgba(79,156,255,0.3)"/><stop offset="100%" stop-color="rgba(79,156,255,0)"/>
+        </radialGradient>
+        <linearGradient id="ringGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#4f9cff"/><stop offset="50%" stop-color="#00d4aa"/><stop offset="100%" stop-color="#4f9cff"/>
+        </linearGradient>
+        <filter id="shadow"><feDropShadow dx="0" dy="8" stdDeviation="16" flood-color="#000" flood-opacity="0.5"/></filter>
+        <filter id="glow"><feGaussianBlur stdDeviation="4" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+      </defs>
+
+      <!-- Outer glow ring -->
+      <circle cx="250" cy="240" r="170" fill="none" stroke="rgba(79,156,255,0.06)" stroke-width="40">
+        <animate attributeName="r" values="170;180;170" dur="4s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0.5;1;0.5" dur="4s" repeatCount="indefinite"/>
+      </circle>
+      <!-- Second glow ring -->
+      <circle cx="250" cy="240" r="185" fill="none" stroke="rgba(79,156,255,0.03)" stroke-width="20">
+        <animate attributeName="r" values="185;195;185" dur="4s" begin="1s" repeatCount="indefinite"/>
+      </circle>
+
+      <!-- Device body shadow -->
+      <ellipse cx="255" cy="380" rx="120" ry="18" fill="rgba(0,0,0,0.4)">
+        <animate attributeName="rx" values="120;115;120" dur="4s" repeatCount="indefinite"/>
+      </ellipse>
+
+      <!-- Main body - side/edge (3D perspective) -->
+      <ellipse cx="250" cy="248" rx="128" ry="30" fill="#111b25" stroke="#1e2d3d" stroke-width="1"/>
+
+      <!-- Main body - front face -->
+      <circle cx="250" cy="240" r="125" fill="url(#faceGrad)" filter="url(#shadow)" stroke="#d0d5db" stroke-width="1"/>
+
+      <!-- Subtle concentric ring on face -->
+      <circle cx="250" cy="240" r="108" fill="none" stroke="#e8ebef" stroke-width="0.5"/>
+      <circle cx="250" cy="240" r="95" fill="none" stroke="#e8ebef" stroke-width="0.5"/>
+
+      <!-- LED indicator ring -->
+      <circle cx="250" cy="240" r="112" fill="none" stroke="url(#ringGrad)" stroke-width="2.5" filter="url(#glow)" opacity="0.7">
+        <animate attributeName="opacity" values="0.4;0.8;0.4" dur="3s" repeatCount="indefinite"/>
+      </circle>
+
+      <!-- Radar lens area -->
+      <circle cx="250" cy="240" r="62" fill="url(#lensGrad)" stroke="#1e3040" stroke-width="1.5"/>
+      <!-- Lens inner ring -->
+      <circle cx="250" cy="240" r="48" fill="none" stroke="rgba(79,156,255,0.15)" stroke-width="0.8"/>
+
+      <!-- Radar wave animations from lens -->
+      <circle cx="250" cy="240" r="30" fill="none" stroke="rgba(0,212,170,0.4)" stroke-width="1.5">
+        <animate attributeName="r" values="30;65;30" dur="2.5s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0.6;0;0.6" dur="2.5s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="250" cy="240" r="30" fill="none" stroke="rgba(0,212,170,0.3)" stroke-width="1">
+        <animate attributeName="r" values="30;65;30" dur="2.5s" begin="0.8s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0.5;0;0.5" dur="2.5s" begin="0.8s" repeatCount="indefinite"/>
+      </circle>
+
+      <!-- Center dot in lens -->
+      <circle cx="250" cy="240" r="6" fill="#00d4aa" opacity="0.9">
+        <animate attributeName="r" values="5;8;5" dur="2s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0.7;1;0.7" dur="2s" repeatCount="indefinite"/>
+      </circle>
+
+      <!-- Speaker grille dots (bottom area) -->
+      <g opacity="0.25">
+        <circle cx="220" cy="310" r="1.3" fill="#8899aa"/><circle cx="226" cy="310" r="1.3" fill="#8899aa"/>
+        <circle cx="232" cy="310" r="1.3" fill="#8899aa"/><circle cx="238" cy="310" r="1.3" fill="#8899aa"/>
+        <circle cx="244" cy="310" r="1.3" fill="#8899aa"/><circle cx="250" cy="310" r="1.3" fill="#8899aa"/>
+        <circle cx="256" cy="310" r="1.3" fill="#8899aa"/><circle cx="262" cy="310" r="1.3" fill="#8899aa"/>
+        <circle cx="268" cy="310" r="1.3" fill="#8899aa"/><circle cx="274" cy="310" r="1.3" fill="#8899aa"/>
+        <circle cx="280" cy="310" r="1.3" fill="#8899aa"/>
+        <circle cx="224" cy="317" r="1.3" fill="#8899aa"/><circle cx="232" cy="317" r="1.3" fill="#8899aa"/>
+        <circle cx="240" cy="317" r="1.3" fill="#8899aa"/><circle cx="248" cy="317" r="1.3" fill="#8899aa"/>
+        <circle cx="256" cy="317" r="1.3" fill="#8899aa"/><circle cx="264" cy="317" r="1.3" fill="#8899aa"/>
+        <circle cx="272" cy="317" r="1.3" fill="#8899aa"/>
+      </g>
+
+      <!-- Sensor window (tiny) -->
+      <rect x="296" y="226" width="14" height="6" rx="3" fill="#0a1018" opacity="0.6"/>
+
+      <!-- Labels -->
+      <text x="250" y="430" text-anchor="middle" fill="var(--text2)" font-size="12" font-family="inherit">
+        <tspan class="zh">正面视图 · Front View</tspan>
+        <tspan class="ru">Вид спереди · Front View</tspan>
+      </text>
+    </svg>
   </div>
 </section>
 
-<!-- SPECS -->
-<section class="section">
-  <div class="section-label"><span class="zh">技术规格</span><span class="ru">ТЕХНИЧЕСКИЕ ХАРАКТЕРИСТИКИ</span></div>
-  <h2 class="section-title"><span class="zh">核心参数</span><span class="ru">Основные параметры</span></h2>
-  <p class="section-desc"><span class="zh">SG-1 集成了最先进的传感技术和人工智能算法，为老年人提供全天候无感监测。</span><span class="ru">SG-1 объединяет передовые сенсорные технологии и алгоритмы ИИ для круглосуточного мониторинга.</span></p>
+<!-- ==================== STICKY NAV ==================== -->
+<nav class="nav-strip" id="navStrip">
+  <a href="#exterior" class="active"><span class="zh">外观</span><span class="ru">Дизайн</span></a>
+  <a href="#viewer"><span class="zh">360°</span><span class="ru">360°</span></a>
+  <a href="#interior"><span class="zh">内部结构</span><span class="ru">Внутри</span></a>
+  <a href="#blueprint"><span class="zh">工程蓝图</span><span class="ru">Чертёж</span></a>
+  <a href="#dimensions"><span class="zh">尺寸规格</span><span class="ru">Размеры</span></a>
+  <a href="#specs"><span class="zh">技术参数</span><span class="ru">Спецификация</span></a>
+  <a href="#install"><span class="zh">安装方式</span><span class="ru">Монтаж</span></a>
+</nav>
 
-  <div class="specs-grid">
-    <div class="spec-card">
-      <div class="icon">📡</div>
-      <h4><span class="zh">毫米波雷达</span><span class="ru">Радар mmWave</span></h4>
-      <div class="value">60 GHz</div>
-      <p><span class="zh">FMCW调频连续波，探测距离0-8米，可穿墙感知，精度±2cm</span><span class="ru">FMCW радар, дальность 0-8м, сквозь стены, точность ±2см</span></p>
+<!-- ==================== EXTERIOR GALLERY ==================== -->
+<section class="section" id="exterior">
+  <div class="section-label"><span class="zh">外观设计</span><span class="ru">ДИЗАЙН</span></div>
+  <h2 class="section-title"><span class="zh">多角度外观展示</span><span class="ru">Внешний вид со всех сторон</span></h2>
+  <p class="section-desc"><span class="zh">简约圆盘设计，融入家居环境。直径120mm，厚度仅28mm，搭配多种配色方案，像一件精致的家居艺术品。</span><span class="ru">Элегантный дизайн-диск, вписывается в любой интерьер. Диаметр 120 мм, толщина 28 мм, несколько цветовых решений.</span></p>
+
+  <div class="gallery-grid">
+    <!-- Front -->
+    <div class="gallery-item">
+      <svg viewBox="0 0 300 300">
+        <defs>
+          <radialGradient id="gf1" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#f0f2f5"/><stop offset="90%" stop-color="#d5dbe3"/><stop offset="100%" stop-color="#bcc4ce"/></radialGradient>
+          <radialGradient id="gl1" cx="45%" cy="40%" r="55%"><stop offset="0%" stop-color="#1a2a3a"/><stop offset="100%" stop-color="#080e16"/></radialGradient>
+        </defs>
+        <!-- shadow -->
+        <ellipse cx="152" cy="245" rx="80" ry="12" fill="rgba(0,0,0,0.35)"/>
+        <!-- body -->
+        <circle cx="150" cy="140" r="82" fill="#e8ecf1" stroke="#d0d5dc" stroke-width="1.5"/>
+        <!-- LED ring -->
+        <circle cx="150" cy="140" r="73" fill="none" stroke="url(#ringGrad)" stroke-width="2" opacity="0.7"/>
+        <!-- lens -->
+        <circle cx="150" cy="140" r="42" fill="url(#gl1)" stroke="#1e3040" stroke-width="1"/>
+        <circle cx="150" cy="140" r="6" fill="#00d4aa"/>
+        <!-- grille hint -->
+        <g opacity="0.2">
+          <circle cx="132" cy="185" r="1" fill="#666"/><circle cx="140" cy="185" r="1" fill="#666"/>
+          <circle cx="148" cy="185" r="1" fill="#666"/><circle cx="156" cy="185" r="1" fill="#666"/>
+          <circle cx="164" cy="185" r="1" fill="#666"/><circle cx="136" cy="191" r="1" fill="#666"/>
+          <circle cx="146" cy="191" r="1" fill="#666"/><circle cx="156" cy="191" r="1" fill="#666"/>
+        </g>
+        <text x="150" y="282" text-anchor="middle" fill="#8899aa" font-size="11" font-family="inherit">
+          <tspan class="zh">正面 · Front</tspan><tspan class="ru">Спереди · Front</tspan>
+        </text>
+      </svg>
+      <h4><span class="zh">正面</span><span class="ru">Вид спереди</span></h4>
+      <p><span class="zh">隐藏式雷达透镜 + LED呼吸灯环</span><span class="ru">Скрытая линза радара + LED-кольцо</span></p>
     </div>
-    <div class="spec-card">
-      <div class="icon">🔋</div>
-      <h4><span class="zh">超长续航</span><span class="ru">Батарея</span></h4>
-      <div class="value">18 <span style="font-size:14px;"><span class="zh">个月</span><span class="ru">мес</span></span></div>
-      <p><span class="zh">低功耗设计，USB-C供电，内置备用电池，断电续航48小时</span><span class="ru">Низкое энергопотребление, USB-C, резерв 48ч</span></p>
+
+    <!-- Side / Profile -->
+    <div class="gallery-item">
+      <svg viewBox="0 0 300 300">
+        <!-- shadow -->
+        <ellipse cx="150" cy="240" rx="100" ry="10" fill="rgba(0,0,0,0.3)"/>
+        <!-- side body - slim pill shape -->
+        <rect x="55" y="100" width="190" height="100" rx="18" fill="#e2e7ed" stroke="#cdd3db" stroke-width="1.5"/>
+        <!-- top surface line -->
+        <line x1="73" y1="100" x2="227" y2="100" stroke="#f0f2f5" stroke-width="1"/>
+        <!-- bottom surface line -->
+        <line x1="73" y1="200" x2="227" y2="200" stroke="#b8c0c9" stroke-width="1"/>
+        <!-- speaker grille area -->
+        <rect x="125" y="115" width="60" height="25" rx="4" fill="#c5cdd6" opacity="0.5"/>
+        <g opacity="0.3">
+          <circle cx="134" cy="122" r="1.2" fill="#777"/><circle cx="141" cy="122" r="1.2" fill="#777"/>
+          <circle cx="148" cy="122" r="1.2" fill="#777"/><circle cx="155" cy="122" r="1.2" fill="#777"/>
+          <circle cx="162" cy="122" r="1.2" fill="#777"/><circle cx="169" cy="122" r="1.2" fill="#777"/>
+          <circle cx="176" cy="122" r="1.2" fill="#777"/>
+          <circle cx="138" cy="130" r="1.2" fill="#777"/><circle cx="148" cy="130" r="1.2" fill="#777"/>
+          <circle cx="158" cy="130" r="1.2" fill="#777"/><circle cx="168" cy="130" r="1.2" fill="#777"/>
+        </g>
+        <!-- USB-C port -->
+        <rect x="140" y="180" width="18" height="8" rx="3" fill="#3a4048" stroke="#555" stroke-width="0.5"/>
+        <!-- thickness indicator -->
+        <line x1="65" y1="95" x2="65" y2="205" stroke="var(--accent)" stroke-width="1" stroke-dasharray="4,3" opacity="0.6"/>
+        <line x1="55" y1="95" x2="75" y2="95" stroke="var(--accent)" stroke-width="0.5" opacity="0.6"/>
+        <line x1="55" y1="205" x2="75" y2="205" stroke="var(--accent)" stroke-width="0.5" opacity="0.6"/>
+        <text x="42" y="155" fill="var(--accent)" font-size="9" font-family="monospace" text-anchor="middle" transform="rotate(-90, 42, 155)" opacity="0.8">28mm</text>
+        <text x="150" y="275" text-anchor="middle" fill="#8899aa" font-size="11" font-family="inherit">
+          <tspan class="zh">侧面 · Side</tspan><tspan class="ru">Сбоку · Side</tspan>
+        </text>
+      </svg>
+      <h4><span class="zh">侧面</span><span class="ru">Вид сбоку</span></h4>
+      <p><span class="zh">超薄28mm · 扬声器网罩 · USB-C接口</span><span class="ru">28мм · Динамик · USB-C</span></p>
     </div>
-    <div class="spec-card">
-      <div class="icon">🤖</div>
-      <h4><span class="zh">AI处理器</span><span class="ru">AI Процессор</span></h4>
-      <div class="value">NPU 2.0</div>
-      <p><span class="zh">端侧AI推理，跌倒识别准确率99.2%，误报率&lt;0.3%，支持本地语音</span><span class="ru">Локальный AI, точность 99.2%, ложных &lt;0.3%</span></p>
+
+    <!-- Top-down -->
+    <div class="gallery-item">
+      <svg viewBox="0 0 300 300">
+        <circle cx="150" cy="145" r="82" fill="#e8ecf1" stroke="#ced5dd" stroke-width="1.5"/>
+        <circle cx="150" cy="145" r="73" fill="none" stroke="url(#ringGrad)" stroke-width="2" opacity="0.7"/>
+        <circle cx="150" cy="145" r="42" fill="#0c1620" stroke="#1e3040" stroke-width="1"/>
+        <circle cx="150" cy="145" r="5" fill="#00d4aa"/>
+        <!-- top label -->
+        <text x="150" y="270" text-anchor="middle" fill="#8899aa" font-size="11" font-family="inherit">
+          <tspan class="zh">顶部 · Top</tspan><tspan class="ru">Сверху · Top</tspan>
+        </text>
+      </svg>
+      <h4><span class="zh">顶部</span><span class="ru">Вид сверху</span></h4>
+      <p><span class="zh">极简圆形 · 无可见螺丝设计</span><span class="ru">Минимализм · Без видимых винтов</span></p>
     </div>
-    <div class="spec-card">
-      <div class="icon">💓</div>
-      <h4><span class="zh">生命体征</span><span class="ru">Биометрия</span></h4>
-      <div class="value">24/7</div>
-      <p><span class="zh">心率、呼吸率、睡眠质量、活动量，非接触式连续监测</span><span class="ru">Пульс, дыхание, сон, активность — бесконтактно</span></p>
+
+    <!-- Back / wall-mount side -->
+    <div class="gallery-item">
+      <svg viewBox="0 0 300 300">
+        <!-- shadow -->
+        <ellipse cx="150" cy="240" rx="78" ry="10" fill="rgba(0,0,0,0.3)"/>
+        <!-- back body -->
+        <circle cx="150" cy="140" r="82" fill="#d8dee5" stroke="#c0c8d2" stroke-width="1.5"/>
+        <!-- wall mount plate -->
+        <rect x="115" y="80" width="70" height="70" rx="8" fill="#c5cdd6" stroke="#b0b8c2" stroke-width="1"/>
+        <!-- mounting holes -->
+        <circle cx="135" cy="100" r="5" fill="#a0a8b2" stroke="#888" stroke-width="0.5"/>
+        <circle cx="165" cy="100" r="5" fill="#a0a8b2" stroke="#888" stroke-width="0.5"/>
+        <circle cx="135" cy="130" r="5" fill="#a0a8b2" stroke="#888" stroke-width="0.5"/>
+        <circle cx="165" cy="130" r="5" fill="#a0a8b2" stroke="#888" stroke-width="0.5"/>
+        <!-- QR / label area -->
+        <rect x="130" y="155" width="40" height="30" rx="3" fill="#fff" opacity="0.5"/>
+        <text x="150" y="275" text-anchor="middle" fill="#8899aa" font-size="11" font-family="inherit">
+          <tspan class="zh">背面 · Back</tspan><tspan class="ru">Сзади · Back</tspan>
+        </text>
+      </svg>
+      <h4><span class="zh">背面</span><span class="ru">Вид сзади</span></h4>
+      <p><span class="zh">壁挂支架 · 螺丝孔位 · 产品信息</span><span class="ru">Кронштейн · Отверстия · Инфо</span></p>
     </div>
-    <div class="spec-card">
-      <div class="icon">🌐</div>
-      <h4><span class="zh">无线连接</span><span class="ru">Связь</span></h4>
-      <div class="value">Wi-Fi 6</div>
-      <p><span class="zh">双频Wi-Fi + BLE 5.3 + 4G Cat-M1备选，断网本地缓存</span><span class="ru">Wi-Fi 6 + BLE 5.3 + 4G Cat-M1, локальный буфер</span></p>
-    </div>
-    <div class="spec-card">
-      <div class="icon">🔒</div>
-      <h4><span class="zh">隐私安全</span><span class="ru">Приватность</span></h4>
-      <div class="value">E2E</div>
-      <p><span class="zh">端到端加密，无摄像头设计，数据脱敏，GDPR/中国个人信息保护法合规</span><span class="ru">Сквозное шифрование, без камер, GDPR/152-ФЗ</span></p>
+
+    <!-- Full row: 3/4 perspective -->
+    <div class="gallery-item full">
+      <svg viewBox="0 0 700 320">
+        <defs>
+          <linearGradient id="perspGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#f4f6f8"/><stop offset="50%" stop-color="#e2e7ed"/><stop offset="100%" stop-color="#c8d0d9"/>
+          </linearGradient>
+          <radialGradient id="perspLens" cx="45%" cy="40%" r="50%">
+            <stop offset="0%" stop-color="#1e3040"/><stop offset="100%" stop-color="#080e16"/>
+          </radialGradient>
+        </defs>
+        <!-- Shadow -->
+        <ellipse cx="350" cy="275" rx="160" ry="18" fill="rgba(0,0,0,0.3)"/>
+        <!-- Body - isometric disk -->
+        <!-- Bottom edge -->
+        <ellipse cx="350" cy="230" rx="140" ry="38" fill="#b0b9c3"/>
+        <!-- Body side -->
+        <path d="M210,230 Q210,180 350,180 Q490,180 490,230 L490,230 Q490,250 350,250 Q210,250 210,230 Z" fill="#c8d0d9"/>
+        <!-- Main face (tilted) -->
+        <ellipse cx="350" cy="190" rx="140" ry="38" fill="url(#perspGrad)" stroke="#d5dbe3" stroke-width="1.5"/>
+        <!-- LED ring (ellipse due to perspective) -->
+        <ellipse cx="350" cy="190" rx="118" ry="32" fill="none" stroke="url(#ringGrad)" stroke-width="2" opacity="0.6"/>
+        <!-- Lens (ellipse) -->
+        <ellipse cx="350" cy="190" rx="55" ry="15" fill="url(#perspLens)" stroke="#1e3040" stroke-width="1"/>
+        <ellipse cx="350" cy="190" rx="8" ry="3" fill="#00d4aa"/>
+        <!-- Highlight reflection -->
+        <ellipse cx="320" cy="175" rx="40" ry="8" fill="white" opacity="0.08"/>
+        <text x="350" y="310" text-anchor="middle" fill="#8899aa" font-size="12" font-family="inherit">
+          <tspan class="zh">3/4 透视图 · Perspective</tspan><tspan class="ru">Вид 3/4 · Perspective</tspan>
+        </text>
+      </svg>
+      <h4><span class="zh">3/4 透视图</span><span class="ru">Вид в перспективе</span></h4>
+      <p><span class="zh">最佳展示角度 — 可见正面透镜、LED光环及超薄侧边</span><span class="ru">Оптимальный ракурс — линза, LED-кольцо и тонкий профиль</span></p>
     </div>
   </div>
 </section>
 
-<!-- BLUEPRINT / EXPLODED VIEW -->
-<section class="section">
-  <div class="section-label"><span class="zh">产品蓝图</span><span class="ru">ЧЕРТЁЖ УСТРОЙСТВА</span></div>
-  <h2 class="section-title"><span class="zh">设备结构分解图</span><span class="ru">Взрыв-схема устройства</span></h2>
-  <p class="section-desc"><span class="zh">SG-1 由五大核心模块构成，模组化设计便于维护和升级。</span><span class="ru">SG-1 состоит из пяти ключевых модулей. Модульная конструкция для удобства обслуживания.</span></p>
+<!-- ==================== 360 VIEWER ==================== -->
+<section class="section" id="viewer">
+  <div class="section-label"><span class="zh">交互式预览</span><span class="ru">ИНТЕРАКТИВ</span></div>
+  <h2 class="section-title"><span class="zh">360° 旋转查看</span><span class="ru">Вращение на 360°</span></h2>
+  <p class="section-desc"><span class="zh">拖动滑块旋转设备，从任意角度查看外观细节。</span><span class="ru">Вращайте устройство для просмотра со всех сторон.</span></p>
 
-  <div class="blueprint">
-    <div class="exploded-view">
-      <!-- Part 1: Radar -->
-      <div class="exploded-part">
-        <div class="part-icon radar">📡</div>
-        <div class="part-info">
-          <h4><span class="zh">① 毫米波雷达模组</span><span class="ru">① Радарный модуль</span></h4>
-          <p><span class="zh">TI IWR6843 60GHz FMCW雷达芯片，3Tx/4Rx天线阵列，120°视场角，可同时追踪3人</span><span class="ru">Чип TI IWR6843 60ГГц, 3Tx/4Rx антенны, угол 120°, отслеживание 3 чел.</span></p>
-        </div>
-        <div class="part-num">01</div>
+  <div class="viewer-wrap">
+    <svg viewBox="0 0 500 320" id="rotateSVG">
+      <defs>
+        <linearGradient id="rotBody" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#f0f3f6"/><stop offset="100%" stop-color="#d4dce4"/>
+        </linearGradient>
+        <radialGradient id="rotLens" cx="45%" cy="40%" r="50%">
+          <stop offset="0%" stop-color="#1a2d40"/><stop offset="100%" stop-color="#060c14"/>
+        </radialGradient>
+      </defs>
+      <!-- Shadow -->
+      <ellipse id="rotShadow" cx="250" cy="265" rx="110" ry="16" fill="rgba(0,0,0,0.35)"/>
+      <!-- Body edge -->
+      <ellipse id="rotEdge" cx="250" cy="220" rx="110" ry="28" fill="#bec6d0"/>
+      <!-- Body side depth -->
+      <path id="rotSide" d="M140,220 Q140,178 250,178 Q360,178 360,220 L360,220 Q360,238 250,238 Q140,238 140,220 Z" fill="#d0d7e0"/>
+      <!-- Top face -->
+      <ellipse id="rotFace" cx="250" cy="185" rx="110" ry="28" fill="url(#rotBody)" stroke="#dce2e8" stroke-width="1.5"/>
+      <!-- LED ring -->
+      <ellipse id="rotRing" cx="250" cy="185" rx="92" ry="23" fill="none" stroke="url(#ringGrad)" stroke-width="2" opacity="0.6"/>
+      <!-- Lens -->
+      <ellipse id="rotLensEl" cx="250" cy="185" rx="44" ry="11" fill="url(#rotLens)" stroke="#1e3040" stroke-width="1"/>
+      <ellipse id="rotDot" cx="250" cy="185" rx="7" ry="2.5" fill="#00d4aa"/>
+      <!-- Side highlight -->
+      <ellipse cx="225" cy="175" rx="30" ry="5" fill="white" opacity="0.06"/>
+      <!-- Dimension arrow - diameter -->
+      <line x1="140" y1="140" x2="360" y2="140" stroke="var(--accent)" stroke-width="0.8" stroke-dasharray="5,3" opacity="0.5"/>
+      <line x1="140" y1="135" x2="140" y2="145" stroke="var(--accent)" stroke-width="0.5" opacity="0.5"/>
+      <line x1="360" y1="135" x2="360" y2="145" stroke="var(--accent)" stroke-width="0.5" opacity="0.5"/>
+      <text x="250" y="135" text-anchor="middle" fill="var(--accent)" font-size="10" font-family="monospace" opacity="0.6">Ø 120mm</text>
+    </svg>
+    <div class="slider-row">
+      <span style="font-size:11px;color:var(--text2);">0°</span>
+      <input type="range" min="0" max="360" value="0" id="rotSlider" oninput="rotateDevice(this.value)">
+      <span style="font-size:11px;color:var(--text2);">360°</span>
+    </div>
+    <p class="hint"><span class="zh">拖动滑块旋转设备</span><span class="ru">Переместите ползунок для вращения</span></p>
+  </div>
+</section>
+
+<!-- ==================== INTERIOR / EXPLODED VIEW ==================== -->
+<section class="section" id="interior">
+  <div class="section-label"><span class="zh">内部结构</span><span class="ru">ВНУТРЕННЕЕ УСТРОЙСТВО</span></div>
+  <h2 class="section-title"><span class="zh">模组化内部结构</span><span class="ru">Модульная архитектура</span></h2>
+  <p class="section-desc"><span class="zh">五大核心模组层层堆叠，每个模组可独立更换升级。像打开一件精密仪器般，探索SG-1的内部世界。</span><span class="ru">Пять ключевых модулей. Каждый может быть заменён независимо. Исследуйте внутренний мир SG-1.</span></p>
+
+  <div class="exploded-container">
+    <svg viewBox="0 0 600 680" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <filter id="drop"><feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#000" flood-opacity="0.4"/></filter>
+      </defs>
+
+      <!-- Layer 5: Top cover (exploded up) -->
+      <g transform="translate(0, -20)" filter="url(#drop)">
+        <ellipse cx="300" cy="70" rx="120" ry="22" fill="#e8ecf1" stroke="#d0d7df" stroke-width="1.5"/>
+        <ellipse cx="300" cy="68" rx="100" ry="18" fill="#f4f6f8"/>
+        <ellipse cx="300" cy="68" rx="50" ry="9" fill="#0c1620" stroke="#1a2a38" stroke-width="0.8"/>
+        <ellipse cx="300" cy="68" rx="8" ry="2.5" fill="#00d4aa"/>
+        <text x="470" y="72" fill="var(--accent)" font-size="11" font-weight="700" font-family="inherit">05</text>
+        <text x="470" y="86" fill="var(--text2)" font-size="9" font-family="inherit"><tspan class="zh">外壳面板</tspan><tspan class="ru">Корпус</tspan></text>
+      </g>
+
+      <!-- spacers/dotted lines -->
+      <line x1="300" y1="92" x2="300" y2="135" stroke="var(--accent)" stroke-width="0.7" stroke-dasharray="4,4" opacity="0.4"/>
+      <line x1="180" y1="92" x2="180" y2="135" stroke="var(--accent)" stroke-width="0.7" stroke-dasharray="4,4" opacity="0.3"/>
+      <line x1="420" y1="92" x2="420" y2="135" stroke="var(--accent)" stroke-width="0.7" stroke-dasharray="4,4" opacity="0.3"/>
+
+      <!-- Layer 4: Antenna & Speaker module -->
+      <g transform="translate(0, 10)" filter="url(#drop)">
+        <ellipse cx="300" cy="150" rx="118" ry="20" fill="#d8dfe7" stroke="#c5cdd6" stroke-width="1.2"/>
+        <ellipse cx="300" cy="148" rx="100" ry="16" fill="#e8ecf1"/>
+        <!-- speaker grille -->
+        <g opacity="0.35">
+          <rect x="250" y="136" width="100" height="10" rx="3" fill="#8899aa"/>
+          <circle cx="260" cy="141" r="1" fill="#555"/><circle cx="268" cy="141" r="1" fill="#555"/>
+          <circle cx="276" cy="141" r="1" fill="#555"/><circle cx="284" cy="141" r="1" fill="#555"/>
+          <circle cx="292" cy="141" r="1" fill="#555"/><circle cx="300" cy="141" r="1" fill="#555"/>
+          <circle cx="308" cy="141" r="1" fill="#555"/><circle cx="316" cy="141" r="1" fill="#555"/>
+          <circle cx="324" cy="141" r="1" fill="#555"/><circle cx="332" cy="141" r="1" fill="#555"/>
+          <circle cx="340" cy="141" r="1" fill="#555"/>
+        </g>
+        <!-- antenna symbol -->
+        <path d="M350,140 Q360,130 355,120" fill="none" stroke="var(--accent)" stroke-width="1.5" opacity="0.5"/>
+        <circle cx="355" cy="118" r="3" fill="none" stroke="var(--accent)" stroke-width="1" opacity="0.5"/>
+        <text x="470" y="152" fill="var(--accent)" font-size="11" font-weight="700" font-family="inherit">04</text>
+        <text x="470" y="166" fill="var(--text2)" font-size="9" font-family="inherit"><tspan class="zh">天线与扬声器</tspan><tspan class="ru">Антенна и динамик</tspan></text>
+      </g>
+
+      <line x1="300" y1="172" x2="300" y2="218" stroke="var(--accent)" stroke-width="0.7" stroke-dasharray="4,4" opacity="0.4"/>
+
+      <!-- Layer 3: AI Processor PCB -->
+      <g transform="translate(0, 40)" filter="url(#drop)">
+        <ellipse cx="300" cy="235" rx="116" ry="18" fill="#c5cdd6" stroke="#b5bec8" stroke-width="1.2"/>
+        <ellipse cx="300" cy="233" rx="100" ry="15" fill="#1a2a18"/>
+        <!-- PCB traces -->
+        <g stroke="rgba(0,212,170,0.25)" stroke-width="0.6" fill="none">
+          <line x1="240" y1="228" x2="280" y2="233"/><line x1="280" y1="233" x2="310" y2="228"/>
+          <line x1="310" y1="228" x2="340" y2="235"/><line x1="280" y1="233" x2="280" y2="240"/>
+          <line x1="310" y1="228" x2="310" y2="238"/>
+        </g>
+        <!-- NPU chip -->
+        <rect x="278" y="226" width="44" height="14" rx="3" fill="#0d1520" stroke="rgba(79,156,255,0.4)" stroke-width="0.8"/>
+        <text x="300" y="236" text-anchor="middle" fill="var(--accent)" font-size="7" font-family="monospace">NPU 2.0</text>
+        <text x="470" y="237" fill="var(--accent)" font-size="11" font-weight="700" font-family="inherit">03</text>
+        <text x="470" y="251" fill="var(--text2)" font-size="9" font-family="inherit"><tspan class="zh">AI推理主板</tspan><tspan class="ru">Плата AI</tspan></text>
+      </g>
+
+      <line x1="300" y1="257" x2="300" y2="303" stroke="var(--accent)" stroke-width="0.7" stroke-dasharray="4,4" opacity="0.4"/>
+
+      <!-- Layer 2: Radar sensor module -->
+      <g transform="translate(0, 70)" filter="url(#drop)">
+        <ellipse cx="300" cy="320" rx="114" ry="17" fill="#bcc5cf" stroke="#adb6c1" stroke-width="1.2"/>
+        <ellipse cx="300" cy="318" rx="98" ry="14" fill="#0d1520"/>
+        <!-- radar antenna array -->
+        <g fill="rgba(79,156,255,0.5)">
+          <rect x="270" y="312" width="8" height="12" rx="1"/><rect x="282" y="312" width="8" height="12" rx="1"/>
+          <rect x="294" y="312" width="8" height="12" rx="1"/><rect x="306" y="312" width="8" height="12" rx="1"/>
+          <rect x="318" y="312" width="8" height="12" rx="1"/>
+        </g>
+        <text x="300" y="310" text-anchor="middle" fill="var(--accent)" font-size="8" font-family="monospace">3Tx/4Rx 60GHz FMCW</text>
+        <text x="470" y="322" fill="var(--accent)" font-size="11" font-weight="700" font-family="inherit">02</text>
+        <text x="470" y="336" fill="var(--text2)" font-size="9" font-family="inherit"><tspan class="zh">毫米波雷达模组</tspan><tspan class="ru">Радарный модуль</tspan></text>
+      </g>
+
+      <line x1="300" y1="342" x2="300" y2="388" stroke="var(--accent)" stroke-width="0.7" stroke-dasharray="4,4" opacity="0.4"/>
+
+      <!-- Layer 1: Base / Power -->
+      <g transform="translate(0, 100)" filter="url(#drop)">
+        <ellipse cx="300" cy="405" rx="120" ry="22" fill="#a8b2be" stroke="#99a3af" stroke-width="1.3"/>
+        <ellipse cx="300" cy="403" rx="105" ry="18" fill="#d8dee5"/>
+        <!-- Battery symbol -->
+        <rect x="270" y="394" width="40" height="16" rx="3" fill="none" stroke="var(--gold)" stroke-width="1.5" opacity="0.6"/>
+        <rect x="280" y="397" width="18" height="10" rx="1" fill="var(--gold)" opacity="0.3"/>
+        <text x="320" y="406" fill="var(--gold)" font-size="8" font-family="monospace" opacity="0.7">6000mAh</text>
+        <text x="470" y="407" fill="var(--accent)" font-size="11" font-weight="700" font-family="inherit">01</text>
+        <text x="470" y="421" fill="var(--text2)" font-size="9" font-family="inherit"><tspan class="zh">电源底座</tspan><tspan class="ru">База питания</tspan></text>
+      </g>
+
+      <!-- Connector arrows on right -->
+      <g opacity="0.4">
+        <path d="M440,68 L440,405" stroke="var(--accent)" stroke-width="1" stroke-dasharray="3,6"/>
+        <circle cx="440" cy="68" r="4" fill="none" stroke="var(--accent)" stroke-width="1"/>
+        <circle cx="440" cy="150" r="4" fill="none" stroke="var(--accent)" stroke-width="1"/>
+        <circle cx="440" cy="235" r="4" fill="none" stroke="var(--accent)" stroke-width="1"/>
+        <circle cx="440" cy="320" r="4" fill="none" stroke="var(--accent)" stroke-width="1"/>
+        <circle cx="440" cy="405" r="4" fill="none" stroke="var(--accent)" stroke-width="1"/>
+      </g>
+    </svg>
+  </div>
+
+  <div class="component-list">
+    <div class="comp-card">
+      <div class="c-num">01</div>
+      <div>
+        <h4><span class="zh">电源底座</span><span class="ru">База питания</span></h4>
+        <p><span class="zh">6000mAh锂电池 · 智能功耗管理 · USB-C 5V/2A充电 · 断电续航48小时</span><span class="ru">Li-ion 6000мАч · Умное питание · USB-C 5В/2А · Резерв 48ч</span></p>
       </div>
-      <div class="part-connector"></div>
-      <!-- Part 2: AI Chip -->
-      <div class="exploded-part">
-        <div class="part-icon chip">🧠</div>
-        <div class="part-info">
-          <h4><span class="zh">② AI推理芯片</span><span class="ru">② AI Процессор</span></h4>
-          <p><span class="zh">专有神经网络加速器，端侧运行跌倒检测/姿态识别/语音降噪模型，延迟&lt;50ms</span><span class="ru">Ускоритель нейросетей, локальные модели падения/речи, задержка &lt;50мс</span></p>
-        </div>
-        <div class="part-num">02</div>
+    </div>
+    <div class="comp-card">
+      <div class="c-num">02</div>
+      <div>
+        <h4><span class="zh">毫米波雷达</span><span class="ru">Радар mmWave</span></h4>
+        <p><span class="zh">TI IWR6843 · 60GHz FMCW · 3Tx/4Rx · 120°视场 · 0-8m探测 · ±2cm精度</span><span class="ru">TI IWR6843 60ГГц FMCW · 3Tx/4Rx · 120° · 0-8м · Точность ±2см</span></p>
       </div>
-      <div class="part-connector"></div>
-      <!-- Part 3: Sensor Array -->
-      <div class="exploded-part">
-        <div class="part-icon sensor">🌡️</div>
-        <div class="part-info">
-          <h4><span class="zh">③ 环境传感器阵列</span><span class="ru">③ Сенсорная матрица</span></h4>
-          <p><span class="zh">温湿度/光照/声音/震动传感器，环境异常自动预警（火灾/漏水/异常安静）</span><span class="ru">Температура/влажность/свет/звук/вибрация — авто-оповещения (пожар/протечка/тишина)</span></p>
-        </div>
-        <div class="part-num">03</div>
+    </div>
+    <div class="comp-card">
+      <div class="c-num">03</div>
+      <div>
+        <h4><span class="zh">AI推理主板</span><span class="ru">Плата AI</span></h4>
+        <p><span class="zh">专用NPU · 端侧推理 · 跌倒检测99.2% · 语音降噪 · 推理延迟&lt;50ms</span><span class="ru">NPU · Локальный вывод · Падение 99.2% · Шумоподавление · &lt;50мс</span></p>
       </div>
-      <div class="part-connector"></div>
-      <!-- Part 4: Power -->
-      <div class="exploded-part">
-        <div class="part-icon power">⚡</div>
-        <div class="part-info">
-          <h4><span class="zh">④ 电源管理模块</span><span class="ru">④ Модуль питания</span></h4>
-          <p><span class="zh">智能功耗管理，正常模式0.5W，USB-C 5V/2A输入，内置6000mAh备用电池</span><span class="ru">Умное управление питанием, 0.5Вт, USB-C 5В/2А, резерв 6000 мАч</span></p>
-        </div>
-        <div class="part-num">04</div>
+    </div>
+    <div class="comp-card">
+      <div class="c-num">04</div>
+      <div>
+        <h4><span class="zh">天线与扬声器</span><span class="ru">Антенна и динамик</span></h4>
+        <p><span class="zh">双频Wi-Fi 6 · BLE 5.3 · 4G Cat-M1 · 双麦克风阵列 · 3W全频扬声器</span><span class="ru">Wi-Fi 6 · BLE 5.3 · 4G Cat-M1 · 2 микрофона · Динамик 3Вт</span></p>
       </div>
-      <div class="part-connector"></div>
-      <!-- Part 5: Communication -->
-      <div class="exploded-part">
-        <div class="part-icon comm">📶</div>
-        <div class="part-info">
-          <h4><span class="zh">⑤ 通信与音频模块</span><span class="ru">⑤ Связь и аудио</span></h4>
-          <p><span class="zh">双麦克风阵列+扬声器，支持全双工语音通话、AI语音助手、紧急SOS广播</span><span class="ru">2 микрофона + динамик, полный дуплекс, AI-ассистент, SOS-трансляция</span></p>
-        </div>
-        <div class="part-num">05</div>
+    </div>
+    <div class="comp-card">
+      <div class="c-num">05</div>
+      <div>
+        <h4><span class="zh">外壳面板</span><span class="ru">Корпус</span></h4>
+        <p><span class="zh">阻燃ABS+PC · IP54防护 · 防紫外线涂层 · 极简无螺丝设计</span><span class="ru">Огнестойкий ABS+PC · IP54 · УФ-покрытие · Без винтов</span></p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- FUNCTIONAL DIAGRAM -->
-<section class="section">
-  <div class="section-label"><span class="zh">工作原理</span><span class="ru">ПРИНЦИП РАБОТЫ</span></div>
-  <h2 class="section-title"><span class="zh">从感知到响应</span><span class="ru">От обнаружения до реакции</span></h2>
+<!-- ==================== BLUEPRINT ==================== -->
+<section class="section" id="blueprint">
+  <div class="section-label"><span class="zh">工程蓝图</span><span class="ru">ЧЕРТЁЖ</span></div>
+  <h2 class="section-title"><span class="zh">工程设计图</span><span class="ru">Инженерный чертёж</span></h2>
+  <p class="section-desc"><span class="zh">精确标注的工程三视图，包含所有关键尺寸和技术标注。</span><span class="ru">Точный инженерный чертёж с размерами и техническими аннотациями.</span></p>
 
-  <div class="workflow">
-    <div class="workflow-step">
-      <div class="ws-icon">📡</div>
-      <h4><span class="zh">雷达感知</span><span class="ru">Радар</span></h4>
-      <p style="font-size:11px;color:var(--text2);margin-top:6px;"><span class="zh">发射60GHz电磁波<br>捕捉微动特征</span><span class="ru">Излучение 60 ГГц<br>захват микродвижений</span></p>
+  <div class="blueprint-wrap">
+    <svg viewBox="0 0 900 580" xmlns="http://www.w3.org/2000/svg">
+      <style>
+        .bl { stroke:#4f9cff; fill:none; stroke-width:1.2; }
+        .bl-dim { stroke:#4f9cff; stroke-width:0.6; stroke-dasharray:6,3; }
+        .bl-txt { fill:#4f9cff; font-family:monospace; font-size:10px; }
+        .bl-outline { stroke:rgba(79,156,255,0.5); fill:none; stroke-width:2.2; }
+        .bl-fill { fill:rgba(79,156,255,0.04); }
+        .bl-grid { stroke:rgba(79,156,255,0.06); stroke-width:0.4; }
+        .bl-title { fill:#e6edf3; font-family:inherit; font-size:13px; font-weight:700; }
+        .bl-sub { fill:#8b949e; font-family:monospace; font-size:9px; }
+        .bl-cross { stroke:rgba(79,156,255,0.3); stroke-width:0.5; }
+      </style>
+
+      <!-- Grid bg -->
+      <g>
+        <line x1="0" y1="20" x2="900" y2="20" class="bl-grid"/><line x1="0" y1="60" x2="900" y2="60" class="bl-grid"/>
+        <line x1="0" y1="100" x2="900" y2="100" class="bl-grid"/><line x1="0" y1="140" x2="900" y2="140" class="bl-grid"/>
+        <line x1="0" y1="180" x2="900" y2="180" class="bl-grid"/><line x1="0" y1="220" x2="900" y2="220" class="bl-grid"/>
+        <line x1="0" y1="260" x2="900" y2="260" class="bl-grid"/><line x1="20" y1="0" x2="20" y2="580" class="bl-grid"/>
+        <line x1="80" y1="0" x2="80" y2="580" class="bl-grid"/><line x1="140" y1="0" x2="140" y2="580" class="bl-grid"/>
+        <line x1="200" y1="0" x2="200" y2="580" class="bl-grid"/><line x1="260" y1="0" x2="260" y2="580" class="bl-grid"/>
+        <line x1="320" y1="0" x2="320" y2="580" class="bl-grid"/><line x1="380" y1="0" x2="380" y2="580" class="bl-grid"/>
+        <line x1="440" y1="0" x2="440" y2="580" class="bl-grid"/><line x1="500" y1="0" x2="500" y2="580" class="bl-grid"/>
+        <line x1="560" y1="0" x2="560" y2="580" class="bl-grid"/><line x1="620" y1="0" x2="620" y2="580" class="bl-grid"/>
+        <line x1="680" y1="0" x2="680" y2="580" class="bl-grid"/><line x1="740" y1="0" x2="740" y2="580" class="bl-grid"/>
+        <line x1="800" y1="0" x2="800" y2="580" class="bl-grid"/><line x1="860" y1="0" x2="860" y2="580" class="bl-grid"/>
+      </g>
+
+      <!-- Title block -->
+      <text x="450" y="30" text-anchor="middle" class="bl-title"><tspan class="zh">银发守护者 SG-1 · 工程三视图</tspan><tspan class="ru">Silver Guardian SG-1 · Чертёж</tspan></text>
+      <text x="450" y="48" text-anchor="middle" class="bl-sub">DWG-SG1-REV-B · 2026-06 · <tspan class="zh">单位:mm</tspan><tspan class="ru">ед:мм</tspan></text>
+
+      <!-- ===== FRONT VIEW (left) ===== -->
+      <text x="210" y="68" text-anchor="middle" class="bl-txt" font-weight="700"><tspan class="zh">正视图</tspan><tspan class="ru">ВИД СПЕРЕДИ</tspan></text>
+
+      <!-- Front circle -->
+      <circle cx="210" cy="170" r="90" class="bl-outline"/>
+      <circle cx="210" cy="170" r="82" class="bl"/>
+      <!-- Lens area -->
+      <circle cx="210" cy="170" r="48" stroke="rgba(79,156,255,0.4)" fill="rgba(79,156,255,0.03)" stroke-width="0.8"/>
+      <circle cx="210" cy="170" r="5" fill="#4f9cff"/>
+      <!-- Crosshair -->
+      <line x1="110" y1="170" x2="310" y2="170" class="bl-cross"/>
+      <line x1="210" y1="70" x2="210" y2="270" class="bl-cross"/>
+
+      <!-- Horizontal diameter dimension -->
+      <line x1="120" y1="95" x2="300" y2="95" class="bl-dim"/>
+      <line x1="120" y1="90" x2="120" y2="100" class="bl"/>
+      <line x1="300" y1="90" x2="300" y2="100" class="bl"/>
+      <text x="210" y="90" text-anchor="middle" class="bl-txt">Ø 120.0</text>
+
+      <!-- Vertical diameter dimension -->
+      <line x1="340" y1="80" x2="340" y2="260" class="bl-dim"/>
+      <line x1="335" y1="80" x2="345" y2="80" class="bl"/>
+      <line x1="335" y1="260" x2="345" y2="260" class="bl"/>
+      <text x="355" y="175" text-anchor="middle" class="bl-txt" transform="rotate(90, 355, 175)">120.0</text>
+
+      <!-- Lens diameter -->
+      <line x1="162" y1="275" x2="258" y2="275" class="bl-dim"/>
+      <text x="210" y="290" text-anchor="middle" class="bl-txt">Ø 96.0 (LED Ring)</text>
+
+      <!-- LED ring annotation -->
+      <line x1="292" y1="160" x2="370" y2="140" stroke="var(--accent)" stroke-width="0.5" opacity="0.6"/>
+      <text x="372" y="138" class="bl-txt" font-size="8">LED Ring (RGB)</text>
+
+      <!-- ===== SIDE VIEW (middle) ===== -->
+      <text x="470" y="68" text-anchor="middle" class="bl-txt" font-weight="700"><tspan class="zh">侧视图</tspan><tspan class="ru">ВИД СБОКУ</tspan></text>
+
+      <!-- Side body -->
+      <rect x="400" y="100" width="140" height="140" rx="16" class="bl-outline"/>
+      <!-- internal layers -->
+      <line x1="400" y1="155" x2="540" y2="155" stroke="rgba(79,156,255,0.2)" stroke-width="0.6"/>
+      <line x1="400" y1="180" x2="540" y2="180" stroke="rgba(79,156,255,0.2)" stroke-width="0.6"/>
+      <!-- Speaker grille markers -->
+      <line x1="450" y1="115" x2="490" y2="115" stroke="rgba(79,156,255,0.3)" stroke-width="0.5"/>
+      <line x1="450" y1="125" x2="490" y2="125" stroke="rgba(79,156,255,0.3)" stroke-width="0.5"/>
+      <!-- USB port -->
+      <rect x="460" y="225" width="18" height="7" rx="2" stroke="rgba(79,156,255,0.4)" fill="none" stroke-width="0.7"/>
+      <text x="469" y="240" text-anchor="middle" class="bl-txt" font-size="7">USB-C</text>
+
+      <!-- Height dimension -->
+      <line x1="555" y1="100" x2="555" y2="240" class="bl-dim"/>
+      <line x1="550" y1="100" x2="560" y2="100" class="bl"/>
+      <line x1="550" y1="240" x2="560" y2="240" class="bl"/>
+      <text x="570" y="175" class="bl-txt">140.0</text>
+
+      <!-- Thickness dimension -->
+      <line x1="400" y1="270" x2="540" y2="270" class="bl-dim"/>
+      <line x1="400" y1="265" x2="400" y2="275" class="bl"/>
+      <line x1="540" y1="265" x2="540" y2="275" class="bl"/>
+      <text x="470" y="286" text-anchor="middle" class="bl-txt">28.0 (Thickness)</text>
+
+      <!-- ===== TOP VIEW (right) ===== -->
+      <text x="720" y="68" text-anchor="middle" class="bl-txt" font-weight="700"><tspan class="zh">俯视图</tspan><tspan class="ru">ВИД СВЕРХУ</tspan></text>
+
+      <!-- Top ellipse -->
+      <ellipse cx="720" cy="170" rx="90" ry="36" class="bl-outline"/>
+      <ellipse cx="720" cy="170" rx="48" ry="19" stroke="rgba(79,156,255,0.35)" fill="rgba(79,156,255,0.03)" stroke-width="0.7"/>
+      <ellipse cx="720" cy="170" rx="5" ry="2.5" fill="#4f9cff"/>
+
+      <!-- Major axis -->
+      <line x1="630" y1="170" x2="810" y2="170" class="bl-cross"/>
+      <!-- Width label -->
+      <text x="720" y="225" text-anchor="middle" class="bl-txt">120.0 x 32.0 (Projection)</text>
+
+      <!-- ===== DETAIL CALLOUT ===== -->
+      <text x="720" y="310" text-anchor="middle" class="bl-txt" font-weight="700"><tspan class="zh">细节 A (2:1)</tspan><tspan class="ru">Узел A (2:1)</tspan></text>
+      <!-- Zoomed detail: lens cross-section -->
+      <rect x="655" y="325" width="130" height="90" rx="6" stroke="rgba(79,156,255,0.3)" fill="rgba(79,156,255,0.02)" stroke-width="0.7"/>
+      <!-- Lens profile -->
+      <path d="M680,370 Q720,330 760,370" stroke="rgba(79,156,255,0.7)" fill="rgba(79,156,255,0.05)" stroke-width="1"/>
+      <!-- Antenna array -->
+      <g fill="rgba(79,156,255,0.5)">
+        <rect x="700" y="360" width="6" height="20" rx="1"/><rect x="710" y="355" width="6" height="25" rx="1"/>
+        <rect x="720" y="352" width="6" height="28" rx="1"/><rect x="730" y="355" width="6" height="25" rx="1"/>
+        <rect x="740" y="360" width="6" height="20" rx="1"/>
+      </g>
+      <text x="720" y="348" text-anchor="middle" class="bl-txt" font-size="7">Antenna Array Cross-Section</text>
+
+      <!-- ===== TITLE BLOCK ===== -->
+      <rect x="15" y="490" width="870" height="80" stroke="rgba(79,156,255,0.25)" fill="rgba(79,156,255,0.02)" stroke-width="0.8"/>
+      <text x="35" y="515" fill="#e6edf3" font-family="monospace" font-size="11" font-weight="700">SILVER GUARDIAN SG-1</text>
+      <text x="35" y="532" class="bl-sub"><tspan class="zh">智能健康监测设备</tspan><tspan class="ru">Умное устройство мониторинга здоровья</tspan></text>
+      <text x="35" y="548" class="bl-sub">DWG-SG1-REV-B · <tspan class="zh">材料: ABS+PC FR V0</tspan><tspan class="ru">Материал: ABS+PC FR V0</tspan></text>
+      <text x="580" y="515" class="bl-sub"><tspan class="zh">设计: Van Sho</tspan><tspan class="ru">Дизайн: Van Sho</tspan></text>
+      <text x="580" y="532" class="bl-sub"><tspan class="zh">日期: 2026-06-03</tspan><tspan class="ru">Дата: 03.06.2026</tspan></text>
+      <text x="580" y="548" class="bl-sub"><tspan class="zh">比例: 1:1.5</tspan><tspan class="ru">Масштаб: 1:1.5</tspan></text>
+      <text x="780" y="515" class="bl-sub"><tspan class="zh">单位: mm</tspan><tspan class="ru">Ед: мм</tspan></text>
+      <text x="780" y="532" class="bl-sub">Sheet 1/1</text>
+    </svg>
+  </div>
+</section>
+
+<!-- ==================== DIMENSIONS ==================== -->
+<section class="section" id="dimensions">
+  <div class="section-label"><span class="zh">尺寸与重量</span><span class="ru">РАЗМЕРЫ И ВЕС</span></div>
+  <h2 class="section-title"><span class="zh">物理规格</span><span class="ru">Физические характеристики</span></h2>
+  <div class="dims-grid">
+    <div class="dim-card">
+      <div class="dim-val">120</div>
+      <div class="dim-unit">mm</div>
+      <div class="dim-label"><span class="zh">直径</span><span class="ru">Диаметр</span></div>
     </div>
-    <div class="workflow-arrow">→</div>
-    <div class="workflow-step">
-      <div class="ws-icon">🧠</div>
-      <h4><span class="zh">AI分析</span><span class="ru">AI Анализ</span></h4>
-      <p style="font-size:11px;color:var(--text2);margin-top:6px;"><span class="zh">端侧推理识别<br>跌倒/异常/心率</span><span class="ru">Локальный вывод<br>падение/пульс</span></p>
+    <div class="dim-card">
+      <div class="dim-val">28</div>
+      <div class="dim-unit">mm</div>
+      <div class="dim-label"><span class="zh">厚度</span><span class="ru">Толщина</span></div>
     </div>
-    <div class="workflow-arrow">→</div>
-    <div class="workflow-step">
-      <div class="ws-icon">🔔</div>
-      <h4><span class="zh">分级告警</span><span class="ru">Тревога</span></h4>
-      <p style="font-size:11px;color:var(--text2);margin-top:6px;"><span class="zh">轻度:AI提醒<br>重度:平台+家属+120</span><span class="ru">Лёгкая: AI<br>Тяжёлая: семья+112</span></p>
+    <div class="dim-card">
+      <div class="dim-val">280</div>
+      <div class="dim-unit">g</div>
+      <div class="dim-label"><span class="zh">重量</span><span class="ru">Вес</span></div>
     </div>
-    <div class="workflow-arrow">→</div>
-    <div class="workflow-step">
-      <div class="ws-icon">🏥</div>
-      <h4><span class="zh">医疗联动</span><span class="ru">Медицина</span></h4>
-      <p style="font-size:11px;color:var(--text2);margin-top:6px;"><span class="zh">自动推送健康数据<br>对接急救系统</span><span class="ru">Авто-отправка данных<br>стыковка со скорой</span></p>
+    <div class="dim-card">
+      <div class="dim-val">IP54</div>
+      <div class="dim-unit"></div>
+      <div class="dim-label"><span class="zh">防护等级</span><span class="ru">Защита</span></div>
     </div>
-    <div class="workflow-arrow">→</div>
-    <div class="workflow-step">
-      <div class="ws-icon">📊</div>
-      <h4><span class="zh">数据归档</span><span class="ru">Архив</span></h4>
-      <p style="font-size:11px;color:var(--text2);margin-top:6px;"><span class="zh">生成健康报告<br>趋势分析与预警</span><span class="ru">Отчёт о здоровье<br>тренды и прогнозы</span></p>
+    <div class="dim-card">
+      <div class="dim-val">8</div>
+      <div class="dim-unit">m</div>
+      <div class="dim-label"><span class="zh">探测距离</span><span class="ru">Дальность</span></div>
+    </div>
+    <div class="dim-card">
+      <div class="dim-val">120°</div>
+      <div class="dim-unit"></div>
+      <div class="dim-label"><span class="zh">视场角</span><span class="ru">Угол обзора</span></div>
     </div>
   </div>
 </section>
 
-<!-- COMPARISON -->
+<!-- ==================== COLOR OPTIONS ==================== -->
 <section class="section">
-  <div class="section-label"><span class="zh">竞品对比</span><span class="ru">СРАВНЕНИЕ</span></div>
-  <h2 class="section-title"><span class="zh">为什么选择 SG-1?</span><span class="ru">Почему SG-1?</span></h2>
+  <div class="section-label"><span class="zh">配色方案</span><span class="ru">ЦВЕТА</span></div>
+  <h2 class="section-title"><span class="zh">三种经典配色</span><span class="ru">Три варианта цвета</span></h2>
+  <div class="color-grid">
+    <div class="color-option">
+      <svg width="80" height="80" viewBox="0 0 80 80"><circle cx="40" cy="40" r="35" fill="#f0f2f5" stroke="#d0d6de" stroke-width="2"/><circle cx="40" cy="40" r="15" fill="#1a2535"/></svg>
+      <div class="color-name"><span class="zh">月光白</span><span class="ru">Белый</span></div>
+      <div class="color-desc"><span class="zh">适合浅色墙面</span><span class="ru">Для светлых стен</span></div>
+    </div>
+    <div class="color-option">
+      <svg width="80" height="80" viewBox="0 0 80 80"><circle cx="40" cy="40" r="35" fill="#3a4048" stroke="#4a5058" stroke-width="2"/><circle cx="40" cy="40" r="15" fill="#0d1117"/></svg>
+      <div class="color-name"><span class="zh">深空灰</span><span class="ru">Серый</span></div>
+      <div class="color-desc"><span class="zh">现代工业风</span><span class="ru">Современный стиль</span></div>
+    </div>
+    <div class="color-option">
+      <svg width="80" height="80" viewBox="0 0 80 80"><circle cx="40" cy="40" r="35" fill="#d4c8b8" stroke="#c0b4a4" stroke-width="2"/><circle cx="40" cy="40" r="15" fill="#2a2018"/></svg>
+      <div class="color-name"><span class="zh">暖沙金</span><span class="ru">Золотой</span></div>
+      <div class="color-desc"><span class="zh">融入木质家居</span><span class="ru">Для деревянных интерьеров</span></div>
+    </div>
+  </div>
+</section>
 
-  <div style="overflow-x:auto;">
-    <table class="comp-table">
-      <thead>
-        <tr>
-          <th><span class="zh">功能</span><span class="ru">Функция</span></th>
-          <th style="color:var(--accent2);">SG-1</th>
-          <th><span class="zh">传统摄像头</span><span class="ru">Камеры</span></th>
-          <th><span class="zh">智能手环</span><span class="ru">Браслеты</span></th>
-          <th><span class="zh">呼叫按钮</span><span class="ru">Кнопки</span></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><span class="zh">隐私保护</span><span class="ru">Приватность</span></td>
-          <td class="check">✓ <span class="zh">无摄像头</span><span class="ru">Без камер</span></td>
-          <td>✗ <span class="zh">视频入侵</span><span class="ru">Видео</span></td>
-          <td>✓</td>
-          <td>✓</td>
-        </tr>
-        <tr>
-          <td><span class="zh">无需穿戴</span><span class="ru">Без ношения</span></td>
-          <td class="check">✓</td>
-          <td>✓</td>
-          <td>✗ <span class="zh">需充电佩戴</span><span class="ru">Зарядка</span></td>
-          <td>✓</td>
-        </tr>
-        <tr>
-          <td><span class="zh">跌倒检测</span><span class="ru">Падения</span></td>
-          <td class="check">✓ 99.2%</td>
-          <td>△ 85%</td>
-          <td>△ 70%</td>
-          <td>✗</td>
-        </tr>
-        <tr>
-          <td><span class="zh">心率监测</span><span class="ru">Пульс</span></td>
-          <td class="check">✓ <span class="zh">非接触</span><span class="ru">Бесконтактно</span></td>
-          <td>✗</td>
-          <td>✓</td>
-          <td>✗</td>
-        </tr>
-        <tr>
-          <td><span class="zh">AI语音陪伴</span><span class="ru">AI Общение</span></td>
-          <td class="check">✓</td>
-          <td>✗</td>
-          <td>✗</td>
-          <td>✗</td>
-        </tr>
-        <tr>
-          <td><span class="zh">环境安全</span><span class="ru">Безопасность</span></td>
-          <td class="check">✓ <span class="zh">火灾/漏水</span><span class="ru">Пожар/Вода</span></td>
-          <td>✗</td>
-          <td>✗</td>
-          <td>✗</td>
-        </tr>
-        <tr>
-          <td><span class="zh">覆盖范围</span><span class="ru">Покрытие</span></td>
-          <td class="check"><span class="zh">全屋8m</span><span class="ru">8м</span></td>
-          <td><span class="zh">单角度</span><span class="ru">1 угол</span></td>
-          <td><span class="zh">仅人体</span><span class="ru">Тело</span></td>
-          <td><span class="zh">需手动</span><span class="ru">Ручное</span></td>
-        </tr>
-      </tbody>
+<!-- ==================== SPECS TABLE ==================== -->
+<section class="section" id="specs">
+  <div class="section-label"><span class="zh">技术参数</span><span class="ru">СПЕЦИФИКАЦИЯ</span></div>
+  <h2 class="section-title"><span class="zh">完整技术规格</span><span class="ru">Полные характеристики</span></h2>
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;">
+    <table class="specs-table">
+      <tr><td><span class="zh">产品型号</span><span class="ru">Модель</span></td><td>Silver Guardian SG-1</td></tr>
+      <tr><td><span class="zh">雷达类型</span><span class="ru">Радар</span></td><td>60GHz FMCW mmWave (TI IWR6843)</td></tr>
+      <tr><td><span class="zh">天线配置</span><span class="ru">Антенны</span></td><td>3Tx / 4Rx MIMO</td></tr>
+      <tr><td><span class="zh">探测范围</span><span class="ru">Дальность</span></td><td>0-8m, 120° FOV</td></tr>
+      <tr><td><span class="zh">AI处理器</span><span class="ru">Процессор AI</span></td><td>Dedicated NPU, 1.2 TOPS</td></tr>
+      <tr><td><span class="zh">跌倒检测准确率</span><span class="ru">Точность падений</span></td><td>99.2% (F1 Score), 误报率 &lt; 0.3%</td></tr>
+      <tr><td><span class="zh">生命体征</span><span class="ru">Биометрия</span></td><td>心率、呼吸率、体动、睡眠分期</td></tr>
+      <tr><td><span class="zh">无线连接</span><span class="ru">Связь</span></td><td>Wi-Fi 6 (802.11ax), BLE 5.3, 4G Cat-M1 (opt)</td></tr>
+      <tr><td><span class="zh">音频</span><span class="ru">Аудио</span></td><td>双MEMS麦克风 · 3W扬声器 · 全双工</td></tr>
+      <tr><td><span class="zh">电池</span><span class="ru">Батарея</span></td><td>6000mAh Li-Po, 18个月续航(正常模式), 48h(断电)</td></tr>
+      <tr><td><span class="zh">充电</span><span class="ru">Зарядка</span></td><td>USB-C PD 5V/2A, 充满约3小时</td></tr>
+      <tr><td><span class="zh">防护等级</span><span class="ru">Защита</span></td><td>IP54 (防尘防水溅)</td></tr>
+      <tr><td><span class="zh">材料</span><span class="ru">Материал</span></td><td>阻燃ABS+PC, UL94 V0</td></tr>
+      <tr><td><span class="zh">安装</span><span class="ru">Монтаж</span></td><td>壁挂/吸顶/桌面放置</td></tr>
+      <tr><td><span class="zh">工作温度</span><span class="ru">Температура</span></td><td>-10°C ~ 50°C</td></tr>
+      <tr><td><span class="zh">认证</span><span class="ru">Сертификация</span></td><td>CE, FCC, RoHS, EAC</td></tr>
     </table>
   </div>
 </section>
 
-<!-- CTA -->
-<section class="cta-section">
-  <h2><span class="zh">想了解更多?</span><span class="ru">Хотите узнать больше?</span></h2>
-  <p><span class="zh">访问我们的项目网站和管理平台，体验完整功能演示</span><span class="ru">Посетите наш сайт проекта и панель управления</span></p>
-  <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
-    <a href="../index.html" class="cta-btn"><span class="zh">🏠 项目主页</span><span class="ru">🏠 Главная</span></a>
-    <a href="../admin/index.html" class="cta-btn" style="background:linear-gradient(135deg, var(--accent2), #00a080);"><span class="zh">🖥️ 管理平台</span><span class="ru">🖥️ Админ-панель</span></a>
+<!-- ==================== INSTALLATION ==================== -->
+<section class="section" id="install">
+  <div class="section-label"><span class="zh">安装方式</span><span class="ru">МОНТАЖ</span></div>
+  <h2 class="section-title"><span class="zh">三种安装方案</span><span class="ru">Три способа установки</span></h2>
+  <div class="install-grid">
+    <div class="install-card">
+      <div class="i-icon">🧱</div>
+      <div>
+        <h4><span class="zh">壁挂安装</span><span class="ru">Настенный</span></h4>
+        <p><span class="zh">附赠壁挂支架，两颗膨胀螺丝固定，安装高度建议1.8-2.2m，覆盖房间最佳区域。5分钟完成安装。</span><span class="ru">Кронштейн в комплекте, 2 дюбеля. Высота 1.8-2.2м для оптимального покрытия. Установка за 5 мин.</span></p>
+      </div>
+    </div>
+    <div class="install-card">
+      <div class="i-icon">🪟</div>
+      <div>
+        <h4><span class="zh">吸顶安装</span><span class="ru">Потолочный</span></h4>
+        <p><span class="zh">适合大空间（客厅、活动室），360°无死角覆盖。需配合吸顶支架（另购），建议安装高度2.4-3.0m。</span><span class="ru">Для больших комнат. Покрытие 360°. Потолочный кронштейн (опция). Высота 2.4-3.0м.</span></p>
+      </div>
+    </div>
+    <div class="install-card">
+      <div class="i-icon">🪴</div>
+      <div>
+        <h4><span class="zh">桌面/床头放置</span><span class="ru">Настольный</span></h4>
+        <p><span class="zh">即插即用，放置于床头柜或书桌。底部防滑硅胶垫。适合临时使用或租房场景。无需工具。</span><span class="ru">Готов к работе. На тумбочке или столе. Силиконовая подставка. Идеально для аренды.</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== CTA ==================== -->
+<section class="cta">
+  <h2>
+    <span class="zh">银发守护者 SG-1</span>
+    <span class="ru">Silver Guardian SG-1</span>
+  </h2>
+  <p>
+    <span class="zh">科技，让关爱无距离</span>
+    <span class="ru">Технологии, стирающие расстояние</span>
+  </p>
+  <div class="cta-btns">
+    <a href="../index.html" class="btn btn-primary"><span class="zh">🏠 项目主页</span><span class="ru">🏠 Главная</span></a>
+    <a href="../admin/index.html" class="btn btn-outline"><span class="zh">🖥️ 管理平台</span><span class="ru">🖥️ Админ-панель</span></a>
   </div>
 </section>
 
 <footer>
-  <p>Silver Guardian SG-1 · <span class="zh">智能健康监测设备</span><span class="ru">Умное устройство мониторинга здоровья</span></p>
-  <p style="margin-top:4px;">van.sho2@dvfu.ru · +7 984 191 38 19 · <span class="zh">海参崴</span> Владивосток</p>
-  <p style="margin-top:8px;opacity:0.5;"><span class="zh">无摄像头设计 · 端到端加密 · 隐私优先</span><span class="ru">Без камер · Сквозное шифрование · Приватность прежде всего</span></p>
+  <p>Silver Guardian SG-1 · van.sho2@dvfu.ru · +7 984 191 38 19</p>
+  <p style="margin-top:4px;opacity:0.5;"><span class="zh">无摄像头 · 端到端加密 · 隐私优先设计</span><span class="ru">Без камер · Сквозное шифрование · Приватность</span></p>
 </footer>
 
 <script>
-// Language toggle
 function setLang(lang) {
   document.body.className = lang;
-  document.getElementById('btnZh').classList.toggle('active', lang === 'zh');
-  document.getElementById('btnRu').classList.toggle('active', lang === 'ru');
+  document.querySelectorAll('#btnZh, #btnRu').forEach(b => b.classList.remove('active'));
+  document.getElementById(lang === 'zh' ? 'btnZh' : 'btnRu').classList.add('active');
   localStorage.setItem('sg-device-lang', lang);
 }
-
 const saved = localStorage.getItem('sg-device-lang') || 'zh';
 setLang(saved);
 
-// Interactive device rotation on mouse move
-const deviceBody = document.getElementById('deviceBody');
-document.addEventListener('mousemove', function(e) {
-  const x = (e.clientX / window.innerWidth - 0.5) * 20;
-  const y = (e.clientY / window.innerHeight - 0.5) * 20;
-  deviceBody.style.transform = `perspective(600px) rotateY(${x}deg) rotateX(${-y}deg)`;
-});
+// 360 rotation
+function rotateDevice(deg) {
+  const svg = document.getElementById('rotateSVG');
+  const face = document.getElementById('rotFace');
+  const edge = document.getElementById('rotEdge');
+  const side = document.getElementById('rotSide');
+  const ring = document.getElementById('rotRing');
+  const lens = document.getElementById('rotLensEl');
+  const dot = document.getElementById('rotDot');
+  const shadow = document.getElementById('rotShadow');
 
-// Particle animation
-const canvas = document.getElementById('particleCanvas');
-const ctx = canvas.getContext('2d');
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+  const rad = deg * Math.PI / 180;
+  const rx = 110;
+  const ry = 28 * Math.abs(Math.cos(rad));
+  const cx = 250;
+  const cy = 185 + (12 * Math.sin(rad));
 
-const particles = [];
-for (let i = 0; i < 40; i++) {
-  particles.push({
-    x: Math.random() * canvas.width,
-    y: Math.random() * canvas.height,
-    size: Math.random() * 2 + 0.5,
-    speedX: (Math.random() - 0.5) * 0.3,
-    speedY: -(Math.random() * 0.5 + 0.2),
-    opacity: Math.random() * 0.4 + 0.1,
-  });
+  face.setAttribute('rx', rx);
+  face.setAttribute('ry', Math.max(ry, 4));
+  face.setAttribute('cy', cy);
+
+  edge.setAttribute('rx', rx);
+  edge.setAttribute('ry', Math.max(ry, 4));
+  edge.setAttribute('cy', cy + 35);
+
+  ring.setAttribute('rx', rx * 0.84);
+  ring.setAttribute('ry', Math.max(ry * 0.84, 3));
+  ring.setAttribute('cy', cy);
+
+  lens.setAttribute('rx', rx * 0.4);
+  lens.setAttribute('ry', Math.max(ry * 0.4, 1.5));
+  lens.setAttribute('cy', cy);
+
+  dot.setAttribute('cy', cy);
+
+  shadow.setAttribute('rx', rx);
+  shadow.setAttribute('cy', cy + 80);
 }
 
-function animate() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  particles.forEach(p => {
-    p.x += p.speedX;
-    p.y += p.speedY;
-    if (p.y < -10) { p.y = canvas.height + 10; p.x = Math.random() * canvas.width; }
-    if (p.x < -10) p.x = canvas.width + 10;
-    if (p.x > canvas.width + 10) p.x = -10;
-    ctx.beginPath();
-    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-    ctx.fillStyle = `rgba(79,156,255,${p.opacity})`;
-    ctx.fill();
+// Sticky nav highlight
+const sections = ['exterior','viewer','interior','blueprint','dimensions','specs','install'];
+window.addEventListener('scroll', () => {
+  const nav = document.getElementById('navStrip');
+  const links = nav.querySelectorAll('a');
+  let current = 'exterior';
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el && el.getBoundingClientRect().top < 150) current = id;
   });
-  requestAnimationFrame(animate);
-}
-animate();
-
-window.addEventListener('resize', () => {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
+  links.forEach(a => {
+    a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+  });
 });
 </script>
 </body>
